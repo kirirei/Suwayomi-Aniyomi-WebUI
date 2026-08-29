@@ -6,11 +6,13 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import { useState } from 'react';
 import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
 import ListItemAvatar from '@mui/material/ListItemAvatar';
 import ListItemText from '@mui/material/ListItemText';
 import Avatar from '@mui/material/Avatar';
+import Tab from '@mui/material/Tab';
 import { Link } from 'react-router-dom';
 import { useLingui } from '@lingui/react/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
@@ -19,11 +21,18 @@ import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewA
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
+import { TabPanel } from '@/base/components/tabs/TabPanel.tsx';
+import { TabsWrapper } from '@/base/components/tabs/TabsWrapper.tsx';
+import { TabsMenu } from '@/base/components/tabs/TabsMenu.tsx';
+import { AnimeExtensions } from '@/features/anime/components/AnimeExtensions.tsx';
 
-export const AnimeSources = () => {
+enum AnimeSourcesTab {
+    SOURCES = 'sources',
+    EXTENSIONS = 'extensions',
+}
+
+const AnimeSourcesList = () => {
     const { t } = useLingui();
-    useAppTitle(t`Anime Sources`);
-
     const { data, loading: isLoading, error, refetch } = requestManager.useGetAnimeSources();
     const sources = data?.animeSources ?? [];
 
@@ -60,5 +69,27 @@ export const AnimeSources = () => {
                 </ListItemButton>
             ))}
         </List>
+    );
+};
+
+export const AnimeSources = () => {
+    const { t } = useLingui();
+    useAppTitle(t`Anime Sources`);
+
+    const [tab, setTab] = useState<AnimeSourcesTab>(AnimeSourcesTab.SOURCES);
+
+    return (
+        <TabsWrapper>
+            <TabsMenu variant="fullWidth" value={tab} onChange={(_, newTab) => setTab(newTab)}>
+                <Tab value={AnimeSourcesTab.SOURCES} sx={{ textTransform: 'none' }} label={t`Source`} />
+                <Tab value={AnimeSourcesTab.EXTENSIONS} sx={{ textTransform: 'none' }} label={t`Extension`} />
+            </TabsMenu>
+            <TabPanel index={AnimeSourcesTab.SOURCES} currentIndex={tab}>
+                <AnimeSourcesList />
+            </TabPanel>
+            <TabPanel index={AnimeSourcesTab.EXTENSIONS} currentIndex={tab}>
+                <AnimeExtensions />
+            </TabPanel>
+        </TabsWrapper>
     );
 };

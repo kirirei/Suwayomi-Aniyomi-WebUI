@@ -419,6 +419,10 @@ msgstr "Add anime extension store"
 msgid "Add bookmark"
 msgstr "Add bookmark"
 
+#: src/features/anime/components/AnimeExtensions.tsx
+msgid "Add extension repo"
+msgstr "Add extension repo"
+
 #: src/features/anime/screens/AnimeSettings.tsx
 msgid "Add extension repo URLs to browse and install anime extensions"
 msgstr "Add extension repo URLs to browse and install anime extensions"
@@ -1846,6 +1850,7 @@ msgstr "Exit to manga page"
 msgid "Exit to previous page"
 msgstr "Exit to previous page"
 
+#: src/features/anime/screens/AnimeSources.tsx
 #: src/features/browse/screens/Browse.tsx
 msgid "Extension"
 msgstr "Extension"
@@ -1909,6 +1914,10 @@ msgstr "Failed to disconnect from KOReader Sync server."
 #: src/features/tracker/screens/TrackingSettings.tsx
 msgid "Failed to save changes"
 msgstr "Failed to save changes"
+
+#: src/features/anime/components/AnimeExtensionCard.tsx
+msgid "Failed to update the extension"
+msgstr "Failed to update the extension"
 
 #: src/features/settings/Settings.constants.ts
 msgid "Features and changes in this version might not be completely ready yet and can cause bugs.\n"
@@ -2258,6 +2267,7 @@ msgstr "Inform about version update"
 msgid "Information"
 msgstr "Information"
 
+#: src/features/anime/components/AnimeExtensionCard.tsx
 #: src/features/backup/component/BackupValidationDialog.tsx
 #: src/features/extension/Extensions.constants.ts
 msgid "Install"
@@ -2823,6 +2833,10 @@ msgstr "Next page"
 #: src/features/reader/viewer/components/ReaderTransitionPage.tsx
 msgid "Next:"
 msgstr "Next:"
+
+#: src/features/anime/components/AnimeExtensions.tsx
+msgid "No anime extensions found"
+msgstr "No anime extensions found"
 
 #: src/features/anime/screens/AnimeSourceBrowse.tsx
 #: src/features/tracker/components/TrackerAnimeSearch.tsx
@@ -3795,6 +3809,7 @@ msgstr "Something went wrong\n"
 msgid "Sort"
 msgstr "Sort"
 
+#: src/features/anime/screens/AnimeSources.tsx
 #: src/features/browse/screens/Browse.tsx
 #: src/features/browse/screens/BrowseSettings.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
@@ -4211,6 +4226,7 @@ msgstr "UI Login"
 msgid "Unable to load anime extension stores"
 msgstr "Unable to load anime extension stores"
 
+#: src/features/anime/components/AnimeExtensions.tsx
 #: src/features/anime/screens/AnimeLibrary.tsx
 #: src/features/anime/screens/AnimeSettings.tsx
 #: src/features/anime/screens/AnimeSourceBrowse.tsx
@@ -4267,6 +4283,7 @@ msgstr "Unable to load sources"
 msgid "Understood"
 msgstr "Understood"
 
+#: src/features/anime/components/AnimeExtensionCard.tsx
 #: src/features/extension/Extensions.constants.ts
 msgid "Uninstall"
 msgstr "Uninstall"
@@ -4313,6 +4330,7 @@ msgstr "Untracked anime"
 msgid "Untracked manga"
 msgstr "Untracked manga"
 
+#: src/features/anime/components/AnimeExtensionCard.tsx
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 #: src/features/extension/Extensions.constants.ts
 msgid "Update"
@@ -4578,6 +4596,10 @@ msgstr "You have not read any series yet."
 #: src/features/browse/extensions/Extensions.tsx
 msgid "You have to add a extension store to be able to install extensions"
 msgstr "You have to add a extension store to be able to install extensions"
+
+#: src/features/anime/components/AnimeExtensions.tsx
+msgid "You have to add an extension repo to be able to install anime extensions"
+msgstr "You have to add an extension repo to be able to install anime extensions"
 
 #: src/features/anime/screens/AnimeLibrary.tsx
 msgid "Your anime library is empty"
