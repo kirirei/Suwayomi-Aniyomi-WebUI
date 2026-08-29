@@ -28,6 +28,7 @@ import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
 import { useAppTitleAndAction } from '@/features/navigation-bar/hooks/useAppTitleAndAction.ts';
+import { TrackAnimeButton } from '@/features/anime/components/TrackAnimeButton.tsx';
 
 export const AnimeScreen = () => {
     const { t } = useLingui();
@@ -115,6 +116,7 @@ export const AnimeScreen = () => {
                 />
                 <Typography variant="h5">{anime.title}</Typography>
                 {anime.author && <Typography variant="body2">{anime.author}</Typography>}
+                <TrackAnimeButton anime={anime} />
                 <Typography variant="body2" color="text.secondary">
                     {anime.description}
                 </Typography>

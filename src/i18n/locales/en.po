@@ -474,6 +474,7 @@ msgid "Alpha"
 msgstr "Alpha"
 
 #. placeholder {0}: tracker.name
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Also remove from {0}"
 msgstr "Also remove from {0}"
@@ -798,6 +799,7 @@ msgstr "Can't migrate an entry to itself"
 #: src/features/source/configuration/components/ListPreference.tsx
 #: src/features/source/configuration/components/MultiSelectListPreference.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Cancel"
 msgstr "Cancel"
@@ -998,6 +1000,7 @@ msgid "Compatible"
 msgstr "Compatible"
 
 #: src/features/manga/Manga.constants.ts
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 msgid "Completed"
 msgstr "Completed"
 
@@ -1155,6 +1158,7 @@ msgstr "Could not load episode"
 msgid "Could not load language"
 msgstr "Could not load language"
 
+#: src/features/tracker/components/TrackAnime.tsx
 #: src/features/tracker/components/TrackManga.tsx
 msgid "Could not load latest track info from tracker"
 msgstr "Could not load latest track info from tracker"
@@ -1168,6 +1172,7 @@ msgstr "Could not load manga"
 msgid "Could not load theme fonts"
 msgstr "Could not load theme fonts"
 
+#: src/features/anime/components/TrackAnimeButton.tsx
 #: src/features/manga/components/TrackMangaButton.tsx
 msgid "Could not load track info"
 msgstr "Could not load track info"
@@ -1268,10 +1273,18 @@ msgstr "Could not start sync"
 msgid "Could not stop global update"
 msgstr "Could not stop global update"
 
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
+msgid "Could not track anime"
+msgstr "Could not track anime"
+
 #: src/features/manga/Manga.constants.ts
 #: src/features/tracker/components/TrackerSearch.tsx
 msgid "Could not track manga"
 msgstr "Could not track manga"
+
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
+msgid "Could not untrack anime"
+msgstr "Could not untrack anime"
 
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Could not untrack manga"
@@ -1623,6 +1636,10 @@ msgstr "Downloads"
 msgid "Drag to prioritize"
 msgstr "Drag to prioritize"
 
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
+msgid "Dropped"
+msgstr "Dropped"
+
 #: src/features/theme/Themes.ts
 msgid "Dune"
 msgstr "Dune"
@@ -1715,6 +1732,11 @@ msgstr "Entry \"{0} ({1}; {sourceTitle} ({2}))\" in invalid state \"{3}\""
 #: src/features/migration/MigrationManager.ts
 msgid "Entry \"{id}\" not found"
 msgstr "Entry \"{id}\" not found"
+
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
+msgid "Episode"
+msgstr "Episode"
 
 #: src/base/components/downloads/DownloadStateIndicatorCircular.tsx
 #: src/base/components/feedback/SnackbarWithDescription.tsx
@@ -1834,6 +1856,7 @@ msgstr "Failed to disconnect from KOReader Sync server."
 #: src/features/source/configuration/screens/SourceConfigure.tsx
 #: src/features/source/services/Sources.ts
 #: src/features/theme/AppThemeContext.tsx
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 #: src/features/tracker/screens/TrackingSettings.tsx
 msgid "Failed to save changes"
@@ -1880,6 +1903,7 @@ msgstr "Filter manga feed to display only chapters you have downloaded."
 msgid "Filter manga feed to display only chapters you haven’t read yet."
 msgstr "Filter manga feed to display only chapters you haven’t read yet."
 
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Finish date"
 msgstr "Finish date"
@@ -2729,6 +2753,7 @@ msgid "Next:"
 msgstr "Next:"
 
 #: src/features/anime/screens/AnimeSourceBrowse.tsx
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
 msgid "No anime found"
 msgstr "No anime found"
 
@@ -2860,9 +2885,14 @@ msgstr "Offset double spreads"
 #: src/features/source/configuration/components/ListPreference.tsx
 #: src/features/source/configuration/components/MultiSelectListPreference.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Ok"
 msgstr "Ok"
+
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
+msgid "On hold"
+msgstr "On hold"
 
 #: src/features/tracker/Tracker.constants.ts
 msgid "Oneshot"
@@ -2896,6 +2926,7 @@ msgstr "Open discord"
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/reader/overlay/mobile/ReaderOverlayHeaderMobile.tsx
 #: src/features/reader/overlay/navigation/desktop/components/ReaderNavBarDesktopActions.tsx
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Open in browser"
 msgstr "Open in browser"
@@ -2989,6 +3020,10 @@ msgstr "Pin source"
 #: src/features/global-search/screens/SearchAll.tsx
 msgid "Pinned"
 msgstr "Pinned"
+
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
+msgid "Plan to watch"
+msgstr "Plan to watch"
 
 #: src/features/player/screens/Player.tsx
 msgid "Player"
@@ -3144,11 +3179,13 @@ msgstr "Remind later"
 
 #: src/base/components/settings/DateSetting.tsx
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Remove"
 msgstr "Remove"
 
 #. placeholder {0}: tracker.name
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Remove {0} tracking?"
 msgstr "Remove {0} tracking?"
@@ -3236,6 +3273,10 @@ msgstr "Retry all"
 msgid "Retry errored pages"
 msgstr "Retry errored pages"
 
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
+msgid "Rewatching"
+msgstr "Rewatching"
+
 #: src/features/reader/overlay/progress-bar/settings/components/ReaderSettingProgressBarPosition.tsx
 #: src/features/reader/settings/general/components/ReaderSettingSafeAreaInset.tsx
 msgid "Right"
@@ -3294,8 +3335,10 @@ msgstr "Scale type"
 msgid "Scanlator"
 msgstr "Scanlator"
 
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
 msgid "Score"
 msgstr "Score"
 
@@ -3337,6 +3380,12 @@ msgstr "Search for \"{title}\" failed with error:"
 msgid "Search for a ID via \"id:<ID>\" (e.g. \"id:13\")\n"
 "Limit search to your lists via \"my:<Title>\" (e.g. \"my:One Piece\")"
 msgstr "Search for a ID via \"id:<ID>\" (e.g. \"id:13\")\n"
+"Limit search to your lists via \"my:<Title>\" (e.g. \"my:One Piece\")"
+
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
+msgid "Search for a ID via \"id:<ID>\" (e.g. \"id:21\")\n"
+"Limit search to your lists via \"my:<Title>\" (e.g. \"my:One Piece\")"
+msgstr "Search for a ID via \"id:<ID>\" (e.g. \"id:21\")\n"
 "Limit search to your lists via \"my:<Title>\" (e.g. \"my:One Piece\")"
 
 #: src/features/migration/components/MigrationBulkSearchOptionsDialog.tsx
@@ -3686,6 +3735,7 @@ msgstr "Standard"
 msgid "Start"
 msgstr "Start"
 
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Start date"
 msgstr "Start date"
@@ -3713,6 +3763,7 @@ msgstr "Start sync"
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/settings/Settings.constants.ts
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
 msgid "Started"
 msgstr "Started"
 
@@ -3722,8 +3773,10 @@ msgstr "Static navigation"
 
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
 msgid "Status"
 msgstr "Status"
 
@@ -3949,6 +4002,7 @@ msgstr "This is the latest version"
 msgid "This will delete the saved search \"{savedSearch}\""
 msgstr "This will delete the saved search \"{savedSearch}\""
 
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "This will remove the tracking locally."
 msgstr "This will remove the tracking locally."
@@ -3990,6 +4044,7 @@ msgid "Total chapters"
 msgstr "Total chapters"
 
 #: src/features/manga/Manga.constants.ts
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
 #: src/features/tracker/components/TrackerSearch.tsx
 msgid "Track"
 msgstr "Track"
@@ -3998,18 +4053,26 @@ msgstr "Track"
 msgid "Track and update your reading progress by page for each chapter during page streaming"
 msgstr "Track and update your reading progress by page for each chapter during page streaming"
 
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
 #: src/features/tracker/components/TrackerSearch.tsx
 msgid "Track privately"
 msgstr "Track privately"
 
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Track publicly"
 msgstr "Track publicly"
 
+#: src/features/anime/components/TrackAnimeButton.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Tracked"
 msgstr "Tracked"
+
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
+msgid "Tracked anime"
+msgstr "Tracked anime"
 
 #: src/features/manga/Manga.constants.ts
 #: src/features/tracker/components/TrackerSearch.tsx
@@ -4020,6 +4083,7 @@ msgstr "Tracked manga"
 msgid "Trackers"
 msgstr "Trackers"
 
+#: src/features/anime/components/TrackAnimeButton.tsx
 #: src/features/backup/Backup.constants.ts
 #: src/features/manga/components/TrackMangaButton.tsx
 #: src/features/migration/components/MigrationOptionsDialog.tsx
@@ -4034,6 +4098,7 @@ msgstr "Tree Frog Green"
 
 #: src/features/settings/screens/ServerSettings.tsx
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
 msgid "Type"
 msgstr "Type"
 
@@ -4074,6 +4139,8 @@ msgstr "UI Login"
 #: src/features/source/configuration/screens/SourceConfigure.tsx
 #: src/features/theme/components/CreateThemeDialog.tsx
 #: src/features/theme/components/ThemeList.tsx
+#: src/features/tracker/components/TrackAnime.tsx
+#: src/features/tracker/components/TrackerAnimeSearch.tsx
 #: src/features/tracker/components/TrackerSearch.tsx
 #: src/features/tracker/components/TrackManga.tsx
 #: src/features/tracker/screens/TrackingSettings.tsx
@@ -4131,6 +4198,10 @@ msgstr "Unread badges"
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Unread chapters"
 msgstr "Unread chapters"
+
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
+msgid "Untracked anime"
+msgstr "Untracked anime"
 
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Untracked manga"
@@ -4259,6 +4330,10 @@ msgstr "VUI"
 #: src/base/components/feedback/SnackbarWithDescription.tsx
 msgid "Warning"
 msgstr "Warning"
+
+#: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
+msgid "Watching"
+msgstr "Watching"
 
 #: src/features/settings/screens/Appearance.tsx
 msgid "Weblate"

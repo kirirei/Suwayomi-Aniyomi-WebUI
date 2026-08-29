@@ -77,6 +77,44 @@ export type AnimeSourceType = {
     supportsLatest: Scalars['Boolean']['output'];
 };
 
+export type AnimeTrackRecordType = {
+    __typename?: 'AnimeTrackRecordType';
+    animeId: Scalars['Int']['output'];
+    finishDate: Scalars['LongString']['output'];
+    id: Scalars['Int']['output'];
+    lastEpisodeSeen: Scalars['Float']['output'];
+    libraryId?: Maybe<Scalars['LongString']['output']>;
+    private: Scalars['Boolean']['output'];
+    remoteId: Scalars['LongString']['output'];
+    remoteUrl: Scalars['String']['output'];
+    score: Scalars['Float']['output'];
+    startDate: Scalars['LongString']['output'];
+    status: Scalars['Int']['output'];
+    title: Scalars['String']['output'];
+    totalEpisodes: Scalars['Int']['output'];
+    trackerId: Scalars['Int']['output'];
+};
+
+export type AnimeTrackSearchType = {
+    __typename?: 'AnimeTrackSearchType';
+    coverUrl: Scalars['String']['output'];
+    finishedWatchingDate: Scalars['LongString']['output'];
+    lastEpisodeSeen: Scalars['Float']['output'];
+    private: Scalars['Boolean']['output'];
+    publishingStatus: Scalars['String']['output'];
+    publishingType: Scalars['String']['output'];
+    remoteId: Scalars['LongString']['output'];
+    score: Scalars['Float']['output'];
+    startDate: Scalars['String']['output'];
+    startedWatchingDate: Scalars['LongString']['output'];
+    status: Scalars['Int']['output'];
+    summary: Scalars['String']['output'];
+    title: Scalars['String']['output'];
+    totalEpisodes: Scalars['Int']['output'];
+    trackerId: Scalars['Int']['output'];
+    trackingUrl: Scalars['String']['output'];
+};
+
 export type AnimeType = {
     __typename?: 'AnimeType';
     artist?: Maybe<Scalars['String']['output']>;
@@ -128,6 +166,23 @@ export type BackupRestoreStatus = {
     mangaProgress: Scalars['Int']['output'];
     state: BackupRestoreState;
     totalManga: Scalars['Int']['output'];
+};
+
+export type BindAnimeTrackInput = {
+    animeId: Scalars['Int']['input'];
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    /** This will only work if the tracker of the track record supports private tracking */
+    private?: InputMaybe<Scalars['Boolean']['input']>;
+    remoteId: Scalars['LongString']['input'];
+    title: Scalars['String']['input'];
+    totalEpisodes: Scalars['Int']['input'];
+    trackingUrl: Scalars['String']['input'];
+};
+
+export type BindAnimeTrackPayload = {
+    __typename?: 'BindAnimeTrackPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    trackRecord: AnimeTrackRecordType;
 };
 
 export type BindTrackInput = {
@@ -1019,6 +1074,17 @@ export type FetchAnimePayload = {
     clientMutationId?: Maybe<Scalars['String']['output']>;
 };
 
+export type FetchAnimeTrackInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    recordId: Scalars['Int']['input'];
+};
+
+export type FetchAnimeTrackPayload = {
+    __typename?: 'FetchAnimeTrackPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    trackRecord: AnimeTrackRecordType;
+};
+
 export type FetchChapterPagesInput = {
     chapterId: Scalars['Int']['input'];
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
@@ -1582,6 +1648,7 @@ export type MultiSelectListPreference = {
 export type Mutation = {
     __typename?: 'Mutation';
     addExtensionStore?: Maybe<AddExtensionStorePayload>;
+    bindAnimeTrack: BindAnimeTrackPayload;
     bindTrack: BindTrackPayload;
     bindTrackRecord?: Maybe<BindTrackRecordPayload>;
     clearCachedImages: ClearCachedImagesPayload;
@@ -1609,6 +1676,7 @@ export type Mutation = {
     enqueueChapterDownloads?: Maybe<EnqueueChapterDownloadsPayload>;
     fetchAnime?: Maybe<FetchAnimePayload>;
     fetchAnimeExtensions?: Maybe<FetchAnimeExtensionsPayload>;
+    fetchAnimeTrack: FetchAnimeTrackPayload;
     fetchChapterPages?: Maybe<FetchChapterPagesPayload>;
     /** @deprecated Deprecated in Tachiyomix 1.6, replace with fetchMangaAndChapters */
     fetchChapters?: Maybe<FetchChaptersPayload>;
@@ -1649,9 +1717,11 @@ export type Mutation = {
     startSync: StartSyncPayload;
     stopDownloader?: Maybe<StopDownloaderPayload>;
     trackProgress?: Maybe<TrackProgressPayload>;
+    unbindAnimeTrack: UnbindAnimeTrackPayload;
     unbindTrack: UnbindTrackPayload;
     updateAnime?: Maybe<UpdateAnimePayload>;
     updateAnimeExtension?: Maybe<UpdateAnimeExtensionPayload>;
+    updateAnimeTrack: UpdateAnimeTrackPayload;
     updateCategories?: Maybe<UpdateCategoriesPayload>;
     updateCategory?: Maybe<UpdateCategoryPayload>;
     updateCategoryManga?: Maybe<UpdateCategoryMangaPayload>;
@@ -1675,6 +1745,10 @@ export type Mutation = {
 
 export type MutationAddExtensionStoreArgs = {
     input: AddExtensionStoreInput;
+};
+
+export type MutationBindAnimeTrackArgs = {
+    input: BindAnimeTrackInput;
 };
 
 export type MutationBindTrackArgs = {
@@ -1783,6 +1857,10 @@ export type MutationFetchAnimeArgs = {
 
 export type MutationFetchAnimeExtensionsArgs = {
     input: FetchAnimeExtensionsInput;
+};
+
+export type MutationFetchAnimeTrackArgs = {
+    input: FetchAnimeTrackInput;
 };
 
 export type MutationFetchChapterPagesArgs = {
@@ -1933,6 +2011,10 @@ export type MutationTrackProgressArgs = {
     input: TrackProgressInput;
 };
 
+export type MutationUnbindAnimeTrackArgs = {
+    input: UnbindAnimeTrackInput;
+};
+
 export type MutationUnbindTrackArgs = {
     input: UnbindTrackInput;
 };
@@ -1943,6 +2025,10 @@ export type MutationUpdateAnimeArgs = {
 
 export type MutationUpdateAnimeExtensionArgs = {
     input: UpdateAnimeExtensionInput;
+};
+
+export type MutationUpdateAnimeTrackArgs = {
+    input: UpdateAnimeTrackInput;
 };
 
 export type MutationUpdateCategoriesArgs = {
@@ -2338,6 +2424,7 @@ export type Query = {
     animeLibrary: Array<AnimeType>;
     animeSource?: Maybe<AnimeSourceType>;
     animeSources: Array<AnimeSourceType>;
+    animeTrackRecords: Array<AnimeTrackRecordType>;
     categories: CategoryNodeList;
     category: CategoryType;
     chapter: ChapterType;
@@ -2364,6 +2451,7 @@ export type Query = {
     popularAnimeList: PagedAnimeListType;
     restoreStatus?: Maybe<BackupRestoreStatus>;
     searchAnimeList: PagedAnimeListType;
+    searchAnimeTrack: Array<AnimeTrackSearchType>;
     searchTracker: SearchTrackerPayload;
     settings: SettingsType;
     source: SourceType;
@@ -2388,6 +2476,10 @@ export type QueryAnimeExtensionArgs = {
 
 export type QueryAnimeSourceArgs = {
     id: Scalars['LongString']['input'];
+};
+
+export type QueryAnimeTrackRecordsArgs = {
+    animeId: Scalars['Int']['input'];
 };
 
 export type QueryCategoriesArgs = {
@@ -2507,6 +2599,10 @@ export type QuerySearchAnimeListArgs = {
     page?: InputMaybe<Scalars['Int']['input']>;
     query: Scalars['String']['input'];
     sourceId: Scalars['LongString']['input'];
+};
+
+export type QuerySearchAnimeTrackArgs = {
+    query: Scalars['String']['input'];
 };
 
 export type QuerySearchTrackerArgs = {
@@ -3540,6 +3636,19 @@ export type TriStateFilter = {
     name: Scalars['String']['output'];
 };
 
+export type UnbindAnimeTrackInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    /** This will only work if the tracker of the track record supports deleting tracks */
+    deleteRemoteTrack?: InputMaybe<Scalars['Boolean']['input']>;
+    recordId: Scalars['Int']['input'];
+};
+
+export type UnbindAnimeTrackPayload = {
+    __typename?: 'UnbindAnimeTrackPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    trackRecord?: Maybe<AnimeTrackRecordType>;
+};
+
 export type UnbindTrackInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
     /** This will only work if the tracker of the track record supports deleting tracks */
@@ -3585,6 +3694,26 @@ export type UpdateAnimePayload = {
     __typename?: 'UpdateAnimePayload';
     anime: AnimeType;
     clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
+export type UpdateAnimeTrackInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    /** This will only work if the tracker of the track record supports reading dates */
+    finishDate?: InputMaybe<Scalars['LongString']['input']>;
+    lastEpisodeSeen?: InputMaybe<Scalars['Float']['input']>;
+    /** This will only work if the tracker of the track record supports private tracking */
+    private?: InputMaybe<Scalars['Boolean']['input']>;
+    recordId: Scalars['Int']['input'];
+    scoreString?: InputMaybe<Scalars['String']['input']>;
+    /** This will only work if the tracker of the track record supports reading dates */
+    startDate?: InputMaybe<Scalars['LongString']['input']>;
+    status?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type UpdateAnimeTrackPayload = {
+    __typename?: 'UpdateAnimeTrackPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    trackRecord?: Maybe<AnimeTrackRecordType>;
 };
 
 export type UpdateCategoriesInput = {

@@ -26,10 +26,14 @@ import { BaseClient } from '@/lib/requests/client/BaseClient.ts';
 import type {
     AddExtensionStoreMutation,
     AddExtensionStoreMutationVariables,
+    BindAnimeTrackMutation,
+    BindAnimeTrackMutationVariables,
     FetchAnimeExtensionsMutation,
     FetchAnimeExtensionsMutationVariables,
     FetchAnimeMutation,
     FetchAnimeMutationVariables,
+    FetchAnimeTrackMutation,
+    FetchAnimeTrackMutationVariables,
     GetAnimeEpisodesQuery,
     GetAnimeEpisodesQueryVariables,
     GetAnimeExtensionsQuery,
@@ -42,6 +46,8 @@ import type {
     GetAnimeSourceQueryVariables,
     GetAnimeSourcesQuery,
     GetAnimeSourcesQueryVariables,
+    GetAnimeTrackRecordsQuery,
+    GetAnimeTrackRecordsQueryVariables,
     GetEpisodeQuery,
     GetEpisodeQueryVariables,
     GetLatestAnimeListQuery,
@@ -52,10 +58,16 @@ import type {
     GetSearchAnimeListQueryVariables,
     InstallExternalAnimeExtensionMutation,
     InstallExternalAnimeExtensionMutationVariables,
+    SearchAnimeTrackQuery,
+    SearchAnimeTrackQueryVariables,
+    UnbindAnimeTrackMutation,
+    UnbindAnimeTrackMutationVariables,
     UpdateAnimeExtensionMutation,
     UpdateAnimeExtensionMutationVariables,
     UpdateAnimeMutation,
     UpdateAnimeMutationVariables,
+    UpdateAnimeTrackMutation,
+    UpdateAnimeTrackMutationVariables,
     UpdateEpisodeMutation,
     UpdateEpisodeMutationVariables,
     CheckForServerUpdatesQuery,
@@ -316,6 +328,13 @@ import {
     UPDATE_ANIME_EXTENSION,
     UPDATE_EPISODE,
 } from '@/lib/graphql/anime/AnimeMutation.ts';
+import { GET_ANIME_TRACK_RECORDS, SEARCH_ANIME_TRACK } from '@/lib/graphql/anime/AnimeTrackQuery.ts';
+import {
+    BIND_ANIME_TRACK,
+    FETCH_ANIME_TRACK,
+    UNBIND_ANIME_TRACK,
+    UPDATE_ANIME_TRACK,
+} from '@/lib/graphql/anime/AnimeTrackMutation.ts';
 import {
     GET_CATEGORIES_BASE,
     GET_CATEGORIES_LIBRARY,
@@ -4265,6 +4284,75 @@ export class RequestManager {
             GQLMethod.MUTATION,
             UPDATE_EPISODE,
             { input: { id: Number(episodeId), patch } },
+            options,
+        );
+    }
+
+    public useGetAnimeTrackRecords(
+        animeId: number,
+        options?: QueryHookOptions<GetAnimeTrackRecordsQuery, GetAnimeTrackRecordsQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetAnimeTrackRecordsQuery, GetAnimeTrackRecordsQueryVariables> {
+        return this.doRequest(GQLMethod.USE_QUERY, GET_ANIME_TRACK_RECORDS, { animeId }, options);
+    }
+
+    public useSearchAnimeTrack(
+        query: string,
+        options?: QueryHookOptions<SearchAnimeTrackQuery, SearchAnimeTrackQueryVariables>,
+    ): AbortableApolloUseQueryResponse<SearchAnimeTrackQuery, SearchAnimeTrackQueryVariables> {
+        return this.doRequest(GQLMethod.USE_QUERY, SEARCH_ANIME_TRACK, { query }, options);
+    }
+
+    public bindAnimeTrack(
+        animeId: number,
+        remoteId: string,
+        title: string,
+        totalEpisodes: number,
+        trackingUrl: string,
+        asPrivate: boolean,
+        options?: MutationOptions<BindAnimeTrackMutation, BindAnimeTrackMutationVariables>,
+    ): AbortableApolloMutationResponse<BindAnimeTrackMutation> {
+        return this.doRequest<BindAnimeTrackMutation, BindAnimeTrackMutationVariables>(
+            GQLMethod.MUTATION,
+            BIND_ANIME_TRACK,
+            { input: { animeId, remoteId, title, totalEpisodes, trackingUrl, private: asPrivate } },
+            { refetchQueries: [GET_ANIME_TRACK_RECORDS], ...options },
+        );
+    }
+
+    public unbindAnimeTrack(
+        recordId: number,
+        deleteRemoteTrack?: boolean,
+        options?: MutationOptions<UnbindAnimeTrackMutation, UnbindAnimeTrackMutationVariables>,
+    ): AbortableApolloMutationResponse<UnbindAnimeTrackMutation> {
+        return this.doRequest<UnbindAnimeTrackMutation, UnbindAnimeTrackMutationVariables>(
+            GQLMethod.MUTATION,
+            UNBIND_ANIME_TRACK,
+            { input: { recordId, deleteRemoteTrack } },
+            { refetchQueries: [GET_ANIME_TRACK_RECORDS], ...options },
+        );
+    }
+
+    public updateAnimeTrackBind(
+        recordId: number,
+        patch: Omit<UpdateAnimeTrackMutationVariables['input'], 'clientMutationId' | 'recordId'>,
+        options?: MutationOptions<UpdateAnimeTrackMutation, UpdateAnimeTrackMutationVariables>,
+    ): AbortableApolloMutationResponse<UpdateAnimeTrackMutation> {
+        return this.doRequest<UpdateAnimeTrackMutation, UpdateAnimeTrackMutationVariables>(
+            GQLMethod.MUTATION,
+            UPDATE_ANIME_TRACK,
+            { input: { ...patch, recordId } },
+            options,
+        );
+    }
+
+    public fetchAnimeTrackBind(
+        recordId: number,
+        options?: MutationOptions<FetchAnimeTrackMutation, FetchAnimeTrackMutationVariables>,
+    ): AbortableApolloMutationResponse<FetchAnimeTrackMutation> {
+        return this.doRequest<FetchAnimeTrackMutation, FetchAnimeTrackMutationVariables>(
+            GQLMethod.MUTATION,
+            FETCH_ANIME_TRACK,
+            { input: { recordId } },
             options,
         );
     }

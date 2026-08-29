@@ -95,6 +95,76 @@ export type AnimeSourceTypeFieldPolicy = {
     name?: FieldPolicy<any> | FieldReadFunction<any>;
     supportsLatest?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type AnimeTrackRecordTypeKeySpecifier = (
+    | 'animeId'
+    | 'finishDate'
+    | 'id'
+    | 'lastEpisodeSeen'
+    | 'libraryId'
+    | 'private'
+    | 'remoteId'
+    | 'remoteUrl'
+    | 'score'
+    | 'startDate'
+    | 'status'
+    | 'title'
+    | 'totalEpisodes'
+    | 'trackerId'
+    | AnimeTrackRecordTypeKeySpecifier
+)[];
+export type AnimeTrackRecordTypeFieldPolicy = {
+    animeId?: FieldPolicy<any> | FieldReadFunction<any>;
+    finishDate?: FieldPolicy<any> | FieldReadFunction<any>;
+    id?: FieldPolicy<any> | FieldReadFunction<any>;
+    lastEpisodeSeen?: FieldPolicy<any> | FieldReadFunction<any>;
+    libraryId?: FieldPolicy<any> | FieldReadFunction<any>;
+    private?: FieldPolicy<any> | FieldReadFunction<any>;
+    remoteId?: FieldPolicy<any> | FieldReadFunction<any>;
+    remoteUrl?: FieldPolicy<any> | FieldReadFunction<any>;
+    score?: FieldPolicy<any> | FieldReadFunction<any>;
+    startDate?: FieldPolicy<any> | FieldReadFunction<any>;
+    status?: FieldPolicy<any> | FieldReadFunction<any>;
+    title?: FieldPolicy<any> | FieldReadFunction<any>;
+    totalEpisodes?: FieldPolicy<any> | FieldReadFunction<any>;
+    trackerId?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AnimeTrackSearchTypeKeySpecifier = (
+    | 'coverUrl'
+    | 'finishedWatchingDate'
+    | 'lastEpisodeSeen'
+    | 'private'
+    | 'publishingStatus'
+    | 'publishingType'
+    | 'remoteId'
+    | 'score'
+    | 'startDate'
+    | 'startedWatchingDate'
+    | 'status'
+    | 'summary'
+    | 'title'
+    | 'totalEpisodes'
+    | 'trackerId'
+    | 'trackingUrl'
+    | AnimeTrackSearchTypeKeySpecifier
+)[];
+export type AnimeTrackSearchTypeFieldPolicy = {
+    coverUrl?: FieldPolicy<any> | FieldReadFunction<any>;
+    finishedWatchingDate?: FieldPolicy<any> | FieldReadFunction<any>;
+    lastEpisodeSeen?: FieldPolicy<any> | FieldReadFunction<any>;
+    private?: FieldPolicy<any> | FieldReadFunction<any>;
+    publishingStatus?: FieldPolicy<any> | FieldReadFunction<any>;
+    publishingType?: FieldPolicy<any> | FieldReadFunction<any>;
+    remoteId?: FieldPolicy<any> | FieldReadFunction<any>;
+    score?: FieldPolicy<any> | FieldReadFunction<any>;
+    startDate?: FieldPolicy<any> | FieldReadFunction<any>;
+    startedWatchingDate?: FieldPolicy<any> | FieldReadFunction<any>;
+    status?: FieldPolicy<any> | FieldReadFunction<any>;
+    summary?: FieldPolicy<any> | FieldReadFunction<any>;
+    title?: FieldPolicy<any> | FieldReadFunction<any>;
+    totalEpisodes?: FieldPolicy<any> | FieldReadFunction<any>;
+    trackerId?: FieldPolicy<any> | FieldReadFunction<any>;
+    trackingUrl?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type AnimeTypeKeySpecifier = (
     | 'artist'
     | 'author'
@@ -150,6 +220,15 @@ export type BackupRestoreStatusFieldPolicy = {
     mangaProgress?: FieldPolicy<any> | FieldReadFunction<any>;
     state?: FieldPolicy<any> | FieldReadFunction<any>;
     totalManga?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type BindAnimeTrackPayloadKeySpecifier = (
+    | 'clientMutationId'
+    | 'trackRecord'
+    | BindAnimeTrackPayloadKeySpecifier
+)[];
+export type BindAnimeTrackPayloadFieldPolicy = {
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+    trackRecord?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type BindTrackPayloadKeySpecifier = ('clientMutationId' | 'trackRecord' | BindTrackPayloadKeySpecifier)[];
 export type BindTrackPayloadFieldPolicy = {
@@ -775,6 +854,15 @@ export type FetchAnimePayloadFieldPolicy = {
     anime?: FieldPolicy<any> | FieldReadFunction<any>;
     clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type FetchAnimeTrackPayloadKeySpecifier = (
+    | 'clientMutationId'
+    | 'trackRecord'
+    | FetchAnimeTrackPayloadKeySpecifier
+)[];
+export type FetchAnimeTrackPayloadFieldPolicy = {
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+    trackRecord?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type FetchChapterPagesPayloadKeySpecifier = (
     | 'chapter'
     | 'clientMutationId'
@@ -1139,6 +1227,7 @@ export type MultiSelectListPreferenceFieldPolicy = {
 };
 export type MutationKeySpecifier = (
     | 'addExtensionStore'
+    | 'bindAnimeTrack'
     | 'bindTrack'
     | 'bindTrackRecord'
     | 'clearCachedImages'
@@ -1166,6 +1255,7 @@ export type MutationKeySpecifier = (
     | 'enqueueChapterDownloads'
     | 'fetchAnime'
     | 'fetchAnimeExtensions'
+    | 'fetchAnimeTrack'
     | 'fetchChapterPages'
     | 'fetchChapters'
     | 'fetchExtensions'
@@ -1204,9 +1294,11 @@ export type MutationKeySpecifier = (
     | 'startSync'
     | 'stopDownloader'
     | 'trackProgress'
+    | 'unbindAnimeTrack'
     | 'unbindTrack'
     | 'updateAnime'
     | 'updateAnimeExtension'
+    | 'updateAnimeTrack'
     | 'updateCategories'
     | 'updateCategory'
     | 'updateCategoryManga'
@@ -1230,6 +1322,7 @@ export type MutationKeySpecifier = (
 )[];
 export type MutationFieldPolicy = {
     addExtensionStore?: FieldPolicy<any> | FieldReadFunction<any>;
+    bindAnimeTrack?: FieldPolicy<any> | FieldReadFunction<any>;
     bindTrack?: FieldPolicy<any> | FieldReadFunction<any>;
     bindTrackRecord?: FieldPolicy<any> | FieldReadFunction<any>;
     clearCachedImages?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1257,6 +1350,7 @@ export type MutationFieldPolicy = {
     enqueueChapterDownloads?: FieldPolicy<any> | FieldReadFunction<any>;
     fetchAnime?: FieldPolicy<any> | FieldReadFunction<any>;
     fetchAnimeExtensions?: FieldPolicy<any> | FieldReadFunction<any>;
+    fetchAnimeTrack?: FieldPolicy<any> | FieldReadFunction<any>;
     fetchChapterPages?: FieldPolicy<any> | FieldReadFunction<any>;
     fetchChapters?: FieldPolicy<any> | FieldReadFunction<any>;
     fetchExtensions?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1295,9 +1389,11 @@ export type MutationFieldPolicy = {
     startSync?: FieldPolicy<any> | FieldReadFunction<any>;
     stopDownloader?: FieldPolicy<any> | FieldReadFunction<any>;
     trackProgress?: FieldPolicy<any> | FieldReadFunction<any>;
+    unbindAnimeTrack?: FieldPolicy<any> | FieldReadFunction<any>;
     unbindTrack?: FieldPolicy<any> | FieldReadFunction<any>;
     updateAnime?: FieldPolicy<any> | FieldReadFunction<any>;
     updateAnimeExtension?: FieldPolicy<any> | FieldReadFunction<any>;
+    updateAnimeTrack?: FieldPolicy<any> | FieldReadFunction<any>;
     updateCategories?: FieldPolicy<any> | FieldReadFunction<any>;
     updateCategory?: FieldPolicy<any> | FieldReadFunction<any>;
     updateCategoryManga?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1588,6 +1684,7 @@ export type QueryKeySpecifier = (
     | 'animeLibrary'
     | 'animeSource'
     | 'animeSources'
+    | 'animeTrackRecords'
     | 'categories'
     | 'category'
     | 'chapter'
@@ -1614,6 +1711,7 @@ export type QueryKeySpecifier = (
     | 'popularAnimeList'
     | 'restoreStatus'
     | 'searchAnimeList'
+    | 'searchAnimeTrack'
     | 'searchTracker'
     | 'settings'
     | 'source'
@@ -1635,6 +1733,7 @@ export type QueryFieldPolicy = {
     animeLibrary?: FieldPolicy<any> | FieldReadFunction<any>;
     animeSource?: FieldPolicy<any> | FieldReadFunction<any>;
     animeSources?: FieldPolicy<any> | FieldReadFunction<any>;
+    animeTrackRecords?: FieldPolicy<any> | FieldReadFunction<any>;
     categories?: FieldPolicy<any> | FieldReadFunction<any>;
     category?: FieldPolicy<any> | FieldReadFunction<any>;
     chapter?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1661,6 +1760,7 @@ export type QueryFieldPolicy = {
     popularAnimeList?: FieldPolicy<any> | FieldReadFunction<any>;
     restoreStatus?: FieldPolicy<any> | FieldReadFunction<any>;
     searchAnimeList?: FieldPolicy<any> | FieldReadFunction<any>;
+    searchAnimeTrack?: FieldPolicy<any> | FieldReadFunction<any>;
     searchTracker?: FieldPolicy<any> | FieldReadFunction<any>;
     settings?: FieldPolicy<any> | FieldReadFunction<any>;
     source?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2577,6 +2677,15 @@ export type TriStateFilterFieldPolicy = {
     default?: FieldPolicy<any> | FieldReadFunction<any>;
     name?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type UnbindAnimeTrackPayloadKeySpecifier = (
+    | 'clientMutationId'
+    | 'trackRecord'
+    | UnbindAnimeTrackPayloadKeySpecifier
+)[];
+export type UnbindAnimeTrackPayloadFieldPolicy = {
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+    trackRecord?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type UnbindTrackPayloadKeySpecifier = ('clientMutationId' | 'trackRecord' | UnbindTrackPayloadKeySpecifier)[];
 export type UnbindTrackPayloadFieldPolicy = {
     clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2595,6 +2704,15 @@ export type UpdateAnimePayloadKeySpecifier = ('anime' | 'clientMutationId' | Upd
 export type UpdateAnimePayloadFieldPolicy = {
     anime?: FieldPolicy<any> | FieldReadFunction<any>;
     clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type UpdateAnimeTrackPayloadKeySpecifier = (
+    | 'clientMutationId'
+    | 'trackRecord'
+    | UpdateAnimeTrackPayloadKeySpecifier
+)[];
+export type UpdateAnimeTrackPayloadFieldPolicy = {
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+    trackRecord?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type UpdateCategoriesPayloadKeySpecifier = (
     | 'categories'
@@ -2850,6 +2968,14 @@ export type StrictTypedTypePolicies = {
         keyFields?: false | AnimeSourceTypeKeySpecifier | (() => undefined | AnimeSourceTypeKeySpecifier);
         fields?: AnimeSourceTypeFieldPolicy;
     };
+    AnimeTrackRecordType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?: false | AnimeTrackRecordTypeKeySpecifier | (() => undefined | AnimeTrackRecordTypeKeySpecifier);
+        fields?: AnimeTrackRecordTypeFieldPolicy;
+    };
+    AnimeTrackSearchType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?: false | AnimeTrackSearchTypeKeySpecifier | (() => undefined | AnimeTrackSearchTypeKeySpecifier);
+        fields?: AnimeTrackSearchTypeFieldPolicy;
+    };
     AnimeType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | AnimeTypeKeySpecifier | (() => undefined | AnimeTypeKeySpecifier);
         fields?: AnimeTypeFieldPolicy;
@@ -2857,6 +2983,10 @@ export type StrictTypedTypePolicies = {
     BackupRestoreStatus?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | BackupRestoreStatusKeySpecifier | (() => undefined | BackupRestoreStatusKeySpecifier);
         fields?: BackupRestoreStatusFieldPolicy;
+    };
+    BindAnimeTrackPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?: false | BindAnimeTrackPayloadKeySpecifier | (() => undefined | BindAnimeTrackPayloadKeySpecifier);
+        fields?: BindAnimeTrackPayloadFieldPolicy;
     };
     BindTrackPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | BindTrackPayloadKeySpecifier | (() => undefined | BindTrackPayloadKeySpecifier);
@@ -3126,6 +3256,10 @@ export type StrictTypedTypePolicies = {
     FetchAnimePayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | FetchAnimePayloadKeySpecifier | (() => undefined | FetchAnimePayloadKeySpecifier);
         fields?: FetchAnimePayloadFieldPolicy;
+    };
+    FetchAnimeTrackPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?: false | FetchAnimeTrackPayloadKeySpecifier | (() => undefined | FetchAnimeTrackPayloadKeySpecifier);
+        fields?: FetchAnimeTrackPayloadFieldPolicy;
     };
     FetchChapterPagesPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?:
@@ -3548,6 +3682,13 @@ export type StrictTypedTypePolicies = {
         keyFields?: false | TriStateFilterKeySpecifier | (() => undefined | TriStateFilterKeySpecifier);
         fields?: TriStateFilterFieldPolicy;
     };
+    UnbindAnimeTrackPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?:
+            | false
+            | UnbindAnimeTrackPayloadKeySpecifier
+            | (() => undefined | UnbindAnimeTrackPayloadKeySpecifier);
+        fields?: UnbindAnimeTrackPayloadFieldPolicy;
+    };
     UnbindTrackPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | UnbindTrackPayloadKeySpecifier | (() => undefined | UnbindTrackPayloadKeySpecifier);
         fields?: UnbindTrackPayloadFieldPolicy;
@@ -3562,6 +3703,13 @@ export type StrictTypedTypePolicies = {
     UpdateAnimePayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | UpdateAnimePayloadKeySpecifier | (() => undefined | UpdateAnimePayloadKeySpecifier);
         fields?: UpdateAnimePayloadFieldPolicy;
+    };
+    UpdateAnimeTrackPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?:
+            | false
+            | UpdateAnimeTrackPayloadKeySpecifier
+            | (() => undefined | UpdateAnimeTrackPayloadKeySpecifier);
+        fields?: UpdateAnimeTrackPayloadFieldPolicy;
     };
     UpdateCategoriesPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?:

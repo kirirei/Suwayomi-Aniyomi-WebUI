@@ -507,6 +507,175 @@ export type GetEpisodeQuery = {
     } | null;
 };
 
+export type AnimeTrackRecordFieldsFragment = {
+    __typename: 'AnimeTrackRecordType';
+    id: number;
+    animeId: number;
+    remoteId: string;
+    trackerId: number;
+    remoteUrl: string;
+    title: string;
+    status: number;
+    lastEpisodeSeen: number;
+    totalEpisodes: number;
+    score: number;
+    startDate: string;
+    finishDate: string;
+    private: boolean;
+};
+
+export type AnimeTrackSearchFieldsFragment = {
+    __typename: 'AnimeTrackSearchType';
+    remoteId: string;
+    title: string;
+    trackingUrl: string;
+    coverUrl: string;
+    publishingType: string;
+    startDate: string;
+    publishingStatus: string;
+    summary: string;
+    score: number;
+    totalEpisodes: number;
+};
+
+export type BindAnimeTrackMutationVariables = Exact<{
+    input: Types.BindAnimeTrackInput;
+}>;
+
+export type BindAnimeTrackMutation = {
+    __typename: 'Mutation';
+    bindAnimeTrack: {
+        __typename: 'BindAnimeTrackPayload';
+        trackRecord: {
+            __typename: 'AnimeTrackRecordType';
+            id: number;
+            animeId: number;
+            remoteId: string;
+            trackerId: number;
+            remoteUrl: string;
+            title: string;
+            status: number;
+            lastEpisodeSeen: number;
+            totalEpisodes: number;
+            score: number;
+            startDate: string;
+            finishDate: string;
+            private: boolean;
+        };
+    };
+};
+
+export type UnbindAnimeTrackMutationVariables = Exact<{
+    input: Types.UnbindAnimeTrackInput;
+}>;
+
+export type UnbindAnimeTrackMutation = {
+    __typename: 'Mutation';
+    unbindAnimeTrack: {
+        __typename: 'UnbindAnimeTrackPayload';
+        trackRecord: { __typename: 'AnimeTrackRecordType'; id: number } | null;
+    };
+};
+
+export type UpdateAnimeTrackMutationVariables = Exact<{
+    input: Types.UpdateAnimeTrackInput;
+}>;
+
+export type UpdateAnimeTrackMutation = {
+    __typename: 'Mutation';
+    updateAnimeTrack: {
+        __typename: 'UpdateAnimeTrackPayload';
+        trackRecord: {
+            __typename: 'AnimeTrackRecordType';
+            id: number;
+            animeId: number;
+            remoteId: string;
+            trackerId: number;
+            remoteUrl: string;
+            title: string;
+            status: number;
+            lastEpisodeSeen: number;
+            totalEpisodes: number;
+            score: number;
+            startDate: string;
+            finishDate: string;
+            private: boolean;
+        } | null;
+    };
+};
+
+export type FetchAnimeTrackMutationVariables = Exact<{
+    input: Types.FetchAnimeTrackInput;
+}>;
+
+export type FetchAnimeTrackMutation = {
+    __typename: 'Mutation';
+    fetchAnimeTrack: {
+        __typename: 'FetchAnimeTrackPayload';
+        trackRecord: {
+            __typename: 'AnimeTrackRecordType';
+            id: number;
+            animeId: number;
+            remoteId: string;
+            trackerId: number;
+            remoteUrl: string;
+            title: string;
+            status: number;
+            lastEpisodeSeen: number;
+            totalEpisodes: number;
+            score: number;
+            startDate: string;
+            finishDate: string;
+            private: boolean;
+        };
+    };
+};
+
+export type GetAnimeTrackRecordsQueryVariables = Exact<{
+    animeId: number;
+}>;
+
+export type GetAnimeTrackRecordsQuery = {
+    __typename: 'Query';
+    animeTrackRecords: Array<{
+        __typename: 'AnimeTrackRecordType';
+        id: number;
+        animeId: number;
+        remoteId: string;
+        trackerId: number;
+        remoteUrl: string;
+        title: string;
+        status: number;
+        lastEpisodeSeen: number;
+        totalEpisodes: number;
+        score: number;
+        startDate: string;
+        finishDate: string;
+        private: boolean;
+    }>;
+};
+
+export type SearchAnimeTrackQueryVariables = Exact<{
+    query: string;
+}>;
+
+export type SearchAnimeTrackQuery = {
+    __typename: 'Query';
+    searchAnimeTrack: Array<{
+        __typename: 'AnimeTrackSearchType';
+        remoteId: string;
+        title: string;
+        trackingUrl: string;
+        coverUrl: string;
+        publishingType: string;
+        startDate: string;
+        publishingStatus: string;
+        summary: string;
+        score: number;
+        totalEpisodes: number;
+    }>;
+};
+
 export type CreateBackupMutationVariables = Exact<{
     input: Types.CreateBackupInput;
 }>;
