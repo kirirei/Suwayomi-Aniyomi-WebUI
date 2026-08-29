@@ -2208,6 +2208,7 @@ export type PartialSettingsType = Settings & {
     downloadConversions?: Maybe<Array<SettingsDownloadConversionType>>;
     downloadsPath?: Maybe<Scalars['String']['output']>;
     electronPath?: Maybe<Scalars['String']['output']>;
+    episodeMarkSeenThreshold?: Maybe<Scalars['Float']['output']>;
     excludeCompleted?: Maybe<Scalars['Boolean']['output']>;
     excludeEntryWithUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
     excludeNotStarted?: Maybe<Scalars['Boolean']['output']>;
@@ -2312,6 +2313,7 @@ export type PartialSettingsTypeInput = {
     downloadConversions?: InputMaybe<Array<SettingsDownloadConversionTypeInput>>;
     downloadsPath?: InputMaybe<Scalars['String']['input']>;
     electronPath?: InputMaybe<Scalars['String']['input']>;
+    episodeMarkSeenThreshold?: InputMaybe<Scalars['Float']['input']>;
     excludeCompleted?: InputMaybe<Scalars['Boolean']['input']>;
     excludeEntryWithUnreadChapters?: InputMaybe<Scalars['Boolean']['input']>;
     excludeNotStarted?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2921,6 +2923,7 @@ export type Settings = {
     downloadConversions?: Maybe<Array<SettingsDownloadConversion>>;
     downloadsPath?: Maybe<Scalars['String']['output']>;
     electronPath?: Maybe<Scalars['String']['output']>;
+    episodeMarkSeenThreshold?: Maybe<Scalars['Float']['output']>;
     excludeCompleted?: Maybe<Scalars['Boolean']['output']>;
     excludeEntryWithUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
     excludeNotStarted?: Maybe<Scalars['Boolean']['output']>;
@@ -3078,6 +3081,7 @@ export type SettingsType = Settings & {
     downloadConversions: Array<SettingsDownloadConversionType>;
     downloadsPath: Scalars['String']['output'];
     electronPath: Scalars['String']['output'];
+    episodeMarkSeenThreshold: Scalars['Float']['output'];
     excludeCompleted: Scalars['Boolean']['output'];
     excludeEntryWithUnreadChapters: Scalars['Boolean']['output'];
     excludeNotStarted: Scalars['Boolean']['output'];

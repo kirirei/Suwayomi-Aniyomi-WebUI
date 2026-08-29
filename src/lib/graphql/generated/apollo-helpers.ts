@@ -1476,6 +1476,7 @@ export type PartialSettingsTypeKeySpecifier = (
     | 'downloadConversions'
     | 'downloadsPath'
     | 'electronPath'
+    | 'episodeMarkSeenThreshold'
     | 'excludeCompleted'
     | 'excludeEntryWithUnreadChapters'
     | 'excludeNotStarted'
@@ -1577,6 +1578,7 @@ export type PartialSettingsTypeFieldPolicy = {
     downloadConversions?: FieldPolicy<any> | FieldReadFunction<any>;
     downloadsPath?: FieldPolicy<any> | FieldReadFunction<any>;
     electronPath?: FieldPolicy<any> | FieldReadFunction<any>;
+    episodeMarkSeenThreshold?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeCompleted?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeEntryWithUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeNotStarted?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1935,6 +1937,7 @@ export type SettingsKeySpecifier = (
     | 'downloadConversions'
     | 'downloadsPath'
     | 'electronPath'
+    | 'episodeMarkSeenThreshold'
     | 'excludeCompleted'
     | 'excludeEntryWithUnreadChapters'
     | 'excludeNotStarted'
@@ -2036,6 +2039,7 @@ export type SettingsFieldPolicy = {
     downloadConversions?: FieldPolicy<any> | FieldReadFunction<any>;
     downloadsPath?: FieldPolicy<any> | FieldReadFunction<any>;
     electronPath?: FieldPolicy<any> | FieldReadFunction<any>;
+    episodeMarkSeenThreshold?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeCompleted?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeEntryWithUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeNotStarted?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2188,6 +2192,7 @@ export type SettingsTypeKeySpecifier = (
     | 'downloadConversions'
     | 'downloadsPath'
     | 'electronPath'
+    | 'episodeMarkSeenThreshold'
     | 'excludeCompleted'
     | 'excludeEntryWithUnreadChapters'
     | 'excludeNotStarted'
@@ -2289,6 +2294,7 @@ export type SettingsTypeFieldPolicy = {
     downloadConversions?: FieldPolicy<any> | FieldReadFunction<any>;
     downloadsPath?: FieldPolicy<any> | FieldReadFunction<any>;
     electronPath?: FieldPolicy<any> | FieldReadFunction<any>;
+    episodeMarkSeenThreshold?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeCompleted?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeEntryWithUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeNotStarted?: FieldPolicy<any> | FieldReadFunction<any>;

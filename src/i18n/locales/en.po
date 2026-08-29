@@ -480,7 +480,9 @@ msgid "Also remove from {0}"
 msgstr "Also remove from {0}"
 
 #: src/features/anime/screens/AnimeScreen.tsx
+#: src/features/anime/screens/AnimeSettings.tsx
 #: src/features/navigation-bar/NavigationBar.constants.ts
+#: src/features/settings/screens/Settings.tsx
 msgid "Anime"
 msgstr "Anime"
 
@@ -1424,6 +1426,7 @@ msgstr "Decrease auto scroll speed"
 
 #: src/base/components/buttons/SelectButton.tsx
 #: src/base/components/buttons/ValueRotationButton.tsx
+#: src/features/anime/screens/AnimeSettings.tsx
 #: src/features/backup/screens/Backup.tsx
 #: src/features/browse/screens/BrowseSettings.tsx
 #: src/features/device/screens/DeviceSetting.tsx
@@ -1828,6 +1831,7 @@ msgstr "Failed to connect to KOReader Sync server."
 msgid "Failed to disconnect from KOReader Sync server."
 msgstr "Failed to disconnect from KOReader Sync server."
 
+#: src/features/anime/screens/AnimeSettings.tsx
 #: src/features/backup/screens/Backup.tsx
 #: src/features/browse/extensions/Extensions.tsx
 #: src/features/browse/screens/BrowseSettings.tsx
@@ -1875,6 +1879,10 @@ msgstr "Features and changes in this version might not be completely ready yet a
 #: src/features/settings/screens/Appearance.tsx
 msgid "Feel free to translate the project on"
 msgstr "Feel free to translate the project on"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "ffmpeg path"
+msgstr "ffmpeg path"
 
 #: src/features/downloads/components/DeleteChaptersWhileReadingSetting.tsx
 msgid "Fifth to last read chapter"
@@ -2077,6 +2085,10 @@ msgstr "Horizontal"
 #: src/features/reader/hotkeys/settings/components/RecordHotkey.tsx
 msgid "Hotkey already exists"
 msgstr "Hotkey already exists"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "How far into an episode playback must reach before it's automatically marked as seen"
+msgstr "How far into an episode playback must reach before it's automatically marked as seen"
 
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "How many chapters should get downloaded while reading."
@@ -2432,6 +2444,10 @@ msgstr "Loading theme fonts…"
 msgid "Loading…"
 msgstr "Loading…"
 
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "Local anime location"
+msgstr "Local anime location"
+
 #: src/features/browse/sources/components/SourceCard.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/migration/components/MigrationCard.tsx
@@ -2557,6 +2573,10 @@ msgstr "Mark as unread"
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Mark chapters as read on download"
 msgstr "Mark chapters as read on download"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "Mark episode as seen threshold"
+msgstr "Mark episode as seen threshold"
 
 #: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
 msgid "Mark previous as read"
@@ -2998,6 +3018,10 @@ msgstr "Parallel source requests"
 #: src/features/settings/screens/ServerSettings.tsx
 msgid "Password"
 msgstr "Password"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "Path to the ffmpeg executable, used to remux or transcode video containers/codecs the browser can't play directly"
+msgstr "Path to the ffmpeg executable, used to remux or transcode video containers/codecs the browser can't play directly"
 
 #: src/features/navigation-bar/NavigationBar.constants.ts
 msgid "Paused — {count} remaining"
@@ -3940,6 +3964,10 @@ msgstr "The path to the directory on the server where automated backups should g
 msgid "The path to the directory on the server where downloaded files should get saved in"
 msgstr "The path to the directory on the server where downloaded files should get saved in"
 
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "The path to the directory on the server where local anime folders are read from, mirroring Aniyomi's \"localanime\" folder"
+msgstr "The path to the directory on the server where local anime folders are read from, mirroring Aniyomi's \"localanime\" folder"
+
 #: src/features/browse/screens/BrowseSettings.tsx
 msgid "The path to the directory on the server where local source files are saved in"
 msgstr "The path to the directory on the server where local source files are saved in"
@@ -4107,6 +4135,7 @@ msgid "UI Login"
 msgstr "UI Login"
 
 #: src/features/anime/screens/AnimeLibrary.tsx
+#: src/features/anime/screens/AnimeSettings.tsx
 #: src/features/anime/screens/AnimeSourceBrowse.tsx
 #: src/features/anime/screens/AnimeSources.tsx
 #: src/features/backup/screens/Backup.tsx

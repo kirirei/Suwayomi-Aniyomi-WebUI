@@ -46,6 +46,7 @@ const { AnimeSourceBrowse } = loadable(
     lazyLoadFallback,
 );
 const { AnimeScreen } = loadable(() => import('@/features/anime/screens/AnimeScreen.tsx'), lazyLoadFallback);
+const { AnimeSettings } = loadable(() => import('@/features/anime/screens/AnimeSettings.tsx'), lazyLoadFallback);
 const { Player } = loadable(() => import('@/features/player/screens/Player.tsx'), lazyLoadFallback);
 const { Browse } = loadable(() => import('@/features/browse/screens/Browse.tsx'), lazyLoadFallback);
 const { DownloadQueue } = loadable(() => import('@/features/downloads/screens/DownloadQueue.tsx'), lazyLoadFallback);
@@ -347,6 +348,7 @@ const MainApp = () => {
                             <Route path={AppRoutes.settings.children.history.match} element={<HistorySettings />} />
                             <Route path={AppRoutes.settings.children.device.match} element={<DeviceSetting />} />
                             <Route path={AppRoutes.settings.children.tracking.match} element={<TrackingSettings />} />
+                            <Route path={AppRoutes.settings.children.anime.match} element={<AnimeSettings />} />
                             <Route path={AppRoutes.settings.children.appearance.match} element={<Appearance />} />
                         </Route>
 

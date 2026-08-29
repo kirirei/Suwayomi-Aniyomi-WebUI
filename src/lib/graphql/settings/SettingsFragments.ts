@@ -102,6 +102,11 @@ export const SERVER_SETTINGS = gql`
         # local source
         localSourcePath
 
+        # anime
+        localAnimeSourcePath
+        ffmpegPath
+        episodeMarkSeenThreshold
+
         # Cloudflare bypass
         flareSolverrEnabled
         flareSolverrUrl

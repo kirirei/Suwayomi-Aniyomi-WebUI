@@ -3847,6 +3847,9 @@ export type ServerSettingsFragment = {
     autoBackupIncludeServerSettings: boolean;
     autoBackupIncludeTracking: boolean;
     localSourcePath: string;
+    localAnimeSourcePath: string;
+    ffmpegPath: string;
+    episodeMarkSeenThreshold: number;
     flareSolverrEnabled: boolean;
     flareSolverrUrl: string;
     flareSolverrTimeout: number;
@@ -3960,6 +3963,9 @@ export type ResetServerSettingsMutation = {
             autoBackupIncludeServerSettings: boolean;
             autoBackupIncludeTracking: boolean;
             localSourcePath: string;
+            localAnimeSourcePath: string;
+            ffmpegPath: string;
+            episodeMarkSeenThreshold: number;
             flareSolverrEnabled: boolean;
             flareSolverrUrl: string;
             flareSolverrTimeout: number;
@@ -4083,6 +4089,9 @@ export type UpdateServerSettingsMutation = {
             autoBackupIncludeServerSettings: boolean;
             autoBackupIncludeTracking: boolean;
             localSourcePath: string;
+            localAnimeSourcePath: string;
+            ffmpegPath: string;
+            episodeMarkSeenThreshold: number;
             flareSolverrEnabled: boolean;
             flareSolverrUrl: string;
             flareSolverrTimeout: number;
@@ -4202,6 +4211,9 @@ export type GetServerSettingsQuery = {
         autoBackupIncludeServerSettings: boolean;
         autoBackupIncludeTracking: boolean;
         localSourcePath: string;
+        localAnimeSourcePath: string;
+        ffmpegPath: string;
+        episodeMarkSeenThreshold: number;
         flareSolverrEnabled: boolean;
         flareSolverrUrl: string;
         flareSolverrTimeout: number;

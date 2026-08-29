@@ -124,6 +124,10 @@ export const AppRoutes = {
                 match: 'tracking',
                 path: '/settings/tracking',
             },
+            anime: {
+                match: 'anime',
+                path: '/settings/anime',
+            },
             appearance: {
                 match: 'appearance',
                 path: '/settings/appearance',

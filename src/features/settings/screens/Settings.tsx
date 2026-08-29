@@ -21,6 +21,7 @@ import SyncIcon from '@mui/icons-material/Sync';
 import PaletteIcon from '@mui/icons-material/Palette';
 import HistoryIcon from '@mui/icons-material/History';
 import ImageIcon from '@mui/icons-material/Image';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
 import { useLingui } from '@lingui/react/macro';
 import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
@@ -68,6 +69,12 @@ export function Settings() {
                     <SyncIcon />
                 </ListItemIcon>
                 <ListItemText primary={t`Tracking`} />
+            </ListItemLink>
+            <ListItemLink to={AppRoutes.settings.children.anime.path}>
+                <ListItemIcon>
+                    <LiveTvIcon />
+                </ListItemIcon>
+                <ListItemText primary={t`Anime`} />
             </ListItemLink>
             <ListItemLink to={AppRoutes.settings.children.backup.path}>
                 <ListItemIcon>
