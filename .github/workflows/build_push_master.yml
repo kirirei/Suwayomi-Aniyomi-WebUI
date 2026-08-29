@@ -1,33 +1,38 @@
 name: CI build
 
+# Self-contained build for the Suwayomi-Aniyomi-WebUI fork: publishes a prerelease
+# IN THIS REPO via the default GITHUB_TOKEN. No external preview/GH-Pages repos and
+# no BUILD_PREVIEW_TOKEN/DEPLOY_PREVIEW_TOKEN secrets required.
+
 on:
   push:
     branches:
       - master
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: write
 
 jobs:
   build:
-    name: Build artifacts and deploy preview
+    name: Build artifacts and publish prerelease
     if: "!startsWith(github.event.head_commit.message, '[SKIP CI]')"
     runs-on: ubuntu-latest
 
     steps:
-      - name: Cancel previous runs
-        uses: styfle/cancel-workflow-action@0.12.1
-        with:
-          access_token: ${{ github.token }}
-
-      - name: Checkout master branch
+      - name: Checkout
         uses: actions/checkout@v4
         with:
-          ref: master
-          path: master
-          fetch-depth: 0
+          fetch-depth: 0 # full history so the revision/tag is correct
 
       - name: Set up NodeJs
         uses: actions/setup-node@v4
         with:
-          node-version-file: './master/package.json'
+          node-version-file: 'package.json'
 
       - uses: pnpm/action-setup@v4.2.0
         name: Install pnpm
@@ -43,7 +48,6 @@ jobs:
 
       - name: Build webUI
         run: |
-          cd master
           pnpm ci
           pnpm build
           pnpm build-zip
@@ -53,60 +57,15 @@ jobs:
       - name: Generate Tag Name
         id: GenTagName
         run: |
-          cd master/build
           genTag="r$(git rev-list HEAD --count)"
           echo "$genTag"
-          echo "::set-output name=value::$genTag"
+          echo "value=$genTag" >> "$GITHUB_OUTPUT"
 
-      - name: Checkout preview branch
-        uses: actions/checkout@v4
+      - name: Publish prerelease
+        uses: softprops/action-gh-release@v3
         with:
-          repository: "Suwayomi/Suwayomi-WebUI-preview"
-          ref: main
-          path: preview
-          token: ${{ secrets.BUILD_PREVIEW_TOKEN }}
-
-      - name: Create Tag
-        run: |
-          TAG="${{ steps.GenTagName.outputs.value }}"
-          echo "tag: $TAG"
-          cd preview
-          echo "{ \"latest\": \"$TAG\" }" > index.json
-          git add index.json
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git commit -m "Updated to $TAG"
-          git push origin main
-
-          git tag $TAG
-          git push origin $TAG
-
-      - name: Upload CI Release
-        uses: ncipollo/release-action@v1
-        with:
-          token: ${{ secrets.BUILD_PREVIEW_TOKEN }}
-          artifacts: "master/buildZip/*"
-          owner: "Suwayomi"
-          repo: "Suwayomi-WebUI-preview"
-          tag: ${{ steps.GenTagName.outputs.value }}
-
-      - name: Checkout github pages repo
-        uses: actions/checkout@v4
-        with:
-          repository: "Suwayomi-WebUI-preview/suwayomi-webui-preview.github.io"
-          ref: main
-          path: gh-pages
-          token: ${{ secrets.DEPLOY_PREVIEW_TOKEN }}
-
-      - name: Deploy github pages
-        run: |
-          TAG="${{ steps.GenTagName.outputs.value }}"
-          rm -rf gh-pages/*
-          cp -r master/build/* gh-pages
-          cd gh-pages
-          cp index.html 404.html
-          git add -A
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          git config --global user.name "github-actions[bot]"
-          git commit -m "$TAG"
-          git push origin main
+          tag_name: ${{ steps.GenTagName.outputs.value }}
+          name: ${{ steps.GenTagName.outputs.value }}
+          prerelease: true
+          generate_release_notes: true
+          files: buildZip/*
