@@ -243,12 +243,14 @@ export type AnimeTypeFieldPolicy = {
 export type BackupRestoreStatusKeySpecifier = (
     | 'mangaProgress'
     | 'state'
+    | 'title'
     | 'totalManga'
     | BackupRestoreStatusKeySpecifier
 )[];
 export type BackupRestoreStatusFieldPolicy = {
     mangaProgress?: FieldPolicy<any> | FieldReadFunction<any>;
     state?: FieldPolicy<any> | FieldReadFunction<any>;
+    title?: FieldPolicy<any> | FieldReadFunction<any>;
     totalManga?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type BindAnimeTrackPayloadKeySpecifier = (

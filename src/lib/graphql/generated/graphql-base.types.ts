@@ -188,6 +188,7 @@ export type BackupRestoreStatus = {
     __typename?: 'BackupRestoreStatus';
     mangaProgress: Scalars['Int']['output'];
     state: BackupRestoreState;
+    title?: Maybe<Scalars['String']['output']>;
     totalManga: Scalars['Int']['output'];
 };
 

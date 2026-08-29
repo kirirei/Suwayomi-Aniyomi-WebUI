@@ -3343,6 +3343,13 @@ msgstr "Restoring"
 msgid "Restoring backup…"
 msgstr "Restoring backup…"
 
+#. placeholder {0}: data.restoreStatus.title
+#. placeholder {1}: data.restoreStatus.mangaProgress
+#. placeholder {2}: data.restoreStatus.totalManga
+#: src/features/backup/screens/Backup.tsx
+msgid "Restoring: {0} ({1}/{2})"
+msgstr "Restoring: {0} ({1}/{2})"
+
 #: src/features/manga/components/ResumeFAB.tsx
 msgid "Resume"
 msgstr "Resume"

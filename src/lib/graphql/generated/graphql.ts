@@ -800,6 +800,7 @@ export type GetRestoreStatusQuery = {
         mangaProgress: number;
         state: Types.BackupRestoreState;
         totalManga: number;
+        title: string | null;
     } | null;
 };
 

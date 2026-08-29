@@ -28,6 +28,7 @@ export const GET_RESTORE_STATUS = gql`
             mangaProgress
             state
             totalManga
+            title
         }
     }
 `;

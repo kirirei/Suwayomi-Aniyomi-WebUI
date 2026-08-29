@@ -257,7 +257,11 @@ export function Backup() {
                 <ListItemButton onClick={() => inputRef.current?.click()} disabled={!!backupRestoreId}>
                     <ListItemText
                         primary={t`Restore Backup`}
-                        secondary={t`You can also drag and drop the backup file here to restore it`}
+                        secondary={
+                            backupRestoreId && data?.restoreStatus?.title
+                                ? t`Restoring: ${data.restoreStatus.title} (${data.restoreStatus.mangaProgress}/${data.restoreStatus.totalManga})`
+                                : t`You can also drag and drop the backup file here to restore it`
+                        }
                     />
                     {backupRestoreId ? (
                         <ListItemIcon>
