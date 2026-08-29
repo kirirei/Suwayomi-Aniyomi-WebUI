@@ -74,8 +74,28 @@ import type {
     UpdateAnimeExtensionMutationVariables,
     UpdateAnimeMutation,
     UpdateAnimeMutationVariables,
+    UpdateAnimesMutation,
+    UpdateAnimesMutationVariables,
     UpdateAnimeTrackMutation,
     UpdateAnimeTrackMutationVariables,
+    CreateAnimeCategoryMutation,
+    CreateAnimeCategoryMutationVariables,
+    DeleteAnimeCategoryMutation,
+    DeleteAnimeCategoryMutationVariables,
+    UpdateAnimeCategoryMutation,
+    UpdateAnimeCategoryMutationVariables,
+    UpdateAnimeCategoryOrderMutation,
+    UpdateAnimeCategoryOrderMutationVariables,
+    UpdateAnimeCategoriesMutation,
+    UpdateAnimeCategoriesMutationVariables,
+    UpdateAnimesCategoriesMutation,
+    UpdateAnimesCategoriesMutationVariables,
+    UpdateAnimeCategoryMetadataMutation,
+    UpdateAnimeCategoryMetadataMutationVariables,
+    GetCategoryAnimesQuery,
+    GetCategoryAnimesQueryVariables,
+    GetAnimeCategoriesOfAnimeQuery,
+    GetAnimeCategoriesOfAnimeQueryVariables,
     UpdateEpisodeMutation,
     UpdateEpisodeMutationVariables,
     CheckForServerUpdatesQuery,
@@ -258,8 +278,10 @@ import type {
     WebviewClearCacheCookiesMutationVariables,
 } from '@/lib/graphql/generated/graphql.ts';
 import type {
+    CreateAnimeCategoryInput,
     CreateBackupInput,
     CreateCategoryInput,
+    DeleteAnimeCategoryMetasInput,
     DeleteCategoryMetasInput,
     DeleteChapterMetasInput,
     DeleteGlobalMetasInput,
@@ -268,12 +290,15 @@ import type {
     FetchSourceMangaInput,
     FilterChangeInput,
     RestoreBackupInput,
+    SetAnimeCategoryMetasInput,
     SetCategoryMetasInput,
     SetChapterMetasInput,
     SetGlobalMetasInput,
     SetMangaMetasInput,
     SetSourceMetasInput,
     SourcePreferenceChangeInput,
+    UpdateAnimeCategoriesPatchInput,
+    UpdateAnimeCategoryPatchInput,
     UpdateCategoryPatchInput,
     UpdateChapterPatchInput,
     UpdateExtensionPatchInput,
@@ -335,8 +360,24 @@ import {
     OPEN_EPISODE_IN_EXTERNAL_PLAYER,
     UPDATE_ANIME,
     UPDATE_ANIME_EXTENSION,
+    UPDATE_ANIMES,
     UPDATE_EPISODE,
 } from '@/lib/graphql/anime/AnimeMutation.ts';
+import {
+    GET_ANIME_CATEGORIES_BASE,
+    GET_ANIME_CATEGORIES_LIBRARY,
+    GET_ANIME_CATEGORIES_OF_ANIME,
+    GET_CATEGORY_ANIMES,
+} from '@/lib/graphql/anime/AnimeCategoryQuery.ts';
+import {
+    CREATE_ANIME_CATEGORY,
+    DELETE_ANIME_CATEGORY,
+    UPDATE_ANIME_CATEGORIES,
+    UPDATE_ANIME_CATEGORY,
+    UPDATE_ANIME_CATEGORY_METADATA,
+    UPDATE_ANIME_CATEGORY_ORDER,
+    UPDATE_ANIMES_CATEGORIES,
+} from '@/lib/graphql/anime/AnimeCategoryMutation.ts';
 import { GET_ANIME_TRACK_RECORDS, SEARCH_ANIME_TRACK } from '@/lib/graphql/anime/AnimeTrackQuery.ts';
 import {
     BIND_ANIME_TRACK,
@@ -4277,6 +4318,194 @@ export class RequestManager {
             UPDATE_ANIME,
             { input: { id: Number(animeId), patch } },
             options,
+        );
+    }
+
+    public updateAnimes(
+        animeIds: number[],
+        patch: { inLibrary?: boolean },
+        options?: MutationOptions<UpdateAnimesMutation, UpdateAnimesMutationVariables>,
+    ): AbortableApolloMutationResponse<UpdateAnimesMutation> {
+        const result = this.doRequest<UpdateAnimesMutation, UpdateAnimesMutationVariables>(
+            GQLMethod.MUTATION,
+            UPDATE_ANIMES,
+            { input: { ids: animeIds, patch } },
+            options,
+        );
+
+        result.response.then(() => {
+            this.graphQLClient.client.refetchQueries({
+                updateCache(cache) {
+                    cache.evict({ fieldName: 'animeCategories' });
+                    cache.evict({ fieldName: 'animeCategory' });
+                    cache.evict({ fieldName: 'animeLibrary' });
+                },
+            });
+        });
+
+        return result;
+    }
+
+    public useGetAnimeCategories<Data, Variables extends OperationVariables>(
+        document: DocumentNode | TypedDocumentNode<Data, Variables>,
+        options?: QueryHookOptions<Data, Variables>,
+    ): AbortableApolloUseQueryResponse<Data, Variables> {
+        return this.doRequest<Data, Variables>(GQLMethod.USE_QUERY, document, {} as Variables, options);
+    }
+
+    public useGetCategoryAnimes(
+        id: number,
+        options?: QueryHookOptions<GetCategoryAnimesQuery, GetCategoryAnimesQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetCategoryAnimesQuery, GetCategoryAnimesQueryVariables> {
+        return this.doRequest<GetCategoryAnimesQuery, GetCategoryAnimesQueryVariables>(
+            GQLMethod.USE_QUERY,
+            GET_CATEGORY_ANIMES,
+            { id },
+            options,
+        );
+    }
+
+    public useGetAnimeCategoriesOfAnime(
+        animeId: number,
+        options?: QueryHookOptions<GetAnimeCategoriesOfAnimeQuery, GetAnimeCategoriesOfAnimeQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetAnimeCategoriesOfAnimeQuery, GetAnimeCategoriesOfAnimeQueryVariables> {
+        return this.doRequest<GetAnimeCategoriesOfAnimeQuery, GetAnimeCategoriesOfAnimeQueryVariables>(
+            GQLMethod.USE_QUERY,
+            GET_ANIME_CATEGORIES_OF_ANIME,
+            { id: animeId },
+            options,
+        );
+    }
+
+    public createAnimeCategory(
+        input: CreateAnimeCategoryInput,
+        options?: MutationOptions<CreateAnimeCategoryMutation, CreateAnimeCategoryMutationVariables>,
+    ): AbortableApolloMutationResponse<CreateAnimeCategoryMutation> {
+        return this.doRequest<CreateAnimeCategoryMutation, CreateAnimeCategoryMutationVariables>(
+            GQLMethod.MUTATION,
+            CREATE_ANIME_CATEGORY,
+            { input },
+            { refetchQueries: [GET_ANIME_CATEGORIES_BASE, GET_ANIME_CATEGORIES_LIBRARY], ...options },
+        );
+    }
+
+    public deleteAnimeCategory(
+        categoryId: number,
+        options?: MutationOptions<DeleteAnimeCategoryMutation, DeleteAnimeCategoryMutationVariables>,
+    ): AbortableApolloMutationResponse<DeleteAnimeCategoryMutation> {
+        const result = this.doRequest<DeleteAnimeCategoryMutation, DeleteAnimeCategoryMutationVariables>(
+            GQLMethod.MUTATION,
+            DELETE_ANIME_CATEGORY,
+            { input: { categoryId } },
+            options,
+        );
+
+        result.response.then(() => {
+            this.graphQLClient.client.refetchQueries({
+                updateCache(cache) {
+                    cache.evict({ id: cache.identify({ __typename: 'AnimeCategoryType', id: categoryId.toString() }) });
+                    cache.evict({ fieldName: 'animeCategories' });
+                },
+            });
+        });
+
+        return result;
+    }
+
+    public updateAnimeCategory(
+        id: number,
+        patch: UpdateAnimeCategoryPatchInput,
+        options?: MutationOptions<UpdateAnimeCategoryMutation, UpdateAnimeCategoryMutationVariables>,
+    ): AbortableApolloMutationResponse<UpdateAnimeCategoryMutation> {
+        return this.doRequest<UpdateAnimeCategoryMutation, UpdateAnimeCategoryMutationVariables>(
+            GQLMethod.MUTATION,
+            UPDATE_ANIME_CATEGORY,
+            { input: { id, patch } },
+            options,
+        );
+    }
+
+    public useReorderAnimeCategory(
+        options?: MutationHookOptions<UpdateAnimeCategoryOrderMutation, UpdateAnimeCategoryOrderMutationVariables>,
+    ): AbortableApolloUseMutationResponse<UpdateAnimeCategoryOrderMutation, UpdateAnimeCategoryOrderMutationVariables> {
+        return this.doRequest<UpdateAnimeCategoryOrderMutation, UpdateAnimeCategoryOrderMutationVariables>(
+            GQLMethod.USE_MUTATION,
+            UPDATE_ANIME_CATEGORY_ORDER,
+            undefined,
+            { refetchQueries: [GET_ANIME_CATEGORIES_BASE, GET_ANIME_CATEGORIES_LIBRARY], ...options },
+        );
+    }
+
+    public updateAnimeCategories(
+        animeId: number,
+        patch: UpdateAnimeCategoriesPatchInput,
+        options?: MutationOptions<UpdateAnimeCategoriesMutation, UpdateAnimeCategoriesMutationVariables>,
+    ): AbortableApolloMutationResponse<UpdateAnimeCategoriesMutation> {
+        return this.doRequest<UpdateAnimeCategoriesMutation, UpdateAnimeCategoriesMutationVariables>(
+            GQLMethod.MUTATION,
+            UPDATE_ANIME_CATEGORIES,
+            { input: { id: animeId, patch } },
+            { refetchQueries: [GET_ANIME_CATEGORIES_LIBRARY], ...options },
+        );
+    }
+
+    public updateAnimesCategories(
+        animeIds: number[],
+        patch: UpdateAnimeCategoriesPatchInput,
+        options?: MutationOptions<UpdateAnimesCategoriesMutation, UpdateAnimesCategoriesMutationVariables>,
+    ): AbortableApolloMutationResponse<UpdateAnimesCategoriesMutation> {
+        const response = this.doRequest<UpdateAnimesCategoriesMutation, UpdateAnimesCategoriesMutationVariables>(
+            GQLMethod.MUTATION,
+            UPDATE_ANIMES_CATEGORIES,
+            { input: { ids: animeIds, patch } },
+            options,
+        );
+
+        response.response.then(() => {
+            this.graphQLClient.client.refetchQueries({
+                updateCache(cache) {
+                    cache.evict({ fieldName: 'animeCategories' });
+                    cache.evict({ fieldName: 'animeCategory' });
+                },
+            });
+        });
+
+        return response;
+    }
+
+    public updateAnimeCategoryMeta(
+        {
+            preUpdateDeleteInput = { items: [] },
+            updateInput = { items: [] },
+            postUpdateDeleteInput = { items: [] },
+        }: {
+            preUpdateDeleteInput?: DeleteAnimeCategoryMetasInput;
+            updateInput?: SetAnimeCategoryMetasInput;
+            postUpdateDeleteInput?: DeleteAnimeCategoryMetasInput;
+        },
+        options?: MutationOptions<UpdateAnimeCategoryMetadataMutation, UpdateAnimeCategoryMetadataMutationVariables>,
+    ): AbortableApolloMutationResponse<UpdateAnimeCategoryMetadataMutation> {
+        return this.doRequest<UpdateAnimeCategoryMetadataMutation, UpdateAnimeCategoryMetadataMutationVariables>(
+            GQLMethod.MUTATION,
+            UPDATE_ANIME_CATEGORY_METADATA,
+            {
+                preUpdateDeleteInput,
+                hasPreUpdateDeletions: preUpdateDeleteInput.items.some(
+                    (item) => !!item.keys?.length || !!item.prefixes?.length,
+                ),
+                updateInput,
+                hasUpdates: updateInput.items.some((item) => !!item.metas?.length),
+                postUpdateDeleteInput,
+                hasPostUpdateDeletions: postUpdateDeleteInput.items.some(
+                    (item) => !!item.keys?.length || !!item.prefixes?.length,
+                ),
+            },
+            {
+                update(cache) {
+                    cache.evict({ fieldName: 'animeCategories' });
+                },
+                ...options,
+            },
         );
     }
 

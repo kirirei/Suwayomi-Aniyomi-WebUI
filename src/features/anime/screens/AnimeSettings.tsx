@@ -76,6 +76,9 @@ export const AnimeSettings = () => {
                     secondary={t`Add extension repo URLs to browse and install anime extensions`}
                 />
             </ListItemLink>
+            <ListItemLink to={AppRoutes.settings.children.anime.children.categories.path}>
+                <ListItemText primary={t`Edit categories`} />
+            </ListItemLink>
             <TextSetting
                 settingName={t`Local anime location`}
                 dialogDescription={t`The path to the directory on the server where local anime folders are read from, mirroring Aniyomi's "localanime" folder`}

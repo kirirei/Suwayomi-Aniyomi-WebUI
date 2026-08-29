@@ -55,6 +55,36 @@ export type AddExtensionStorePayload = {
     extensionStore: ExtensionStoreType;
 };
 
+export type AnimeCategoryMetaEntryInput = {
+    key: Scalars['String']['input'];
+    value: Scalars['String']['input'];
+};
+
+export type AnimeCategoryMetaInput = {
+    categoryId: Scalars['Int']['input'];
+    key: Scalars['String']['input'];
+    value: Scalars['String']['input'];
+};
+
+export type AnimeCategoryMetaType = {
+    __typename?: 'AnimeCategoryMetaType';
+    categoryId: Scalars['Int']['output'];
+    key: Scalars['String']['output'];
+    value: Scalars['String']['output'];
+};
+
+export type AnimeCategoryType = {
+    __typename?: 'AnimeCategoryType';
+    animes: Array<AnimeType>;
+    default: Scalars['Boolean']['output'];
+    id: Scalars['Int']['output'];
+    includeInDownload: IncludeOrExclude;
+    includeInUpdate: IncludeOrExclude;
+    meta: Array<AnimeCategoryMetaType>;
+    name: Scalars['String']['output'];
+    order: Scalars['Int']['output'];
+};
+
 export type AnimeExtensionStoreType = {
     __typename?: 'AnimeExtensionStoreType';
     badgeLabel: Scalars['String']['output'];
@@ -143,7 +173,11 @@ export type AnimeType = {
     artist?: Maybe<Scalars['String']['output']>;
     author?: Maybe<Scalars['String']['output']>;
     backgroundUrl?: Maybe<Scalars['String']['output']>;
+    bookmarkCount: Scalars['Int']['output'];
+    categories: Array<AnimeCategoryType>;
     description?: Maybe<Scalars['String']['output']>;
+    downloadCount: Scalars['Int']['output'];
+    episodeCount: Scalars['Int']['output'];
     episodes: Array<EpisodeType>;
     episodesLastFetchedAt?: Maybe<Scalars['LongString']['output']>;
     genre: Array<Scalars['String']['output']>;
@@ -152,12 +186,14 @@ export type AnimeType = {
     inLibraryAt: Scalars['LongString']['output'];
     initialized: Scalars['Boolean']['output'];
     lastFetchedAt?: Maybe<Scalars['LongString']['output']>;
+    lastSeenAt?: Maybe<Scalars['LongString']['output']>;
     realUrl?: Maybe<Scalars['String']['output']>;
     source?: Maybe<AnimeSourceType>;
     sourceId: Scalars['String']['output'];
     status: Scalars['String']['output'];
     thumbnailUrl?: Maybe<Scalars['String']['output']>;
     title: Scalars['String']['output'];
+    unseenCount: Scalars['Int']['output'];
     updateStrategy: AnimeUpdateStrategy;
     url: Scalars['String']['output'];
 };
@@ -540,6 +576,21 @@ export type ContentWarningFilterInput = {
     notIn?: InputMaybe<Array<ContentWarning>>;
 };
 
+export type CreateAnimeCategoryInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    default?: InputMaybe<Scalars['Boolean']['input']>;
+    includeInDownload?: InputMaybe<IncludeOrExclude>;
+    includeInUpdate?: InputMaybe<IncludeOrExclude>;
+    name: Scalars['String']['input'];
+    order?: InputMaybe<Scalars['Int']['input']>;
+};
+
+export type CreateAnimeCategoryPayload = {
+    __typename?: 'CreateAnimeCategoryPayload';
+    category: AnimeCategoryType;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
 export type CreateBackupInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
     flags?: InputMaybe<PartialBackupFlagsInput>;
@@ -570,6 +621,36 @@ export enum DatabaseType {
     H2 = 'H2',
     Postgresql = 'POSTGRESQL',
 }
+
+export type DeleteAnimeCategoryInput = {
+    categoryId: Scalars['Int']['input'];
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type DeleteAnimeCategoryMetasInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    items: Array<DeleteAnimeCategoryMetasItemInput>;
+};
+
+export type DeleteAnimeCategoryMetasItemInput = {
+    categoryIds: Array<Scalars['Int']['input']>;
+    keys?: InputMaybe<Array<Scalars['String']['input']>>;
+    prefixes?: InputMaybe<Array<Scalars['String']['input']>>;
+};
+
+export type DeleteAnimeCategoryMetasPayload = {
+    __typename?: 'DeleteAnimeCategoryMetasPayload';
+    categories: Array<AnimeCategoryType>;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    metas: Array<AnimeCategoryMetaType>;
+};
+
+export type DeleteAnimeCategoryPayload = {
+    __typename?: 'DeleteAnimeCategoryPayload';
+    animes: Array<AnimeType>;
+    category?: Maybe<AnimeCategoryType>;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+};
 
 export type DeleteCategoryInput = {
     categoryId: Scalars['Int']['input'];
@@ -1686,8 +1767,11 @@ export type Mutation = {
     clearCookiesAndCache: ClearCookiesAndCachePayload;
     clearDownloader?: Maybe<ClearDownloaderPayload>;
     connectKoSyncAccount: KoSyncConnectPayload;
+    createAnimeCategory?: Maybe<CreateAnimeCategoryPayload>;
     createBackup: CreateBackupPayload;
     createCategory?: Maybe<CreateCategoryPayload>;
+    deleteAnimeCategory?: Maybe<DeleteAnimeCategoryPayload>;
+    deleteAnimeCategoryMetas?: Maybe<DeleteAnimeCategoryMetasPayload>;
     deleteCategory?: Maybe<DeleteCategoryPayload>;
     deleteCategoryMeta?: Maybe<DeleteCategoryMetaPayload>;
     deleteCategoryMetas?: Maybe<DeleteCategoryMetasPayload>;
@@ -1735,6 +1819,8 @@ export type Mutation = {
     resetSettings: ResetSettingsPayload;
     resetWebUIUpdateStatus?: Maybe<WebUiUpdateStatus>;
     restoreBackup: RestoreBackupPayload;
+    setAnimeCategoryMeta?: Maybe<SetAnimeCategoryMetaPayload>;
+    setAnimeCategoryMetas?: Maybe<SetAnimeCategoryMetasPayload>;
     setCategoryMeta?: Maybe<SetCategoryMetaPayload>;
     setCategoryMetas?: Maybe<SetCategoryMetasPayload>;
     setChapterMeta?: Maybe<SetChapterMetaPayload>;
@@ -1753,8 +1839,13 @@ export type Mutation = {
     unbindAnimeTrack: UnbindAnimeTrackPayload;
     unbindTrack: UnbindTrackPayload;
     updateAnime?: Maybe<UpdateAnimePayload>;
+    updateAnimeCategories?: Maybe<UpdateAnimeCategoriesPayload>;
+    updateAnimeCategory?: Maybe<UpdateAnimeCategoryPayload>;
+    updateAnimeCategoryOrder?: Maybe<UpdateAnimeCategoryOrderPayload>;
     updateAnimeExtension?: Maybe<UpdateAnimeExtensionPayload>;
     updateAnimeTrack: UpdateAnimeTrackPayload;
+    updateAnimes?: Maybe<UpdateAnimesPayload>;
+    updateAnimesCategories?: Maybe<UpdateAnimesCategoriesPayload>;
     updateCategories?: Maybe<UpdateCategoriesPayload>;
     updateCategory?: Maybe<UpdateCategoryPayload>;
     updateCategoryManga?: Maybe<UpdateCategoryMangaPayload>;
@@ -1812,12 +1903,24 @@ export type MutationConnectKoSyncAccountArgs = {
     input: ConnectKoSyncAccountInput;
 };
 
+export type MutationCreateAnimeCategoryArgs = {
+    input: CreateAnimeCategoryInput;
+};
+
 export type MutationCreateBackupArgs = {
     input?: InputMaybe<CreateBackupInput>;
 };
 
 export type MutationCreateCategoryArgs = {
     input: CreateCategoryInput;
+};
+
+export type MutationDeleteAnimeCategoryArgs = {
+    input: DeleteAnimeCategoryInput;
+};
+
+export type MutationDeleteAnimeCategoryMetasArgs = {
+    input: DeleteAnimeCategoryMetasInput;
 };
 
 export type MutationDeleteCategoryArgs = {
@@ -1996,6 +2099,14 @@ export type MutationRestoreBackupArgs = {
     input: RestoreBackupInput;
 };
 
+export type MutationSetAnimeCategoryMetaArgs = {
+    input: SetAnimeCategoryMetaInput;
+};
+
+export type MutationSetAnimeCategoryMetasArgs = {
+    input: SetAnimeCategoryMetasInput;
+};
+
 export type MutationSetCategoryMetaArgs = {
     input: SetCategoryMetaInput;
 };
@@ -2068,12 +2179,32 @@ export type MutationUpdateAnimeArgs = {
     input: UpdateAnimeInput;
 };
 
+export type MutationUpdateAnimeCategoriesArgs = {
+    input: UpdateAnimeCategoriesInput;
+};
+
+export type MutationUpdateAnimeCategoryArgs = {
+    input: UpdateAnimeCategoryInput;
+};
+
+export type MutationUpdateAnimeCategoryOrderArgs = {
+    input: UpdateAnimeCategoryOrderInput;
+};
+
 export type MutationUpdateAnimeExtensionArgs = {
     input: UpdateAnimeExtensionInput;
 };
 
 export type MutationUpdateAnimeTrackArgs = {
     input: UpdateAnimeTrackInput;
+};
+
+export type MutationUpdateAnimesArgs = {
+    input: UpdateAnimesInput;
+};
+
+export type MutationUpdateAnimesCategoriesArgs = {
+    input: UpdateAnimesCategoriesInput;
 };
 
 export type MutationUpdateCategoriesArgs = {
@@ -2484,6 +2615,8 @@ export type Query = {
     aboutServer: AboutServerPayload;
     aboutWebUI: AboutWebUi;
     anime: AnimeType;
+    animeCategories: Array<AnimeCategoryType>;
+    animeCategory?: Maybe<AnimeCategoryType>;
     animeExtension?: Maybe<AnimeExtensionType>;
     animeExtensionStores: Array<AnimeExtensionStoreType>;
     animeExtensions: Array<AnimeExtensionType>;
@@ -2534,6 +2667,10 @@ export type Query = {
 export type QueryAnimeArgs = {
     id: Scalars['Int']['input'];
     onlineFetch?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type QueryAnimeCategoryArgs = {
+    id: Scalars['Int']['input'];
 };
 
 export type QueryAnimeExtensionArgs = {
@@ -2816,6 +2953,34 @@ export type SelectFilter = {
 export type SeparatorFilter = {
     __typename?: 'SeparatorFilter';
     name: Scalars['String']['output'];
+};
+
+export type SetAnimeCategoryMetaInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    meta: AnimeCategoryMetaInput;
+};
+
+export type SetAnimeCategoryMetaPayload = {
+    __typename?: 'SetAnimeCategoryMetaPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    meta: AnimeCategoryMetaType;
+};
+
+export type SetAnimeCategoryMetasInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    items: Array<SetAnimeCategoryMetasItemInput>;
+};
+
+export type SetAnimeCategoryMetasItemInput = {
+    categoryIds: Array<Scalars['Int']['input']>;
+    metas: Array<AnimeCategoryMetaEntryInput>;
+};
+
+export type SetAnimeCategoryMetasPayload = {
+    __typename?: 'SetAnimeCategoryMetasPayload';
+    categories: Array<AnimeCategoryType>;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    metas: Array<AnimeCategoryMetaType>;
 };
 
 export type SetCategoryMetaInput = {
@@ -3747,6 +3912,55 @@ export type UnbindTrackPayload = {
     trackRecord?: Maybe<TrackRecordType>;
 };
 
+export type UpdateAnimeCategoriesInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    id: Scalars['Int']['input'];
+    patch: UpdateAnimeCategoriesPatchInput;
+};
+
+export type UpdateAnimeCategoriesPatchInput = {
+    addToCategories?: InputMaybe<Array<Scalars['Int']['input']>>;
+    clearCategories?: InputMaybe<Scalars['Boolean']['input']>;
+    removeFromCategories?: InputMaybe<Array<Scalars['Int']['input']>>;
+};
+
+export type UpdateAnimeCategoriesPayload = {
+    __typename?: 'UpdateAnimeCategoriesPayload';
+    anime: AnimeType;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
+export type UpdateAnimeCategoryInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    id: Scalars['Int']['input'];
+    patch: UpdateAnimeCategoryPatchInput;
+};
+
+export type UpdateAnimeCategoryOrderInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    id: Scalars['Int']['input'];
+    position: Scalars['Int']['input'];
+};
+
+export type UpdateAnimeCategoryOrderPayload = {
+    __typename?: 'UpdateAnimeCategoryOrderPayload';
+    categories: Array<AnimeCategoryType>;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
+export type UpdateAnimeCategoryPatchInput = {
+    default?: InputMaybe<Scalars['Boolean']['input']>;
+    includeInDownload?: InputMaybe<IncludeOrExclude>;
+    includeInUpdate?: InputMaybe<IncludeOrExclude>;
+    name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type UpdateAnimeCategoryPayload = {
+    __typename?: 'UpdateAnimeCategoryPayload';
+    category: AnimeCategoryType;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
 export type UpdateAnimeExtensionInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
     id: Scalars['String']['input'];
@@ -3799,6 +4013,30 @@ export type UpdateAnimeTrackPayload = {
     __typename?: 'UpdateAnimeTrackPayload';
     clientMutationId?: Maybe<Scalars['String']['output']>;
     trackRecord?: Maybe<AnimeTrackRecordType>;
+};
+
+export type UpdateAnimesCategoriesInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    ids: Array<Scalars['Int']['input']>;
+    patch: UpdateAnimeCategoriesPatchInput;
+};
+
+export type UpdateAnimesCategoriesPayload = {
+    __typename?: 'UpdateAnimesCategoriesPayload';
+    animes: Array<AnimeType>;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
+export type UpdateAnimesInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    ids: Array<Scalars['Int']['input']>;
+    patch: UpdateAnimePatchInput;
+};
+
+export type UpdateAnimesPayload = {
+    __typename?: 'UpdateAnimesPayload';
+    animes: Array<AnimeType>;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
 };
 
 export type UpdateCategoriesInput = {

@@ -11,7 +11,6 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useLingui } from '@lingui/react/macro';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
-import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
 import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewAbsoluteCentered.tsx';
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { AnimeGrid } from '@/features/anime/components/AnimeGrid.tsx';
@@ -20,7 +19,7 @@ import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 export const AnimeSourceBrowse = () => {
     const { t } = useLingui();
     const { sourceId } = useParams<{ sourceId: string }>();
-    const [page] = useState(1);
+    const [page, setPage] = useState(1);
 
     const { data: sourceData } = requestManager.useGetAnimeSource(sourceId!);
     const source = sourceData?.animeSource;
@@ -28,10 +27,6 @@ export const AnimeSourceBrowse = () => {
 
     const { data, loading: isLoading, error, refetch } = requestManager.useGetPopularAnimeList(sourceId!, page);
     const anime = data?.popularAnimeList.animeList ?? [];
-
-    if (isLoading) {
-        return <LoadingPlaceholder />;
-    }
 
     if (error) {
         return (
@@ -43,13 +38,17 @@ export const AnimeSourceBrowse = () => {
         );
     }
 
-    if (anime.length === 0) {
-        return <EmptyViewAbsoluteCentered message={t`No anime found`} />;
-    }
-
     return (
         <Box sx={{ p: 1 }}>
-            <AnimeGrid anime={anime} />
+            <AnimeGrid
+                animes={anime}
+                isLoading={isLoading}
+                mode="source"
+                inLibraryIndicator
+                hasNextPage={!!data?.popularAnimeList.hasNextPage}
+                loadMore={() => setPage((current) => current + 1)}
+                message={t`No anime found`}
+            />
         </Box>
     );
 };

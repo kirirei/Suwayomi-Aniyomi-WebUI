@@ -6,20 +6,365 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
+import React, {
+    useCallback,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState,
+    type ForwardedRef,
+    type Ref,
+    type JSX,
+} from 'react';
+import type { GridTypeMap } from '@mui/material/Grid';
+import Grid from '@mui/material/Grid';
+import type { BoxProps } from '@mui/material/Box';
 import Box from '@mui/material/Box';
+import type { GridItemProps } from 'react-virtuoso';
+import { useLingui } from '@lingui/react/macro';
+import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewAbsoluteCentered.tsx';
+import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
 import { AnimeCard } from '@/features/anime/components/AnimeCard.tsx';
-import type { AnimeScreenFieldsFragment } from '@/lib/graphql/generated/graphql.ts';
+import { DEFAULT_FULL_FAB_HEIGHT } from '@/base/components/buttons/StyledFab.tsx';
+import type { AnimeCardProps, AnimeIdInfo } from '@/features/anime/Anime.types.ts';
+import { useResizeObserver } from '@/base/hooks/useResizeObserver.tsx';
+import { useNavBarContext } from '@/features/navigation-bar/NavbarContext.tsx';
+import { GridLayout } from '@/base/Base.types.ts';
+import { useMetadataServerSettings } from '@/features/settings/services/ServerSettingsMetadata.ts';
+import { VirtuosoGridPersisted } from '@/lib/virtuoso/Component/VirtuosoGridPersisted.tsx';
 
-export const AnimeGrid = ({ anime }: { anime: AnimeScreenFieldsFragment[] }) => (
-    <Box
+const GridContainer = ({ children, ref, ...props }: GridTypeMap['props'] & { ref?: Ref<HTMLDivElement> }) => (
+    <Grid {...props} ref={ref} container spacing={1}>
+        {children}
+    </Grid>
+);
+
+const GridItemContainerWithDimension = (
+    dimensions: number,
+    itemWidth: number,
+    gridLayout?: GridLayout,
+    maxColumns: number = 12,
+) => {
+    const itemsPerRow = Math.ceil(dimensions / itemWidth);
+    const columnsPerItem = gridLayout === GridLayout.List ? maxColumns : maxColumns / itemsPerRow;
+
+    // MUI GridProps and Virtuoso GridItemProps use different types for the "ref" prop which conflict with each other
+    return ({ children, ...itemProps }: GridTypeMap['props'] & Omit<Partial<GridItemProps>, 'ref'>) => (
+        <Grid {...itemProps} size={columnsPerItem}>
+            {children}
+        </Grid>
+    );
+};
+
+type TAnime = AnimeCardProps['anime'];
+
+const createAnimeCard = (
+    anime: TAnime,
+    gridLayout?: GridLayout,
+    inLibraryIndicator?: boolean,
+    isSelectModeActive: boolean = false,
+    selectedAnimeIds?: AnimeIdInfo['id'][],
+    handleSelection?: DefaultGridProps['handleSelection'],
+    mode?: AnimeCardProps['mode'],
+) => (
+    <AnimeCard
+        anime={anime}
+        gridLayout={gridLayout}
+        inLibraryIndicator={inLibraryIndicator}
+        selected={isSelectModeActive ? selectedAnimeIds?.includes(anime.id) : null}
+        handleSelection={handleSelection}
+        mode={mode}
+    />
+);
+
+type DefaultGridProps = Omit<AnimeCardProps, 'anime' | 'selected'> & {
+    isLoading: boolean;
+    animes: TAnime[];
+    inLibraryIndicator?: boolean;
+    GridItemContainer: (props: GridTypeMap['props'] & Partial<GridItemProps>) => JSX.Element;
+    gridLayout?: GridLayout;
+    isSelectModeActive?: boolean;
+    selectedAnimeIds?: AnimeIdInfo['id'][];
+    ref?: ForwardedRef<HTMLDivElement | null>;
+};
+
+const HorizontalGrid = ({
+    isLoading,
+    animes,
+    inLibraryIndicator,
+    GridItemContainer,
+    gridLayout,
+    isSelectModeActive,
+    selectedAnimeIds,
+    handleSelection,
+    mode,
+    ref,
+}: DefaultGridProps) => (
+    <Grid
+        ref={ref}
+        container
+        spacing={1}
         sx={{
-            display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-            gap: 1,
+            width: '100%',
+            overflowX: 'auto',
+            display: '-webkit-inline-box',
+            flexWrap: 'nowrap',
         }}
     >
-        {anime.map((entry) => (
-            <AnimeCard key={entry.id} anime={entry} />
-        ))}
-    </Box>
+        {isLoading ? (
+            <LoadingPlaceholder />
+        ) : (
+            animes.map((anime) => (
+                <GridItemContainer key={anime.id}>
+                    {createAnimeCard(
+                        anime,
+                        gridLayout,
+                        inLibraryIndicator,
+                        isSelectModeActive,
+                        selectedAnimeIds,
+                        handleSelection,
+                        mode,
+                    )}
+                </GridItemContainer>
+            ))
+        )}
+    </Grid>
 );
+
+export const ANIME_GRID_SNAPSHOT_KEY = 'AnimeGrid-snapshot-location';
+
+const VerticalGrid = ({
+    isLoading,
+    animes,
+    inLibraryIndicator,
+    GridItemContainer,
+    gridLayout,
+    hasNextPage,
+    loadMore,
+    isSelectModeActive,
+    selectedAnimeIds,
+    handleSelection,
+    mode,
+    ref,
+}: DefaultGridProps & {
+    hasNextPage: boolean;
+    loadMore: () => void;
+}) => (
+    <>
+        <Box ref={ref}>
+            <VirtuosoGridPersisted
+                persistKey={ANIME_GRID_SNAPSHOT_KEY}
+                useWindowScroll
+                increaseViewportBy={window.innerHeight * 0.5}
+                totalCount={animes.length}
+                components={{
+                    List: GridContainer,
+                    Item: GridItemContainer,
+                }}
+                endReached={() => loadMore()}
+                computeItemKey={(index) => animes[index].id}
+                itemContent={(index) =>
+                    createAnimeCard(
+                        animes[index],
+                        gridLayout,
+                        inLibraryIndicator,
+                        isSelectModeActive,
+                        selectedAnimeIds,
+                        handleSelection,
+                        mode,
+                    )
+                }
+            />
+        </Box>
+        {/* render div to prevent UI jumping around when showing/hiding loading placeholder */}
+        {/* oxlint-disable no-nested-ternary */}
+        {isSelectModeActive && gridLayout === GridLayout.List ? (
+            <Box sx={{ paddingBottom: DEFAULT_FULL_FAB_HEIGHT }} />
+        ) : isLoading ? (
+            <LoadingPlaceholder />
+        ) : hasNextPage ? (
+            <div style={{ height: '75px' }} />
+        ) : null}
+        {/* oxlint-enable no-nested-ternary */}
+    </>
+);
+
+export interface IAnimeGridProps
+    extends
+        Omit<DefaultGridProps, 'GridItemContainer'>,
+        Partial<React.ComponentProps<typeof EmptyViewAbsoluteCentered>> {
+    hasNextPage: boolean;
+    loadMore: () => void;
+    horizontal?: boolean | undefined;
+    noFaces?: boolean | undefined;
+    gridWrapperProps?: Omit<BoxProps, 'ref'>;
+}
+
+/**
+ * Mirrors MangaGrid.tsx, minus the migrate-select plumbing (see Anime.types.ts). Reuses the
+ * "mangaGridItemWidth" display-density setting rather than adding a duplicate anime-only one -
+ * both grids lay out the same shape of cover-art card, so one density preference covers both.
+ */
+export const AnimeGrid: React.FC<IAnimeGridProps> = ({
+    animes,
+    isLoading,
+    message,
+    messageExtra,
+    hasNextPage,
+    loadMore,
+    gridLayout,
+    horizontal,
+    noFaces,
+    inLibraryIndicator,
+    isSelectModeActive,
+    selectedAnimeIds,
+    handleSelection,
+    mode,
+    retry,
+    gridWrapperProps,
+}) => {
+    const { t } = useLingui();
+
+    const { navBarWidth } = useNavBarContext();
+    const {
+        settings: { mangaGridItemWidth },
+    } = useMetadataServerSettings();
+
+    const gridRef = useRef<HTMLDivElement>(null);
+    const gridWrapperRef = useRef<HTMLDivElement>(null);
+
+    const [dimensions, setDimensions] = useState(
+        gridWrapperRef.current?.offsetWidth ?? Math.max(0, document.documentElement.offsetWidth - navBarWidth),
+    );
+    const GridItemContainer = useMemo(
+        () => GridItemContainerWithDimension(dimensions, mangaGridItemWidth, gridLayout),
+        [dimensions, mangaGridItemWidth, gridLayout],
+    );
+
+    // always show vertical scrollbar to prevent https://github.com/Suwayomi/Suwayomi-WebUI/issues/758
+    useLayoutEffect(() => {
+        if (horizontal) {
+            return () => {};
+        }
+
+        // in case "overflow" is currently set to "hidden" that (most likely) means that a MUI modal is open and locks the scrollbar
+        // once this modal is closed MUI restores the previous "overflow" value, thus, reverting the just set "overflow" value
+        let timeout: NodeJS.Timeout;
+        const changeStyle = (timeoutMS: number) => {
+            timeout = setTimeout(() => {
+                if (document.body.style.overflow.includes('hidden')) {
+                    changeStyle(250);
+                    return;
+                }
+
+                document.body.style.overflowY = gridLayout === GridLayout.List ? 'auto' : 'scroll';
+            }, timeoutMS);
+        };
+
+        changeStyle(0);
+
+        return () => {
+            clearTimeout(timeout);
+        };
+    }, [gridLayout]);
+    useLayoutEffect(
+        () => () => {
+            if (horizontal) {
+                return;
+            }
+
+            document.body.style.overflowY = 'auto';
+        },
+        [],
+    );
+
+    useResizeObserver(
+        gridWrapperRef,
+        useCallback(() => {
+            const getDimensions = () => {
+                const gridWidth = gridWrapperRef.current?.offsetWidth;
+
+                if (!gridWidth) {
+                    return document.documentElement.offsetWidth - navBarWidth;
+                }
+
+                return gridWidth;
+            };
+
+            setDimensions(getDimensions());
+        }, [navBarWidth]),
+    );
+
+    useResizeObserver(
+        gridRef,
+        useCallback(
+            (entries, resizeObserver) => {
+                const gridHeight = entries[0].target.clientHeight;
+                const isScrollbarVisible = gridHeight > document.documentElement.clientHeight;
+
+                if (isLoading) {
+                    return;
+                }
+
+                if (!gridHeight) {
+                    return;
+                }
+
+                if (isScrollbarVisible) {
+                    resizeObserver.disconnect();
+                    return;
+                }
+
+                loadMore();
+                resizeObserver.disconnect();
+            },
+            [gridRef, loadMore, isLoading],
+        ),
+    );
+
+    const hasNoItems = !isLoading && animes.length === 0;
+    if (hasNoItems) {
+        return (
+            <EmptyViewAbsoluteCentered
+                noFaces={noFaces}
+                message={message ?? t`No anime found`}
+                messageExtra={messageExtra}
+                retry={retry}
+            />
+        );
+    }
+
+    return (
+        <Box {...gridWrapperProps} ref={gridWrapperRef} sx={{ ...gridWrapperProps?.sx, overflow: 'hidden' }}>
+            {horizontal ? (
+                <HorizontalGrid
+                    ref={gridRef}
+                    isLoading={isLoading}
+                    animes={animes}
+                    inLibraryIndicator={inLibraryIndicator}
+                    GridItemContainer={GridItemContainer}
+                    gridLayout={gridLayout}
+                    isSelectModeActive={isSelectModeActive}
+                    selectedAnimeIds={selectedAnimeIds}
+                    handleSelection={handleSelection}
+                    mode={mode}
+                />
+            ) : (
+                <VerticalGrid
+                    ref={gridRef}
+                    isLoading={isLoading}
+                    animes={animes}
+                    inLibraryIndicator={inLibraryIndicator}
+                    GridItemContainer={GridItemContainer}
+                    hasNextPage={hasNextPage}
+                    loadMore={loadMore}
+                    gridLayout={gridLayout}
+                    isSelectModeActive={isSelectModeActive}
+                    selectedAnimeIds={selectedAnimeIds}
+                    handleSelection={handleSelection}
+                    mode={mode}
+                />
+            )}
+        </Box>
+    );
+};

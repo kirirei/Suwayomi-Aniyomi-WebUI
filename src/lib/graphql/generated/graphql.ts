@@ -4,6 +4,256 @@ type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 import type * as Types from './graphql-base.types';
 
+export type AnimeCategoryMetaFieldsFragment = {
+    __typename: 'AnimeCategoryMetaType';
+    categoryId: number;
+    key: string;
+    value: string;
+};
+
+export type AnimeCategoryBaseFieldsFragment = {
+    __typename: 'AnimeCategoryType';
+    id: number;
+    name: string;
+    default: boolean;
+    order: number;
+};
+
+export type AnimeCategoryLibraryFieldsFragment = {
+    __typename: 'AnimeCategoryType';
+    id: number;
+    name: string;
+    default: boolean;
+    order: number;
+    meta: Array<{ __typename: 'AnimeCategoryMetaType'; categoryId: number; key: string; value: string }>;
+    animes: Array<{ __typename: 'AnimeType'; id: number }>;
+};
+
+export type CreateAnimeCategoryMutationVariables = Exact<{
+    input: Types.CreateAnimeCategoryInput;
+}>;
+
+export type CreateAnimeCategoryMutation = {
+    __typename: 'Mutation';
+    createAnimeCategory: {
+        __typename: 'CreateAnimeCategoryPayload';
+        category: { __typename: 'AnimeCategoryType'; id: number; name: string; default: boolean; order: number };
+    } | null;
+};
+
+export type DeleteAnimeCategoryMutationVariables = Exact<{
+    input: Types.DeleteAnimeCategoryInput;
+}>;
+
+export type DeleteAnimeCategoryMutation = {
+    __typename: 'Mutation';
+    deleteAnimeCategory: {
+        __typename: 'DeleteAnimeCategoryPayload';
+        category: { __typename: 'AnimeCategoryType'; id: number } | null;
+    } | null;
+};
+
+export type UpdateAnimeCategoryMutationVariables = Exact<{
+    input: Types.UpdateAnimeCategoryInput;
+}>;
+
+export type UpdateAnimeCategoryMutation = {
+    __typename: 'Mutation';
+    updateAnimeCategory: {
+        __typename: 'UpdateAnimeCategoryPayload';
+        category: {
+            __typename: 'AnimeCategoryType';
+            includeInUpdate: Types.IncludeOrExclude;
+            includeInDownload: Types.IncludeOrExclude;
+            id: number;
+            name: string;
+            default: boolean;
+            order: number;
+        };
+    } | null;
+};
+
+export type UpdateAnimeCategoryOrderMutationVariables = Exact<{
+    input: Types.UpdateAnimeCategoryOrderInput;
+}>;
+
+export type UpdateAnimeCategoryOrderMutation = {
+    __typename: 'Mutation';
+    updateAnimeCategoryOrder: {
+        __typename: 'UpdateAnimeCategoryOrderPayload';
+        categories: Array<{
+            __typename: 'AnimeCategoryType';
+            id: number;
+            name: string;
+            default: boolean;
+            order: number;
+        }>;
+    } | null;
+};
+
+export type UpdateAnimeCategoriesMutationVariables = Exact<{
+    input: Types.UpdateAnimeCategoriesInput;
+}>;
+
+export type UpdateAnimeCategoriesMutation = {
+    __typename: 'Mutation';
+    updateAnimeCategories: {
+        __typename: 'UpdateAnimeCategoriesPayload';
+        anime: {
+            __typename: 'AnimeType';
+            id: number;
+            categories: Array<{ __typename: 'AnimeCategoryType'; id: number }>;
+        };
+    } | null;
+};
+
+export type UpdateAnimesCategoriesMutationVariables = Exact<{
+    input: Types.UpdateAnimesCategoriesInput;
+}>;
+
+export type UpdateAnimesCategoriesMutation = {
+    __typename: 'Mutation';
+    updateAnimesCategories: {
+        __typename: 'UpdateAnimesCategoriesPayload';
+        animes: Array<{
+            __typename: 'AnimeType';
+            id: number;
+            categories: Array<{ __typename: 'AnimeCategoryType'; id: number }>;
+        }>;
+    } | null;
+};
+
+export type SetAnimeCategoryMetasMutationVariables = Exact<{
+    input: Types.SetAnimeCategoryMetasInput;
+}>;
+
+export type SetAnimeCategoryMetasMutation = {
+    __typename: 'Mutation';
+    setAnimeCategoryMetas: {
+        __typename: 'SetAnimeCategoryMetasPayload';
+        metas: Array<{ __typename: 'AnimeCategoryMetaType'; categoryId: number; key: string; value: string }>;
+    } | null;
+};
+
+export type DeleteAnimeCategoryMetasMutationVariables = Exact<{
+    input: Types.DeleteAnimeCategoryMetasInput;
+}>;
+
+export type DeleteAnimeCategoryMetasMutation = {
+    __typename: 'Mutation';
+    deleteAnimeCategoryMetas: {
+        __typename: 'DeleteAnimeCategoryMetasPayload';
+        metas: Array<{ __typename: 'AnimeCategoryMetaType'; categoryId: number; key: string; value: string }>;
+    } | null;
+};
+
+export type UpdateAnimeCategoryMetadataMutationVariables = Exact<{
+    preUpdateDeleteInput: Types.DeleteAnimeCategoryMetasInput;
+    hasPreUpdateDeletions: boolean;
+    updateInput: Types.SetAnimeCategoryMetasInput;
+    hasUpdates: boolean;
+    postUpdateDeleteInput: Types.DeleteAnimeCategoryMetasInput;
+    hasPostUpdateDeletions: boolean;
+}>;
+
+export type UpdateAnimeCategoryMetadataMutation = {
+    __typename: 'Mutation';
+    preUpdateDeletedMeta?: {
+        __typename: 'DeleteAnimeCategoryMetasPayload';
+        metas: Array<{ __typename: 'AnimeCategoryMetaType'; categoryId: number; key: string; value: string }>;
+    } | null;
+    updatedMeta?: {
+        __typename: 'SetAnimeCategoryMetasPayload';
+        metas: Array<{ __typename: 'AnimeCategoryMetaType'; categoryId: number; key: string; value: string }>;
+    } | null;
+    postUpdateDeletedMeta?: {
+        __typename: 'DeleteAnimeCategoryMetasPayload';
+        metas: Array<{ __typename: 'AnimeCategoryMetaType'; categoryId: number; key: string; value: string }>;
+    } | null;
+};
+
+export type GetAnimeCategoriesBaseQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAnimeCategoriesBaseQuery = {
+    __typename: 'Query';
+    animeCategories: Array<{
+        __typename: 'AnimeCategoryType';
+        id: number;
+        name: string;
+        default: boolean;
+        order: number;
+    }>;
+};
+
+export type GetAnimeCategoriesLibraryQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAnimeCategoriesLibraryQuery = {
+    __typename: 'Query';
+    animeCategories: Array<{
+        __typename: 'AnimeCategoryType';
+        id: number;
+        name: string;
+        default: boolean;
+        order: number;
+        meta: Array<{ __typename: 'AnimeCategoryMetaType'; categoryId: number; key: string; value: string }>;
+        animes: Array<{ __typename: 'AnimeType'; id: number }>;
+    }>;
+};
+
+export type GetCategoryAnimesQueryVariables = Exact<{
+    id: number;
+}>;
+
+export type GetCategoryAnimesQuery = {
+    __typename: 'Query';
+    animeCategory: {
+        __typename: 'AnimeCategoryType';
+        id: number;
+        animes: Array<{
+            __typename: 'AnimeType';
+            sourceId: string;
+            status: string;
+            genre: Array<string>;
+            description: string | null;
+            artist: string | null;
+            author: string | null;
+            inLibraryAt: string;
+            lastSeenAt: string | null;
+            id: number;
+            url: string;
+            title: string;
+            thumbnailUrl: string | null;
+            backgroundUrl: string | null;
+            initialized: boolean;
+            inLibrary: boolean;
+            unseenCount: number;
+            downloadCount: number;
+            bookmarkCount: number;
+            episodeCount: number;
+            source: { __typename: 'AnimeSourceType'; id: string; displayName: string } | null;
+        }>;
+    } | null;
+};
+
+export type GetAnimeCategoriesOfAnimeQueryVariables = Exact<{
+    id: number;
+}>;
+
+export type GetAnimeCategoriesOfAnimeQuery = {
+    __typename: 'Query';
+    anime: {
+        __typename: 'AnimeType';
+        id: number;
+        categories: Array<{
+            __typename: 'AnimeCategoryType';
+            id: number;
+            name: string;
+            default: boolean;
+            order: number;
+        }>;
+    };
+};
+
 export type AnimeExtensionStoreFieldsFragment = {
     __typename: 'AnimeExtensionStoreType';
     indexUrl: string;
@@ -126,6 +376,42 @@ export type AnimeScreenFieldsFragment = {
     backgroundUrl: string | null;
     initialized: boolean;
     inLibrary: boolean;
+};
+
+export type AnimeEpisodeStatFieldsFragment = {
+    __typename: 'AnimeType';
+    id: number;
+    unseenCount: number;
+    downloadCount: number;
+    bookmarkCount: number;
+    episodeCount: number;
+    lastSeenAt: string | null;
+};
+
+export type AnimeSourceNameFieldsFragment = { __typename: 'AnimeSourceType'; id: string; displayName: string };
+
+export type AnimeLibraryFieldsFragment = {
+    __typename: 'AnimeType';
+    sourceId: string;
+    status: string;
+    genre: Array<string>;
+    description: string | null;
+    artist: string | null;
+    author: string | null;
+    inLibraryAt: string;
+    lastSeenAt: string | null;
+    id: number;
+    url: string;
+    title: string;
+    thumbnailUrl: string | null;
+    backgroundUrl: string | null;
+    initialized: boolean;
+    inLibrary: boolean;
+    unseenCount: number;
+    downloadCount: number;
+    bookmarkCount: number;
+    episodeCount: number;
+    source: { __typename: 'AnimeSourceType'; id: string; displayName: string } | null;
 };
 
 export type UpdateAnimeExtensionMutationVariables = Exact<{
@@ -303,6 +589,18 @@ export type OpenEpisodeInExternalPlayerMutationVariables = Exact<{
 export type OpenEpisodeInExternalPlayerMutation = {
     __typename: 'Mutation';
     openEpisodeInExternalPlayer: { __typename: 'OpenEpisodeInExternalPlayerPayload'; success: boolean };
+};
+
+export type UpdateAnimesMutationVariables = Exact<{
+    input: Types.UpdateAnimesInput;
+}>;
+
+export type UpdateAnimesMutation = {
+    __typename: 'Mutation';
+    updateAnimes: {
+        __typename: 'UpdateAnimesPayload';
+        animes: Array<{ __typename: 'AnimeType'; id: number; inLibrary: boolean }>;
+    } | null;
 };
 
 export type GetAnimeExtensionsQueryVariables = Exact<{ [key: string]: never }>;

@@ -132,6 +132,10 @@ export const AppRoutes = {
                         match: 'extension-stores',
                         path: '/settings/anime/extension-stores',
                     },
+                    categories: {
+                        match: 'categories',
+                        path: '/settings/anime/categories',
+                    },
                 },
             },
             appearance: {

@@ -68,3 +68,45 @@ export const ANIME_SCREEN_FIELDS = gql`
         updateStrategy
     }
 `;
+
+export const ANIME_EPISODE_STAT_FIELDS = gql`
+    fragment ANIME_EPISODE_STAT_FIELDS on AnimeType {
+        id
+        unseenCount
+        downloadCount
+        bookmarkCount
+        episodeCount
+        lastSeenAt
+    }
+`;
+
+export const ANIME_SOURCE_NAME_FIELDS = gql`
+    fragment ANIME_SOURCE_NAME_FIELDS on AnimeSourceType {
+        id
+        displayName
+    }
+`;
+
+export const ANIME_LIBRARY_FIELDS = gql`
+    ${ANIME_BASE_FIELDS}
+    ${ANIME_EPISODE_STAT_FIELDS}
+    ${ANIME_SOURCE_NAME_FIELDS}
+
+    fragment ANIME_LIBRARY_FIELDS on AnimeType {
+        ...ANIME_BASE_FIELDS
+        ...ANIME_EPISODE_STAT_FIELDS
+
+        sourceId
+        status
+        genre
+        description
+        artist
+        author
+        inLibraryAt
+        lastSeenAt
+
+        source {
+            ...ANIME_SOURCE_NAME_FIELDS
+        }
+    }
+`;

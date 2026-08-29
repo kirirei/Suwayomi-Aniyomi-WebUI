@@ -19,6 +19,11 @@ msgstr ""
 msgid "— State: {0}"
 msgstr "— State: {0}"
 
+#. placeholder {0}: selectedItemIds.length
+#: src/features/anime-library/screens/AnimeLibrary.tsx
+msgid "{0, plural, one {# anime} other {# anime}}"
+msgstr "{0, plural, one {# anime} other {# anime}}"
+
 #. placeholder {0}: selectedChapters.length
 #. placeholder {0}: visibleChapters.length
 #: src/features/chapter/components/ChapterList.tsx
@@ -208,6 +213,10 @@ msgstr "{count, plural, one {Could not mark the chapter as read} other {Could no
 msgid "{count, plural, one {Could not mark the chapter as unread} other {Could not mark chapters as unread}}"
 msgstr "{count, plural, one {Could not mark the chapter as unread} other {Could not mark chapters as unread}}"
 
+#: src/features/anime/Anime.constants.ts
+msgid "{count, plural, one {Could not remove anime from the library} other {Could not remove anime from the library}}"
+msgstr "{count, plural, one {Could not remove anime from the library} other {Could not remove anime from the library}}"
+
 #: src/features/manga/Manga.constants.ts
 msgid "{count, plural, one {Could not remove manga from the library} other {Could not remove manga from the library}}"
 msgstr "{count, plural, one {Could not remove manga from the library} other {Could not remove manga from the library}}"
@@ -219,6 +228,10 @@ msgstr "{count, plural, one {Could not remove the bookmark} other {Could not rem
 #: src/features/extension/Extensions.constants.ts
 msgid "{count, plural, one {Could not uninstall the extension} other {Could not uninstall the extensions}}"
 msgstr "{count, plural, one {Could not uninstall the extension} other {Could not uninstall the extensions}}"
+
+#: src/features/anime/Anime.constants.ts
+msgid "{count, plural, one {Could not update categories} other {Could not update categories}}"
+msgstr "{count, plural, one {Could not update categories} other {Could not update categories}}"
 
 #: src/features/extension/Extensions.constants.ts
 msgid "{count, plural, one {Could not update the extension} other {Could not update the extensions}}"
@@ -235,6 +248,10 @@ msgstr "{count, plural, one {Download canceled} other {# downloads canceled}}"
 #: src/features/chapter/components/actions/ChaptersDownloadActionMenuItems.tsx
 msgid "{count, plural, one {Next chapter} other {Next # chapters}}"
 msgstr "{count, plural, one {Next chapter} other {Next # chapters}}"
+
+#: src/features/anime/Anime.constants.ts
+msgid "{count, plural, one {Removed anime from the library} other {Removed # anime from the library}}"
+msgstr "{count, plural, one {Removed anime from the library} other {Removed # anime from the library}}"
 
 #: src/features/manga/Manga.constants.ts
 msgid "{count, plural, one {Removed manga from the library} other {Removed # manga from the library}}"
@@ -263,6 +280,10 @@ msgstr "{count, plural, one {There is # missing chapter.\n"
 "Current: {currentChapter}} other {There are # missing chapters.\n"
 "Previous: {nextChapter}\n"
 "Current: {currentChapter}}}"
+
+#: src/features/anime/Anime.constants.ts
+msgid "{count, plural, one {Updated categories} other {Updated categories for # anime}}"
+msgstr "{count, plural, one {Updated categories} other {Updated categories for # anime}}"
 
 #: src/features/chapter/Chapter.constants.ts
 msgid "{count, plural, one {You are about to cancel one download} other {You are about to cancel # downloads}}"
@@ -294,6 +315,7 @@ msgstr "{count, plural, one {You are about to mark one chapter as unread} other 
 msgid "{count, plural, one {You are about to remove one bookmark} other {You are about to remove # bookmarks}}"
 msgstr "{count, plural, one {You are about to remove one bookmark} other {You are about to remove # bookmarks}}"
 
+#: src/features/anime/Anime.constants.ts
 #: src/features/manga/Manga.constants.ts
 msgid "{count, plural, one {You are about to remove one entry from your library} other {You are about to remove # entries from your library}}"
 msgstr "{count, plural, one {You are about to remove one entry from your library} other {You are about to remove # entries from your library}}"
@@ -360,6 +382,7 @@ msgstr "A migration is already in progress"
 msgid "A preview focused web frontend built with svelte"
 msgstr "A preview focused web frontend built with svelte"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "A—Z"
 msgstr "A—Z"
@@ -436,6 +459,7 @@ msgstr "Add extension store"
 msgid "Add notes"
 msgstr "Add notes"
 
+#: src/features/anime/components/AnimeBadges.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/manga/components/MangaBadges.tsx
 #: src/features/reader/overlay/navigation/components/ReaderLibraryButton.tsx
@@ -445,6 +469,10 @@ msgstr "Add To Library"
 #: src/features/tracker/components/cards/TrackerUntrackedCard.tsx
 msgid "Add tracking"
 msgstr "Add tracking"
+
+#: src/features/anime/hooks/useManageAnimeLibraryState.tsx
+msgid "Added anime to library!"
+msgstr "Added anime to library!"
 
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx
 msgid "Added manga to library!"
@@ -507,7 +535,7 @@ msgstr "Anime extension repos"
 msgid "Anime extension stores"
 msgstr "Anime extension stores"
 
-#: src/features/anime/screens/AnimeLibrary.tsx
+#: src/features/anime-library/screens/AnimeLibrary.tsx
 msgid "Anime Library"
 msgstr "Anime Library"
 
@@ -529,7 +557,10 @@ msgstr "Apply safe area padding"
 msgid "Are you sure you want to abort the migration?"
 msgstr "Are you sure you want to abort the migration?"
 
+#: src/features/anime-category/components/AnimeCategorySettingsCard.tsx
+#: src/features/anime/hooks/useManageAnimeLibraryState.tsx
 #: src/features/anime/screens/AnimeExtensionStores.tsx
+#: src/features/anime/services/Animes.ts
 #: src/features/category/components/CategorySettingsCard.tsx
 #: src/features/chapter/services/Chapters.ts
 #: src/features/extension/store/screens/ExtensionStores.tsx
@@ -680,6 +711,7 @@ msgstr "Backup time"
 msgid "Backup validation"
 msgstr "Backup validation"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Badges"
 msgstr "Badges"
@@ -712,6 +744,7 @@ msgstr "Blue"
 msgid "Bookmark selected"
 msgstr "Bookmark selected"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/chapter/components/ChapterOptions.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Bookmarked"
@@ -810,6 +843,8 @@ msgstr "Can't migrate an entry to itself"
 #: src/base/components/settings/SelectSetting.tsx
 #: src/base/components/settings/text/TextSettingDialog.tsx
 #: src/base/components/settings/TimeSetting.tsx
+#: src/features/anime-category/components/AnimeCategorySelect.tsx
+#: src/features/anime-category/components/CreateOrEditAnimeCategoryDialog.tsx
 #: src/features/backup/component/BackupFlagInclusionDialog.tsx
 #: src/features/backup/component/BackupValidationDialog.tsx
 #: src/features/category/components/CategoriesInclusionSetting.tsx
@@ -860,6 +895,7 @@ msgstr "Categories"
 msgid "Category"
 msgstr "Category"
 
+#: src/features/anime-category/components/CreateOrEditAnimeCategoryDialog.tsx
 #: src/features/category/components/CreateOrEditCategoryDialog.tsx
 msgid "Category Name"
 msgstr "Category Name"
@@ -1008,6 +1044,7 @@ msgid "Color filter blend mode"
 msgstr "Color filter blend mode"
 
 #: src/base/components/GridLayouts.tsx
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Comfortable grid"
 msgstr "Comfortable grid"
@@ -1019,6 +1056,7 @@ msgid "entry-type-detection-comic"
 msgstr "Comic"
 
 #: src/base/components/GridLayouts.tsx
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Compact grid"
 msgstr "Compact grid"
@@ -1105,6 +1143,10 @@ msgstr "Copy index url"
 msgid "Could not add anime extension store"
 msgstr "Could not add anime extension store"
 
+#: src/features/anime/hooks/useManageAnimeLibraryState.tsx
+msgid "Could not add anime to library!"
+msgstr "Could not add anime to library!"
+
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Could not add extension store"
 msgstr "Could not add extension store"
@@ -1145,6 +1187,7 @@ msgstr "Could not copy to clipboard"
 msgid "Could not create backup"
 msgstr "Could not create backup"
 
+#: src/features/anime-category/components/CreateOrEditAnimeCategoryDialog.tsx
 #: src/features/category/components/CreateOrEditCategoryDialog.tsx
 msgid "Could not create category"
 msgstr "Could not create category"
@@ -1153,6 +1196,7 @@ msgstr "Could not create category"
 msgid "Could not create theme"
 msgstr "Could not create theme"
 
+#: src/features/anime-category/components/AnimeCategorySettingsCard.tsx
 #: src/features/category/components/CategorySettingsCard.tsx
 msgid "Could not delete category"
 msgstr "Could not delete category"
@@ -1174,10 +1218,12 @@ msgstr "Could not install the extension"
 msgid "Could not launch external player - is mpv or VLC installed on the server machine?"
 msgstr "Could not launch external player - is mpv or VLC installed on the server machine?"
 
+#: src/features/anime-library/screens/AnimeLibrary.tsx
 #: src/features/anime/screens/AnimeScreen.tsx
 msgid "Could not load anime"
 msgstr "Could not load anime"
 
+#: src/features/anime-category/screens/AnimeCategorySettings.tsx
 #: src/features/category/screens/CategorySettings.tsx
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx
 msgid "Could not load categories"
@@ -1240,6 +1286,7 @@ msgstr "Could not log out from KOReader Sync"
 msgid "Could not migrate manga"
 msgstr "Could not migrate manga"
 
+#: src/features/anime-library/components/AnimeLibraryToolbarMenu.tsx
 #: src/features/library/components/LibraryToolbarMenu.tsx
 msgid "Could not open random entry"
 msgstr "Could not open random entry"
@@ -1288,6 +1335,7 @@ msgstr "Could not save changes"
 msgid "Could not save notes"
 msgstr "Could not save notes"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/category/components/CategorySelect.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/library/screens/LibrarySettings.tsx
@@ -1339,6 +1387,7 @@ msgstr "Could not update WebUI"
 msgid "Could not validate backup"
 msgstr "Could not validate backup"
 
+#: src/features/anime-category/components/AnimeCategorySelect.tsx
 #: src/features/category/components/CategorySelect.tsx
 #: src/features/device/screens/DeviceSetting.tsx
 #: src/features/reader/hotkeys/settings/components/RecordHotkey.tsx
@@ -1476,11 +1525,16 @@ msgstr "Decrease auto scroll speed"
 msgid "Default"
 msgstr "Default"
 
+#: src/features/anime-category/components/CreateOrEditAnimeCategoryDialog.tsx
+msgid "Default category when adding new anime to the library"
+msgstr "Default category when adding new anime to the library"
+
 #: src/features/category/components/CreateOrEditCategoryDialog.tsx
 msgid "Default category when adding new manga to the library"
 msgstr "Default category when adding new manga to the library"
 
 #: src/base/components/settings/MutableListSetting.tsx
+#: src/features/anime-category/components/AnimeCategorySettingsCard.tsx
 #: src/features/anime/screens/AnimeExtensionStores.tsx
 #: src/features/category/components/CategorySettingsCard.tsx
 #: src/features/chapter/Chapter.constants.ts
@@ -1537,6 +1591,7 @@ msgstr "Deleting theme \"{0}\"…"
 msgid "Descending"
 msgstr "Descending"
 
+#: src/features/anime/components/AnimeOptionButton.tsx
 #: src/features/chapter/components/cards/ChapterCard.tsx
 #: src/features/manga/components/MangaOptionButton.tsx
 msgid "Deselect"
@@ -1583,6 +1638,7 @@ msgid "Discord"
 msgstr "Discord"
 
 #: src/base/components/GridLayouts.tsx
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/chapter/components/ChapterOptions.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/settings/screens/Appearance.tsx
@@ -1593,6 +1649,7 @@ msgstr "Display"
 msgid "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
 msgstr "Display file sizes in binary (KiB, MiB, GiB) instead of decimal (KB, MB, GB)"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Display mode"
 msgstr "Display mode"
@@ -1636,6 +1693,7 @@ msgstr "Download ahead"
 msgid "Download ahead ({count})"
 msgstr "Download ahead ({count})"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Download badges"
 msgstr "Download badges"
@@ -1657,6 +1715,7 @@ msgstr "Download queue"
 msgid "Download selected"
 msgstr "Download selected"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/anime/screens/AnimeScreen.tsx
 #: src/features/chapter/components/cards/ChapterCard.tsx
 #: src/features/chapter/components/ChapterOptions.tsx
@@ -1704,6 +1763,8 @@ msgstr "Dynamic theme colors on manga page"
 msgid "Edge"
 msgstr "Edge"
 
+#: src/features/anime-category/components/AnimeCategorySelect.tsx
+#: src/features/anime-category/components/AnimeCategorySettingsCard.tsx
 #: src/features/category/components/CategorySelect.tsx
 #: src/features/category/components/CategorySettingsCard.tsx
 #: src/features/manga/components/details/MangaNotes.tsx
@@ -1711,11 +1772,17 @@ msgstr "Edge"
 msgid "Edit"
 msgstr "Edit"
 
+#: src/features/anime-category/screens/AnimeCategorySettings.tsx
+msgid "Edit anime categories"
+msgstr "Edit anime categories"
+
+#: src/features/anime/screens/AnimeSettings.tsx
 #: src/features/category/screens/CategorySettings.tsx
 #: src/features/library/screens/LibrarySettings.tsx
 msgid "Edit categories"
 msgstr "Edit categories"
 
+#: src/features/anime-category/components/CreateOrEditAnimeCategoryDialog.tsx
 #: src/features/category/components/CreateOrEditCategoryDialog.tsx
 msgid "Edit category"
 msgstr "Edit category"
@@ -1880,6 +1947,7 @@ msgstr "Failed to connect to KOReader Sync server."
 msgid "Failed to disconnect from KOReader Sync server."
 msgstr "Failed to disconnect from KOReader Sync server."
 
+#: src/features/anime-category/components/CreateOrEditAnimeCategoryDialog.tsx
 #: src/features/anime/screens/AnimeSettings.tsx
 #: src/features/backup/screens/Backup.tsx
 #: src/features/browse/extensions/Extensions.tsx
@@ -1915,10 +1983,6 @@ msgstr "Failed to disconnect from KOReader Sync server."
 msgid "Failed to save changes"
 msgstr "Failed to save changes"
 
-#: src/features/anime/components/AnimeExtensionCard.tsx
-msgid "Failed to update the extension"
-msgstr "Failed to update the extension"
-
 #: src/features/settings/Settings.constants.ts
 msgid "Features and changes in this version might not be completely ready yet and can cause bugs.\n"
 "Make sure that you have automatic backups enabled to prevent loss of your library!\n"
@@ -1945,6 +2009,7 @@ msgstr "Fifth to last read chapter"
 msgid "Filename"
 msgstr "Filename"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/chapter/components/ChapterOptions.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/source/browse/components/SourceOptions.tsx
@@ -2219,6 +2284,7 @@ msgid "In case no MIME-Type is defined, the \"default\" one will be used for the
 msgstr "In case no MIME-Type is defined, the \"default\" one will be used for the processing.\n"
 "Set the target mode to disabled to prevent processing for a MIME-Type"
 
+#: src/features/anime/components/AnimeBadges.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/manga/components/MangaBadges.tsx
 #: src/features/migration/components/migration-entry/MigrationEntryThumbnail.tsx
@@ -2267,7 +2333,6 @@ msgstr "Inform about version update"
 msgid "Information"
 msgstr "Information"
 
-#: src/features/anime/components/AnimeExtensionCard.tsx
 #: src/features/backup/component/BackupValidationDialog.tsx
 #: src/features/extension/Extensions.constants.ts
 msgid "Install"
@@ -2301,6 +2366,7 @@ msgstr "Invalid filetype"
 #: src/base/components/settings/MutableListSetting.tsx
 #: src/base/components/settings/NumberSetting.tsx
 #: src/base/components/settings/text/TextSettingDialog.tsx
+#: src/features/anime-category/components/CreateOrEditAnimeCategoryDialog.tsx
 #: src/features/category/components/CreateOrEditCategoryDialog.tsx
 #: src/features/settings/components/images/KeyValueItem.tsx
 #: src/features/settings/components/images/MimeTypeTextField.tsx
@@ -2486,6 +2552,7 @@ msgid "Links"
 msgstr "Links"
 
 #: src/base/components/GridLayouts.tsx
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "List"
 msgstr "List"
@@ -2812,6 +2879,7 @@ msgstr "Name"
 msgid "Never"
 msgstr "Never"
 
+#: src/features/anime-category/components/CreateOrEditAnimeCategoryDialog.tsx
 #: src/features/category/components/CreateOrEditCategoryDialog.tsx
 msgid "New category"
 msgstr "New category"
@@ -2838,10 +2906,15 @@ msgstr "Next:"
 msgid "No anime extensions found"
 msgstr "No anime extensions found"
 
+#: src/features/anime/components/AnimeGrid.tsx
 #: src/features/anime/screens/AnimeSourceBrowse.tsx
 #: src/features/tracker/components/TrackerAnimeSearch.tsx
 msgid "No anime found"
 msgstr "No anime found"
+
+#: src/features/anime-library/components/AnimeLibraryGrid.tsx
+msgid "No anime matches this filter"
+msgstr "No anime matches this filter"
 
 #: src/features/anime/screens/AnimeSources.tsx
 msgid "No anime sources found. Install some anime extensions first."
@@ -2934,6 +3007,7 @@ msgstr "Number of items per page in OPDS feeds (e.g., Library History, Manga Cha
 msgid "Number of unread chapters to download"
 msgstr "Number of unread chapters to download"
 
+#: src/features/anime/components/AnimeExtensionCard.tsx
 #: src/features/browse/extensions/components/ExtensionCard.tsx
 #: src/features/extension/Extensions.constants.ts
 msgid "Obsolete"
@@ -2957,6 +3031,8 @@ msgstr "Offset double spreads"
 #: src/base/components/settings/SelectSetting.tsx
 #: src/base/components/settings/text/TextSettingDialog.tsx
 #: src/base/components/settings/TimeSetting.tsx
+#: src/features/anime-category/components/AnimeCategorySelect.tsx
+#: src/features/anime/services/Animes.ts
 #: src/features/app-updates/components/ServerUpdateChecker.tsx
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 #: src/features/backup/component/BackupFlagInclusionDialog.tsx
@@ -3034,6 +3110,7 @@ msgstr "Open in WebView"
 msgid "Open page on exit"
 msgstr "Open page on exit"
 
+#: src/features/anime-library/components/AnimeLibraryToolbarMenu.tsx
 #: src/features/library/components/LibraryToolbarMenu.tsx
 msgid "Open random entry"
 msgstr "Open random entry"
@@ -3047,6 +3124,7 @@ msgstr "Open the WebUI when starting the server"
 msgid "Open website"
 msgstr "Open website"
 
+#: src/features/anime/components/AnimeOptionButton.tsx
 #: src/features/chapter/components/cards/ChapterCard.tsx
 #: src/features/manga/components/MangaOptionButton.tsx
 msgid "Options"
@@ -3217,6 +3295,7 @@ msgstr "Queued"
 msgid "Quick settings"
 msgstr "Quick settings"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Random"
 msgstr "Random"
@@ -3244,6 +3323,7 @@ msgstr "Reading direction"
 msgid "Reading mode"
 msgstr "Reading mode"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Recently added"
 msgstr "Recently added"
@@ -3251,6 +3331,10 @@ msgstr "Recently added"
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Recently read"
 msgstr "Recently read"
+
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
+msgid "Recently seen"
+msgstr "Recently seen"
 
 #: src/features/reader/hotkeys/settings/components/RecordHotkey.tsx
 msgid "Record keybind"
@@ -3282,6 +3366,7 @@ msgid "Remind later"
 msgstr "Remind later"
 
 #: src/base/components/settings/DateSetting.tsx
+#: src/features/anime/hooks/useManageAnimeLibraryState.tsx
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx
 #: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
@@ -3302,6 +3387,8 @@ msgstr "Remove bookmark"
 msgid "Remove bookmarks from selected"
 msgstr "Remove bookmarks from selected"
 
+#: src/features/anime/Anime.constants.ts
+#: src/features/anime/components/AnimeBadges.tsx
 #: src/features/manga/components/MangaBadges.tsx
 #: src/features/manga/Manga.constants.ts
 #: src/features/reader/overlay/navigation/components/ReaderLibraryButton.tsx
@@ -3316,6 +3403,7 @@ msgstr "Remove manga from categories when removing them from the library"
 msgid "Remove non library manga from categories"
 msgstr "Remove non library manga from categories"
 
+#: src/features/anime/Anime.constants.ts
 #: src/features/manga/Manga.constants.ts
 msgid "Remove selected from the library"
 msgstr "Remove selected from the library"
@@ -3541,6 +3629,8 @@ msgstr "See <0>FlareSolverr</0> for information on how to set it up"
 msgid "See the official <0>MUI documentation</0> for how to customize the theme.<1/>The palette API is not supported, you have to use the new <2>color schemes API</2>.<3/><4/>You can use theme creators like <5>MUI Theme Creator</5>, however, you have to adjust the created object according to the new color schemes API.<6/><7/>In case no background is defined, a background will be calculated based on the primary color."
 msgstr "See the official <0>MUI documentation</0> for how to customize the theme.<1/>The palette API is not supported, you have to use the new <2>color schemes API</2>.<3/><4/>You can use theme creators like <5>MUI Theme Creator</5>, however, you have to adjust the created object according to the new color schemes API.<6/><7/>In case no background is defined, a background will be calculated based on the primary color."
 
+#: src/features/anime/components/AnimeActionMenuItems.tsx
+#: src/features/anime/components/AnimeOptionButton.tsx
 #: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
 #: src/features/chapter/components/cards/ChapterCard.tsx
 #: src/features/manga/components/cards/MangaCard.tsx
@@ -3622,6 +3712,8 @@ msgstr "Server was updated to version {version} ({0})"
 msgid "Set as active theme"
 msgstr "Set as active theme"
 
+#: src/features/anime-category/components/AnimeCategorySelect.tsx
+#: src/features/anime/Anime.constants.ts
 #: src/features/category/components/CategorySelect.tsx
 msgid "Set categories"
 msgstr "Set categories"
@@ -3635,6 +3727,7 @@ msgid "Setting can not be changed while the reader is opened"
 msgstr "Setting can not be changed while the reader is opened"
 
 #: src/base/components/inputs/LanguageSelect.tsx
+#: src/features/anime-library/components/AnimeLibraryToolbarMenu.tsx
 #: src/features/backup/Backup.constants.ts
 #: src/features/browse/extensions/components/ExtensionCard.tsx
 #: src/features/extension/info/components/SourceCard.tsx
@@ -3693,6 +3786,7 @@ msgstr "Show less"
 msgid "Show more"
 msgstr "Show more"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Show number of items"
 msgstr "Show number of items"
@@ -3804,11 +3898,13 @@ msgid "Something went wrong\n"
 msgstr "Something went wrong\n"
 "An error occurred that we cannot recover from"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/chapter/components/ChapterOptions.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Sort"
 msgstr "Sort"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/anime/screens/AnimeSources.tsx
 #: src/features/browse/screens/Browse.tsx
 #: src/features/browse/screens/BrowseSettings.tsx
@@ -3872,6 +3968,7 @@ msgstr "Start Search"
 msgid "Start sync"
 msgstr "Start sync"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/settings/Settings.constants.ts
 #: src/features/tracker/components/cards/TrackerMangaCard.tsx
@@ -3883,6 +3980,7 @@ msgstr "Started"
 msgid "Static navigation"
 msgstr "Static navigation"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
 #: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
@@ -3905,6 +4003,7 @@ msgstr "Stop global update"
 msgid "Stretch small pages"
 msgstr "Stretch small pages"
 
+#: src/features/anime-category/components/CreateOrEditAnimeCategoryDialog.tsx
 #: src/features/category/components/CreateOrEditCategoryDialog.tsx
 #: src/features/source/browse/components/SourceOptions.tsx
 msgid "Submit"
@@ -3984,6 +4083,7 @@ msgstr "SyncYomi host"
 msgid "System"
 msgstr "System"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
 msgid "Tabs"
 msgstr "Tabs"
@@ -4008,6 +4108,7 @@ msgstr "The address of the FlareSolverr server"
 msgid "The cache of the client (browser, electron) should get cleared alongside it, otherwise, the client cache will keep getting used"
 msgstr "The cache of the client (browser, electron) should get cleared alongside it, otherwise, the client cache will keep getting used"
 
+#: src/features/anime-library/screens/AnimeLibrary.tsx
 #: src/features/library/screens/Library.tsx
 msgid "The category is empty"
 msgstr "The category is empty"
@@ -4159,6 +4260,10 @@ msgstr "Top"
 msgid "Total chapters"
 msgstr "Total chapters"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
+msgid "Total episodes"
+msgstr "Total episodes"
+
 #: src/features/manga/Manga.constants.ts
 #: src/features/tracker/components/TrackerAnimeSearch.tsx
 #: src/features/tracker/components/TrackerSearch.tsx
@@ -4226,8 +4331,8 @@ msgstr "UI Login"
 msgid "Unable to load anime extension stores"
 msgstr "Unable to load anime extension stores"
 
+#: src/features/anime-library/screens/AnimeLibrary.tsx
 #: src/features/anime/components/AnimeExtensions.tsx
-#: src/features/anime/screens/AnimeLibrary.tsx
 #: src/features/anime/screens/AnimeSettings.tsx
 #: src/features/anime/screens/AnimeSourceBrowse.tsx
 #: src/features/anime/screens/AnimeSources.tsx
@@ -4283,7 +4388,6 @@ msgstr "Unable to load sources"
 msgid "Understood"
 msgstr "Understood"
 
-#: src/features/anime/components/AnimeExtensionCard.tsx
 #: src/features/extension/Extensions.constants.ts
 msgid "Uninstall"
 msgstr "Uninstall"
@@ -4322,6 +4426,18 @@ msgstr "Unread badges"
 msgid "Unread chapters"
 msgstr "Unread chapters"
 
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
+msgid "Unseen"
+msgstr "Unseen"
+
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
+msgid "Unseen badges"
+msgstr "Unseen badges"
+
+#: src/features/anime-library/components/AnimeLibraryOptionsPanel.tsx
+msgid "Unseen episodes"
+msgstr "Unseen episodes"
+
 #: src/features/tracker/components/cards/TrackerActiveAnimeCard.tsx
 msgid "Untracked anime"
 msgstr "Untracked anime"
@@ -4330,7 +4446,6 @@ msgstr "Untracked anime"
 msgid "Untracked manga"
 msgstr "Untracked manga"
 
-#: src/features/anime/components/AnimeExtensionCard.tsx
 #: src/features/app-updates/components/WebUIUpdateChecker.tsx
 #: src/features/extension/Extensions.constants.ts
 msgid "Update"
@@ -4556,11 +4671,14 @@ msgid "Ying & Yang"
 msgstr "Ying & Yang"
 
 #. placeholder {0}: category.name
+#: src/features/anime-category/components/AnimeCategorySettingsCard.tsx
 #: src/features/category/components/CategorySettingsCard.tsx
 msgid "You are about to delete category \"{0}\""
 msgstr "You are about to delete category \"{0}\""
 
+#. placeholder {0}: anime.title
 #. placeholder {0}: manga.title
+#: src/features/anime/hooks/useManageAnimeLibraryState.tsx
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx
 msgid "You are about to remove \"{0}\" from your library"
 msgstr "You are about to remove \"{0}\" from your library"
@@ -4577,6 +4695,7 @@ msgstr "You are about to remove \"{name}\" from the extension stores"
 msgid "You can also drag and drop the backup file here to restore it"
 msgstr "You can also drag and drop the backup file here to restore it"
 
+#: src/features/anime-category/components/AnimeCategorySelect.tsx
 #: src/features/category/components/CategorySelect.tsx
 msgid "You don't have any categories yet."
 msgstr "You don't have any categories yet."
@@ -4601,7 +4720,7 @@ msgstr "You have to add a extension store to be able to install extensions"
 msgid "You have to add an extension repo to be able to install anime extensions"
 msgstr "You have to add an extension repo to be able to install anime extensions"
 
-#: src/features/anime/screens/AnimeLibrary.tsx
+#: src/features/anime-library/screens/AnimeLibrary.tsx
 msgid "Your anime library is empty"
 msgstr "Your anime library is empty"
 

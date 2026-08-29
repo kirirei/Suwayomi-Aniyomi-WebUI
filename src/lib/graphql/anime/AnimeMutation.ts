@@ -89,3 +89,14 @@ export const OPEN_EPISODE_IN_EXTERNAL_PLAYER = gql`
         }
     }
 `;
+
+export const UPDATE_ANIMES = gql`
+    mutation UPDATE_ANIMES($input: UpdateAnimesInput!) {
+        updateAnimes(input: $input) {
+            animes {
+                id
+                inLibrary
+            }
+        }
+    }
+`;
