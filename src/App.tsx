@@ -39,6 +39,14 @@ import { SplashScreen } from '@/features/authentication/components/SplashScreen.
 import { d } from 'koration';
 import { OffsetContainer } from '@/base/OffsetComponent.tsx';
 
+const { AnimeLibrary } = loadable(() => import('@/features/anime/screens/AnimeLibrary.tsx'), lazyLoadFallback);
+const { AnimeSources } = loadable(() => import('@/features/anime/screens/AnimeSources.tsx'), lazyLoadFallback);
+const { AnimeSourceBrowse } = loadable(
+    () => import('@/features/anime/screens/AnimeSourceBrowse.tsx'),
+    lazyLoadFallback,
+);
+const { AnimeScreen } = loadable(() => import('@/features/anime/screens/AnimeScreen.tsx'), lazyLoadFallback);
+const { Player } = loadable(() => import('@/features/player/screens/Player.tsx'), lazyLoadFallback);
 const { Browse } = loadable(() => import('@/features/browse/screens/Browse.tsx'), lazyLoadFallback);
 const { DownloadQueue } = loadable(() => import('@/features/downloads/screens/DownloadQueue.tsx'), lazyLoadFallback);
 const { Library } = loadable(() => import('@/features/library/screens/Library.tsx'), lazyLoadFallback);
@@ -365,6 +373,18 @@ const MainApp = () => {
                             <Route index element={<Manga />} />
                         </Route>
                         <Route path={AppRoutes.library.match} element={<Library />} />
+                        <Route path={AppRoutes.animeLibrary.match} element={<AnimeLibrary />} />
+                        <Route path={AppRoutes.animeSources.match}>
+                            <Route index element={<AnimeSources />} />
+                            <Route
+                                path={AppRoutes.animeSources.children.browse.match}
+                                element={<AnimeSourceBrowse />}
+                            />
+                        </Route>
+                        <Route path={AppRoutes.anime.match}>
+                            <Route path={AppRoutes.anime.children.player.match} element={<Player />} />
+                            <Route index element={<AnimeScreen />} />
+                        </Route>
                         <Route path={AppRoutes.updates.match} element={<Updates />} />
                         {!hideHistory && <Route path={AppRoutes.history.match} element={<History />} />}
                         <Route path={AppRoutes.browse.match} element={<Browse />} />

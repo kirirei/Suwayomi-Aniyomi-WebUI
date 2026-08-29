@@ -8,6 +8,10 @@
 
 import CollectionsBookmarkIcon from '@mui/icons-material/CollectionsBookmark';
 import CollectionsOutlinedBookmarkIcon from '@mui/icons-material/CollectionsBookmarkOutlined';
+import LiveTvIcon from '@mui/icons-material/LiveTv';
+import LiveTvOutlinedIcon from '@mui/icons-material/LiveTvOutlined';
+import OndemandVideoIcon from '@mui/icons-material/OndemandVideo';
+import OndemandVideoOutlinedIcon from '@mui/icons-material/OndemandVideoOutlined';
 import NewReleasesIcon from '@mui/icons-material/NewReleases';
 import NewReleasesOutlinedIcon from '@mui/icons-material/NewReleasesOutlined';
 import HistoryIcon from '@mui/icons-material/History';
@@ -36,6 +40,22 @@ const NAVIGATION_BAR_BASE_ITEMS = [
         title: msg`Library`,
         SelectedIconComponent: CollectionsBookmarkIcon,
         IconComponent: CollectionsOutlinedBookmarkIcon,
+        show: 'both',
+        moreGroup: NavBarItemMoreGroup.GENERAL,
+    },
+    {
+        path: AppRoutes.animeLibrary.path,
+        title: msg`Anime`,
+        SelectedIconComponent: LiveTvIcon,
+        IconComponent: LiveTvOutlinedIcon,
+        show: 'both',
+        moreGroup: NavBarItemMoreGroup.GENERAL,
+    },
+    {
+        path: AppRoutes.animeSources.path,
+        title: msg`Anime Sources`,
+        SelectedIconComponent: OndemandVideoIcon,
+        IconComponent: OndemandVideoOutlinedIcon,
         show: 'both',
         moreGroup: NavBarItemMoreGroup.GENERAL,
     },

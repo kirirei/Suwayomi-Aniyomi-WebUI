@@ -4,6 +4,509 @@ type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 import type * as Types from './graphql-base.types';
 
+export type AnimeExtensionFieldsFragment = {
+    __typename: 'AnimeExtensionType';
+    pkgName: string;
+    name: string;
+    apkName: string | null;
+    iconUrl: string;
+    versionName: string;
+    versionCode: string;
+    lang: string;
+    isNsfw: boolean;
+    isInstalled: boolean;
+    hasUpdate: boolean;
+    isObsolete: boolean;
+};
+
+export type AnimeSourceFieldsFragment = {
+    __typename: 'AnimeSourceType';
+    id: string;
+    name: string;
+    displayName: string;
+    lang: string;
+    iconUrl: string;
+    isNsfw: boolean;
+    isConfigurable: boolean;
+    supportsLatest: boolean;
+    homeUrl: string | null;
+};
+
+export type AnimeBaseFieldsFragment = {
+    __typename: 'AnimeType';
+    id: number;
+    sourceId: string;
+    url: string;
+    title: string;
+    thumbnailUrl: string | null;
+    backgroundUrl: string | null;
+    initialized: boolean;
+    inLibrary: boolean;
+};
+
+export type AnimeScreenFieldsFragment = {
+    __typename: 'AnimeType';
+    artist: string | null;
+    author: string | null;
+    description: string | null;
+    genre: Array<string>;
+    status: string;
+    realUrl: string | null;
+    lastFetchedAt: string | null;
+    episodesLastFetchedAt: string | null;
+    updateStrategy: Types.AnimeUpdateStrategy;
+    id: number;
+    sourceId: string;
+    url: string;
+    title: string;
+    thumbnailUrl: string | null;
+    backgroundUrl: string | null;
+    initialized: boolean;
+    inLibrary: boolean;
+};
+
+export type UpdateAnimeExtensionMutationVariables = Exact<{
+    input: Types.UpdateAnimeExtensionInput;
+}>;
+
+export type UpdateAnimeExtensionMutation = {
+    __typename: 'Mutation';
+    updateAnimeExtension: {
+        __typename: 'UpdateAnimeExtensionPayload';
+        extension: {
+            __typename: 'AnimeExtensionType';
+            pkgName: string;
+            name: string;
+            apkName: string | null;
+            iconUrl: string;
+            versionName: string;
+            versionCode: string;
+            lang: string;
+            isNsfw: boolean;
+            isInstalled: boolean;
+            hasUpdate: boolean;
+            isObsolete: boolean;
+        } | null;
+    } | null;
+};
+
+export type FetchAnimeExtensionsMutationVariables = Exact<{
+    input: Types.FetchAnimeExtensionsInput;
+}>;
+
+export type FetchAnimeExtensionsMutation = {
+    __typename: 'Mutation';
+    fetchAnimeExtensions: {
+        __typename: 'FetchAnimeExtensionsPayload';
+        extensions: Array<{
+            __typename: 'AnimeExtensionType';
+            pkgName: string;
+            name: string;
+            apkName: string | null;
+            iconUrl: string;
+            versionName: string;
+            versionCode: string;
+            lang: string;
+            isNsfw: boolean;
+            isInstalled: boolean;
+            hasUpdate: boolean;
+            isObsolete: boolean;
+        }>;
+    } | null;
+};
+
+export type InstallExternalAnimeExtensionMutationVariables = Exact<{
+    input: Types.InstallExternalAnimeExtensionInput;
+}>;
+
+export type InstallExternalAnimeExtensionMutation = {
+    __typename: 'Mutation';
+    installExternalAnimeExtension: {
+        __typename: 'InstallExternalAnimeExtensionPayload';
+        extension: {
+            __typename: 'AnimeExtensionType';
+            pkgName: string;
+            name: string;
+            apkName: string | null;
+            iconUrl: string;
+            versionName: string;
+            versionCode: string;
+            lang: string;
+            isNsfw: boolean;
+            isInstalled: boolean;
+            hasUpdate: boolean;
+            isObsolete: boolean;
+        };
+    } | null;
+};
+
+export type UpdateAnimeMutationVariables = Exact<{
+    input: Types.UpdateAnimeInput;
+}>;
+
+export type UpdateAnimeMutation = {
+    __typename: 'Mutation';
+    updateAnime: {
+        __typename: 'UpdateAnimePayload';
+        anime: {
+            __typename: 'AnimeType';
+            artist: string | null;
+            author: string | null;
+            description: string | null;
+            genre: Array<string>;
+            status: string;
+            realUrl: string | null;
+            lastFetchedAt: string | null;
+            episodesLastFetchedAt: string | null;
+            updateStrategy: Types.AnimeUpdateStrategy;
+            id: number;
+            sourceId: string;
+            url: string;
+            title: string;
+            thumbnailUrl: string | null;
+            backgroundUrl: string | null;
+            initialized: boolean;
+            inLibrary: boolean;
+        };
+    } | null;
+};
+
+export type FetchAnimeMutationVariables = Exact<{
+    input: Types.FetchAnimeInput;
+}>;
+
+export type FetchAnimeMutation = {
+    __typename: 'Mutation';
+    fetchAnime: {
+        __typename: 'FetchAnimePayload';
+        anime: {
+            __typename: 'AnimeType';
+            artist: string | null;
+            author: string | null;
+            description: string | null;
+            genre: Array<string>;
+            status: string;
+            realUrl: string | null;
+            lastFetchedAt: string | null;
+            episodesLastFetchedAt: string | null;
+            updateStrategy: Types.AnimeUpdateStrategy;
+            id: number;
+            sourceId: string;
+            url: string;
+            title: string;
+            thumbnailUrl: string | null;
+            backgroundUrl: string | null;
+            initialized: boolean;
+            inLibrary: boolean;
+        };
+    } | null;
+};
+
+export type UpdateEpisodeMutationVariables = Exact<{
+    input: Types.UpdateEpisodeInput;
+}>;
+
+export type UpdateEpisodeMutation = {
+    __typename: 'Mutation';
+    updateEpisode: {
+        __typename: 'UpdateEpisodePayload';
+        episode: {
+            __typename: 'EpisodeType';
+            id: number;
+            url: string;
+            name: string;
+            animeId: number;
+            episodeNumber: number;
+            scanlator: string | null;
+            fillermark: boolean;
+            seen: boolean;
+            bookmarked: boolean;
+            lastSecondSeen: string;
+            totalSeconds: string;
+            lastSeenAt: string;
+            index: number;
+            uploadDate: string;
+            fetchedAt: string;
+            realUrl: string | null;
+            downloaded: boolean;
+        };
+    } | null;
+};
+
+export type GetAnimeExtensionsQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAnimeExtensionsQuery = {
+    __typename: 'Query';
+    animeExtensions: Array<{
+        __typename: 'AnimeExtensionType';
+        pkgName: string;
+        name: string;
+        apkName: string | null;
+        iconUrl: string;
+        versionName: string;
+        versionCode: string;
+        lang: string;
+        isNsfw: boolean;
+        isInstalled: boolean;
+        hasUpdate: boolean;
+        isObsolete: boolean;
+    }>;
+};
+
+export type GetAnimeSourcesQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAnimeSourcesQuery = {
+    __typename: 'Query';
+    animeSources: Array<{
+        __typename: 'AnimeSourceType';
+        id: string;
+        name: string;
+        displayName: string;
+        lang: string;
+        iconUrl: string;
+        isNsfw: boolean;
+        isConfigurable: boolean;
+        supportsLatest: boolean;
+        homeUrl: string | null;
+    }>;
+};
+
+export type GetAnimeLibraryQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAnimeLibraryQuery = {
+    __typename: 'Query';
+    animeLibrary: Array<{
+        __typename: 'AnimeType';
+        artist: string | null;
+        author: string | null;
+        description: string | null;
+        genre: Array<string>;
+        status: string;
+        realUrl: string | null;
+        lastFetchedAt: string | null;
+        episodesLastFetchedAt: string | null;
+        updateStrategy: Types.AnimeUpdateStrategy;
+        id: number;
+        sourceId: string;
+        url: string;
+        title: string;
+        thumbnailUrl: string | null;
+        backgroundUrl: string | null;
+        initialized: boolean;
+        inLibrary: boolean;
+    }>;
+};
+
+export type GetAnimeSourceQueryVariables = Exact<{
+    id: string;
+}>;
+
+export type GetAnimeSourceQuery = {
+    __typename: 'Query';
+    animeSource: {
+        __typename: 'AnimeSourceType';
+        id: string;
+        name: string;
+        displayName: string;
+        lang: string;
+        iconUrl: string;
+        isNsfw: boolean;
+        isConfigurable: boolean;
+        supportsLatest: boolean;
+        homeUrl: string | null;
+    } | null;
+};
+
+export type GetPopularAnimeListQueryVariables = Exact<{
+    sourceId: string;
+    page?: number | null | undefined;
+}>;
+
+export type GetPopularAnimeListQuery = {
+    __typename: 'Query';
+    popularAnimeList: {
+        __typename: 'PagedAnimeListType';
+        hasNextPage: boolean;
+        animeList: Array<{
+            __typename: 'AnimeType';
+            artist: string | null;
+            author: string | null;
+            description: string | null;
+            genre: Array<string>;
+            status: string;
+            realUrl: string | null;
+            lastFetchedAt: string | null;
+            episodesLastFetchedAt: string | null;
+            updateStrategy: Types.AnimeUpdateStrategy;
+            id: number;
+            sourceId: string;
+            url: string;
+            title: string;
+            thumbnailUrl: string | null;
+            backgroundUrl: string | null;
+            initialized: boolean;
+            inLibrary: boolean;
+        }>;
+    };
+};
+
+export type GetLatestAnimeListQueryVariables = Exact<{
+    sourceId: string;
+    page?: number | null | undefined;
+}>;
+
+export type GetLatestAnimeListQuery = {
+    __typename: 'Query';
+    latestAnimeList: {
+        __typename: 'PagedAnimeListType';
+        hasNextPage: boolean;
+        animeList: Array<{
+            __typename: 'AnimeType';
+            artist: string | null;
+            author: string | null;
+            description: string | null;
+            genre: Array<string>;
+            status: string;
+            realUrl: string | null;
+            lastFetchedAt: string | null;
+            episodesLastFetchedAt: string | null;
+            updateStrategy: Types.AnimeUpdateStrategy;
+            id: number;
+            sourceId: string;
+            url: string;
+            title: string;
+            thumbnailUrl: string | null;
+            backgroundUrl: string | null;
+            initialized: boolean;
+            inLibrary: boolean;
+        }>;
+    };
+};
+
+export type GetSearchAnimeListQueryVariables = Exact<{
+    sourceId: string;
+    page?: number | null | undefined;
+    query: string;
+}>;
+
+export type GetSearchAnimeListQuery = {
+    __typename: 'Query';
+    searchAnimeList: {
+        __typename: 'PagedAnimeListType';
+        hasNextPage: boolean;
+        animeList: Array<{
+            __typename: 'AnimeType';
+            artist: string | null;
+            author: string | null;
+            description: string | null;
+            genre: Array<string>;
+            status: string;
+            realUrl: string | null;
+            lastFetchedAt: string | null;
+            episodesLastFetchedAt: string | null;
+            updateStrategy: Types.AnimeUpdateStrategy;
+            id: number;
+            sourceId: string;
+            url: string;
+            title: string;
+            thumbnailUrl: string | null;
+            backgroundUrl: string | null;
+            initialized: boolean;
+            inLibrary: boolean;
+        }>;
+    };
+};
+
+export type GetAnimeScreenQueryVariables = Exact<{
+    id: number;
+    onlineFetch?: boolean | null | undefined;
+}>;
+
+export type GetAnimeScreenQuery = {
+    __typename: 'Query';
+    anime: {
+        __typename: 'AnimeType';
+        artist: string | null;
+        author: string | null;
+        description: string | null;
+        genre: Array<string>;
+        status: string;
+        realUrl: string | null;
+        lastFetchedAt: string | null;
+        episodesLastFetchedAt: string | null;
+        updateStrategy: Types.AnimeUpdateStrategy;
+        id: number;
+        sourceId: string;
+        url: string;
+        title: string;
+        thumbnailUrl: string | null;
+        backgroundUrl: string | null;
+        initialized: boolean;
+        inLibrary: boolean;
+    };
+};
+
+export type GetAnimeEpisodesQueryVariables = Exact<{
+    animeId: number;
+    onlineFetch?: boolean | null | undefined;
+}>;
+
+export type GetAnimeEpisodesQuery = {
+    __typename: 'Query';
+    episodes: Array<{
+        __typename: 'EpisodeType';
+        summary: string | null;
+        previewUrl: string | null;
+        id: number;
+        url: string;
+        name: string;
+        animeId: number;
+        episodeNumber: number;
+        scanlator: string | null;
+        fillermark: boolean;
+        seen: boolean;
+        bookmarked: boolean;
+        lastSecondSeen: string;
+        totalSeconds: string;
+        lastSeenAt: string;
+        index: number;
+        uploadDate: string;
+        fetchedAt: string;
+        realUrl: string | null;
+        downloaded: boolean;
+    }>;
+};
+
+export type GetEpisodeQueryVariables = Exact<{
+    id: number;
+}>;
+
+export type GetEpisodeQuery = {
+    __typename: 'Query';
+    episode: {
+        __typename: 'EpisodeType';
+        summary: string | null;
+        previewUrl: string | null;
+        id: number;
+        url: string;
+        name: string;
+        animeId: number;
+        episodeNumber: number;
+        scanlator: string | null;
+        fillermark: boolean;
+        seen: boolean;
+        bookmarked: boolean;
+        lastSecondSeen: string;
+        totalSeconds: string;
+        lastSeenAt: string;
+        index: number;
+        uploadDate: string;
+        fetchedAt: string;
+        realUrl: string | null;
+        downloaded: boolean;
+    } | null;
+};
+
 export type CreateBackupMutationVariables = Exact<{
     input: Types.CreateBackupInput;
 }>;
@@ -1601,6 +2104,50 @@ export type DownloadStatusSubscription = {
             };
         }>;
     };
+};
+
+export type EpisodeBaseFieldsFragment = {
+    __typename: 'EpisodeType';
+    id: number;
+    url: string;
+    name: string;
+    animeId: number;
+    episodeNumber: number;
+    scanlator: string | null;
+    fillermark: boolean;
+    seen: boolean;
+    bookmarked: boolean;
+    lastSecondSeen: string;
+    totalSeconds: string;
+    lastSeenAt: string;
+    index: number;
+    uploadDate: string;
+    fetchedAt: string;
+    realUrl: string | null;
+    downloaded: boolean;
+};
+
+export type EpisodeListFieldsFragment = {
+    __typename: 'EpisodeType';
+    summary: string | null;
+    previewUrl: string | null;
+    id: number;
+    url: string;
+    name: string;
+    animeId: number;
+    episodeNumber: number;
+    scanlator: string | null;
+    fillermark: boolean;
+    seen: boolean;
+    bookmarked: boolean;
+    lastSecondSeen: string;
+    totalSeconds: string;
+    lastSeenAt: string;
+    index: number;
+    uploadDate: string;
+    fetchedAt: string;
+    realUrl: string | null;
+    downloaded: boolean;
 };
 
 export type ExtensionListFieldsFragment = {

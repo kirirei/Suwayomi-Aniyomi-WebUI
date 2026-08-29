@@ -190,6 +190,31 @@ export const AppRoutes = {
                 ...UrlUtil.createQueryParam(search),
             }),
     },
+    animeLibrary: {
+        match: 'anime-library',
+        path: '/anime-library',
+    },
+    animeSources: {
+        match: 'anime-sources',
+        path: '/anime-sources',
+        children: {
+            browse: {
+                match: ':sourceId',
+                path: (sourceId: string) => `/anime-sources/${sourceId}`,
+            },
+        },
+    },
+    anime: {
+        match: 'anime/:id',
+        path: (animeId: number | string) => `/anime/${animeId}`,
+        children: {
+            player: {
+                match: 'episode/:episodeId',
+                path: (animeId: number | string, episodeId: number | string) =>
+                    `/anime/${animeId}/episode/${episodeId}`,
+            },
+        },
+    },
     updates: {
         match: 'updates',
         path: '/updates',

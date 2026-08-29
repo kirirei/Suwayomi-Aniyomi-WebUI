@@ -44,6 +44,68 @@ export type AddExtensionStorePayload = {
     extensionStore: ExtensionStoreType;
 };
 
+export type AnimeExtensionType = {
+    __typename?: 'AnimeExtensionType';
+    apkName?: Maybe<Scalars['String']['output']>;
+    apkUrl?: Maybe<Scalars['String']['output']>;
+    extensionLib?: Maybe<Scalars['String']['output']>;
+    hasUpdate: Scalars['Boolean']['output'];
+    iconUrl: Scalars['String']['output'];
+    isInstalled: Scalars['Boolean']['output'];
+    isNsfw: Scalars['Boolean']['output'];
+    isObsolete: Scalars['Boolean']['output'];
+    jarUrl?: Maybe<Scalars['String']['output']>;
+    lang: Scalars['String']['output'];
+    name: Scalars['String']['output'];
+    pkgName: Scalars['String']['output'];
+    storeIndexUrl?: Maybe<Scalars['String']['output']>;
+    versionCode: Scalars['LongString']['output'];
+    versionName: Scalars['String']['output'];
+};
+
+export type AnimeSourceType = {
+    __typename?: 'AnimeSourceType';
+    displayName: Scalars['String']['output'];
+    filters: Array<Filter>;
+    homeUrl?: Maybe<Scalars['String']['output']>;
+    iconUrl: Scalars['String']['output'];
+    id: Scalars['LongString']['output'];
+    isConfigurable: Scalars['Boolean']['output'];
+    isNsfw: Scalars['Boolean']['output'];
+    lang: Scalars['String']['output'];
+    name: Scalars['String']['output'];
+    supportsLatest: Scalars['Boolean']['output'];
+};
+
+export type AnimeType = {
+    __typename?: 'AnimeType';
+    artist?: Maybe<Scalars['String']['output']>;
+    author?: Maybe<Scalars['String']['output']>;
+    backgroundUrl?: Maybe<Scalars['String']['output']>;
+    description?: Maybe<Scalars['String']['output']>;
+    episodes: Array<EpisodeType>;
+    episodesLastFetchedAt?: Maybe<Scalars['LongString']['output']>;
+    genre: Array<Scalars['String']['output']>;
+    id: Scalars['Int']['output'];
+    inLibrary: Scalars['Boolean']['output'];
+    inLibraryAt: Scalars['LongString']['output'];
+    initialized: Scalars['Boolean']['output'];
+    lastFetchedAt?: Maybe<Scalars['LongString']['output']>;
+    realUrl?: Maybe<Scalars['String']['output']>;
+    source?: Maybe<AnimeSourceType>;
+    sourceId: Scalars['String']['output'];
+    status: Scalars['String']['output'];
+    thumbnailUrl?: Maybe<Scalars['String']['output']>;
+    title: Scalars['String']['output'];
+    updateStrategy: AnimeUpdateStrategy;
+    url: Scalars['String']['output'];
+};
+
+export enum AnimeUpdateStrategy {
+    AlwaysUpdate = 'ALWAYS_UPDATE',
+    OnlyFetchOnce = 'ONLY_FETCH_ONCE',
+}
+
 export enum AuthMode {
     BasicAuth = 'BASIC_AUTH',
     None = 'NONE',
@@ -768,6 +830,29 @@ export type EnqueueChapterDownloadsPayload = {
     downloadStatus: DownloadStatus;
 };
 
+export type EpisodeType = {
+    __typename?: 'EpisodeType';
+    animeId: Scalars['Int']['output'];
+    bookmarked: Scalars['Boolean']['output'];
+    downloaded: Scalars['Boolean']['output'];
+    episodeNumber: Scalars['Float']['output'];
+    fetchedAt: Scalars['LongString']['output'];
+    fillermark: Scalars['Boolean']['output'];
+    id: Scalars['Int']['output'];
+    index: Scalars['Int']['output'];
+    lastSecondSeen: Scalars['LongString']['output'];
+    lastSeenAt: Scalars['LongString']['output'];
+    name: Scalars['String']['output'];
+    previewUrl?: Maybe<Scalars['String']['output']>;
+    realUrl?: Maybe<Scalars['String']['output']>;
+    scanlator?: Maybe<Scalars['String']['output']>;
+    seen: Scalars['Boolean']['output'];
+    summary?: Maybe<Scalars['String']['output']>;
+    totalSeconds: Scalars['LongString']['output'];
+    uploadDate: Scalars['LongString']['output'];
+    url: Scalars['String']['output'];
+};
+
 export type ExtensionConditionInput = {
     apkName?: InputMaybe<Scalars['String']['input']>;
     apkUrl?: InputMaybe<Scalars['String']['input']>;
@@ -911,6 +996,27 @@ export type ExtensionType = {
     versionCode: Scalars['Int']['output'];
     versionCodeLong: Scalars['LongString']['output'];
     versionName: Scalars['String']['output'];
+};
+
+export type FetchAnimeExtensionsInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type FetchAnimeExtensionsPayload = {
+    __typename?: 'FetchAnimeExtensionsPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    extensions: Array<AnimeExtensionType>;
+};
+
+export type FetchAnimeInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    id: Scalars['Int']['input'];
+};
+
+export type FetchAnimePayload = {
+    __typename?: 'FetchAnimePayload';
+    anime: AnimeType;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
 };
 
 export type FetchChapterPagesInput = {
@@ -1062,6 +1168,17 @@ export enum IncludeOrExclude {
     Include = 'INCLUDE',
     Unset = 'UNSET',
 }
+
+export type InstallExternalAnimeExtensionInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    extensionFile: Scalars['Upload']['input'];
+};
+
+export type InstallExternalAnimeExtensionPayload = {
+    __typename?: 'InstallExternalAnimeExtensionPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    extension: AnimeExtensionType;
+};
 
 export type InstallExternalExtensionInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
@@ -1490,6 +1607,8 @@ export type Mutation = {
     dequeueChapterDownloads?: Maybe<DequeueChapterDownloadsPayload>;
     enqueueChapterDownload?: Maybe<EnqueueChapterDownloadPayload>;
     enqueueChapterDownloads?: Maybe<EnqueueChapterDownloadsPayload>;
+    fetchAnime?: Maybe<FetchAnimePayload>;
+    fetchAnimeExtensions?: Maybe<FetchAnimeExtensionsPayload>;
     fetchChapterPages?: Maybe<FetchChapterPagesPayload>;
     /** @deprecated Deprecated in Tachiyomix 1.6, replace with fetchMangaAndChapters */
     fetchChapters?: Maybe<FetchChaptersPayload>;
@@ -1499,6 +1618,7 @@ export type Mutation = {
     fetchMangaAndChapters?: Maybe<FetchMangaAndChaptersPayload>;
     fetchSourceManga?: Maybe<FetchSourceMangaPayload>;
     fetchTrack: FetchTrackPayload;
+    installExternalAnimeExtension?: Maybe<InstallExternalAnimeExtensionPayload>;
     installExternalExtension?: Maybe<InstallExternalExtensionPayload>;
     login: LoginPayload;
     loginTrackerCredentials: LoginTrackerCredentialsPayload;
@@ -1530,12 +1650,15 @@ export type Mutation = {
     stopDownloader?: Maybe<StopDownloaderPayload>;
     trackProgress?: Maybe<TrackProgressPayload>;
     unbindTrack: UnbindTrackPayload;
+    updateAnime?: Maybe<UpdateAnimePayload>;
+    updateAnimeExtension?: Maybe<UpdateAnimeExtensionPayload>;
     updateCategories?: Maybe<UpdateCategoriesPayload>;
     updateCategory?: Maybe<UpdateCategoryPayload>;
     updateCategoryManga?: Maybe<UpdateCategoryMangaPayload>;
     updateCategoryOrder?: Maybe<UpdateCategoryOrderPayload>;
     updateChapter?: Maybe<UpdateChapterPayload>;
     updateChapters?: Maybe<UpdateChaptersPayload>;
+    updateEpisode?: Maybe<UpdateEpisodePayload>;
     updateExtension?: Maybe<UpdateExtensionPayload>;
     updateExtensions?: Maybe<UpdateExtensionsPayload>;
     updateLibrary?: Maybe<UpdateLibraryPayload>;
@@ -1654,6 +1777,14 @@ export type MutationEnqueueChapterDownloadsArgs = {
     input: EnqueueChapterDownloadsInput;
 };
 
+export type MutationFetchAnimeArgs = {
+    input: FetchAnimeInput;
+};
+
+export type MutationFetchAnimeExtensionsArgs = {
+    input: FetchAnimeExtensionsInput;
+};
+
 export type MutationFetchChapterPagesArgs = {
     input: FetchChapterPagesInput;
 };
@@ -1680,6 +1811,10 @@ export type MutationFetchSourceMangaArgs = {
 
 export type MutationFetchTrackArgs = {
     input: FetchTrackInput;
+};
+
+export type MutationInstallExternalAnimeExtensionArgs = {
+    input: InstallExternalAnimeExtensionInput;
 };
 
 export type MutationInstallExternalExtensionArgs = {
@@ -1802,6 +1937,14 @@ export type MutationUnbindTrackArgs = {
     input: UnbindTrackInput;
 };
 
+export type MutationUpdateAnimeArgs = {
+    input: UpdateAnimeInput;
+};
+
+export type MutationUpdateAnimeExtensionArgs = {
+    input: UpdateAnimeExtensionInput;
+};
+
 export type MutationUpdateCategoriesArgs = {
     input: UpdateCategoriesInput;
 };
@@ -1824,6 +1967,10 @@ export type MutationUpdateChapterArgs = {
 
 export type MutationUpdateChaptersArgs = {
     input: UpdateChaptersInput;
+};
+
+export type MutationUpdateEpisodeArgs = {
+    input: UpdateEpisodeInput;
 };
 
 export type MutationUpdateExtensionArgs = {
@@ -1923,6 +2070,12 @@ export type PageInfo = {
     startCursor?: Maybe<Scalars['Cursor']['output']>;
 };
 
+export type PagedAnimeListType = {
+    __typename?: 'PagedAnimeListType';
+    animeList: Array<AnimeType>;
+    hasNextPage: Scalars['Boolean']['output'];
+};
+
 export type PartialBackupFlagsInput = {
     includeCategories?: InputMaybe<Scalars['Boolean']['input']>;
     includeChapters?: InputMaybe<Scalars['Boolean']['input']>;
@@ -1973,8 +2126,9 @@ export type PartialSettingsType = Settings & {
     excludeEntryWithUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
     excludeNotStarted?: Maybe<Scalars['Boolean']['output']>;
     excludeUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
-    /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations */
+    /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations, replace with extensionStores */
     extensionRepos?: Maybe<Array<Scalars['String']['output']>>;
+    ffmpegPath?: Maybe<Scalars['String']['output']>;
     flareSolverrAsResponseFallback?: Maybe<Scalars['Boolean']['output']>;
     flareSolverrEnabled?: Maybe<Scalars['Boolean']['output']>;
     flareSolverrSessionName?: Maybe<Scalars['String']['output']>;
@@ -2004,6 +2158,7 @@ export type PartialSettingsType = Settings & {
     koreaderSyncUserkey?: Maybe<Scalars['String']['output']>;
     /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
     koreaderSyncUsername?: Maybe<Scalars['String']['output']>;
+    localAnimeSourcePath?: Maybe<Scalars['String']['output']>;
     localSourcePath?: Maybe<Scalars['String']['output']>;
     maxLogFileSize?: Maybe<Scalars['String']['output']>;
     maxLogFiles?: Maybe<Scalars['Int']['output']>;
@@ -2075,6 +2230,7 @@ export type PartialSettingsTypeInput = {
     excludeEntryWithUnreadChapters?: InputMaybe<Scalars['Boolean']['input']>;
     excludeNotStarted?: InputMaybe<Scalars['Boolean']['input']>;
     excludeUnreadChapters?: InputMaybe<Scalars['Boolean']['input']>;
+    ffmpegPath?: InputMaybe<Scalars['String']['input']>;
     flareSolverrAsResponseFallback?: InputMaybe<Scalars['Boolean']['input']>;
     flareSolverrEnabled?: InputMaybe<Scalars['Boolean']['input']>;
     flareSolverrSessionName?: InputMaybe<Scalars['String']['input']>;
@@ -2092,6 +2248,7 @@ export type PartialSettingsTypeInput = {
     koreaderSyncPercentageTolerance?: InputMaybe<Scalars['Float']['input']>;
     koreaderSyncStrategyBackward?: InputMaybe<KoreaderSyncConflictStrategy>;
     koreaderSyncStrategyForward?: InputMaybe<KoreaderSyncConflictStrategy>;
+    localAnimeSourcePath?: InputMaybe<Scalars['String']['input']>;
     localSourcePath?: InputMaybe<Scalars['String']['input']>;
     maxLogFileSize?: InputMaybe<Scalars['String']['input']>;
     maxLogFiles?: InputMaybe<Scalars['Int']['input']>;
@@ -2175,6 +2332,12 @@ export type Query = {
     __typename?: 'Query';
     aboutServer: AboutServerPayload;
     aboutWebUI: AboutWebUi;
+    anime: AnimeType;
+    animeExtension?: Maybe<AnimeExtensionType>;
+    animeExtensions: Array<AnimeExtensionType>;
+    animeLibrary: Array<AnimeType>;
+    animeSource?: Maybe<AnimeSourceType>;
+    animeSources: Array<AnimeSourceType>;
     categories: CategoryNodeList;
     category: CategoryType;
     chapter: ChapterType;
@@ -2182,6 +2345,8 @@ export type Query = {
     checkForServerUpdates: Array<CheckForServerUpdatesPayload>;
     checkForWebUIUpdate: WebUiUpdateCheck;
     downloadStatus: DownloadStatus;
+    episode?: Maybe<EpisodeType>;
+    episodes: Array<EpisodeType>;
     extension: ExtensionType;
     extensionStore: ExtensionStoreType;
     extensionStores: ExtensionStoreNodeList;
@@ -2190,12 +2355,15 @@ export type Query = {
     koSyncStatus: KoSyncStatusPayload;
     lastSyncStatus?: Maybe<SyncStatus>;
     lastUpdateTimestamp: LastUpdateTimestampPayload;
+    latestAnimeList: PagedAnimeListType;
     libraryUpdateStatus: LibraryUpdateStatus;
     manga: MangaType;
     mangas: MangaNodeList;
     meta: GlobalMetaType;
     metas: GlobalMetaNodeList;
+    popularAnimeList: PagedAnimeListType;
     restoreStatus?: Maybe<BackupRestoreStatus>;
+    searchAnimeList: PagedAnimeListType;
     searchTracker: SearchTrackerPayload;
     settings: SettingsType;
     source: SourceType;
@@ -2207,6 +2375,19 @@ export type Query = {
     /** @deprecated Replaced with libraryUpdateStatus, replace with libraryUpdateStatus */
     updateStatus: UpdateStatus;
     validateBackup: ValidateBackupResult;
+};
+
+export type QueryAnimeArgs = {
+    id: Scalars['Int']['input'];
+    onlineFetch?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type QueryAnimeExtensionArgs = {
+    pkgName: Scalars['String']['input'];
+};
+
+export type QueryAnimeSourceArgs = {
+    id: Scalars['LongString']['input'];
 };
 
 export type QueryCategoriesArgs = {
@@ -2239,6 +2420,15 @@ export type QueryChaptersArgs = {
     order?: InputMaybe<Array<ChapterOrderInput>>;
 };
 
+export type QueryEpisodeArgs = {
+    id: Scalars['Int']['input'];
+};
+
+export type QueryEpisodesArgs = {
+    animeId: Scalars['Int']['input'];
+    onlineFetch?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
 export type QueryExtensionArgs = {
     pkgName: Scalars['String']['input'];
 };
@@ -2267,6 +2457,11 @@ export type QueryExtensionsArgs = {
     last?: InputMaybe<Scalars['Int']['input']>;
     offset?: InputMaybe<Scalars['Int']['input']>;
     order?: InputMaybe<Array<ExtensionOrderInput>>;
+};
+
+export type QueryLatestAnimeListArgs = {
+    page?: InputMaybe<Scalars['Int']['input']>;
+    sourceId: Scalars['LongString']['input'];
 };
 
 export type QueryMangaArgs = {
@@ -2299,8 +2494,19 @@ export type QueryMetasArgs = {
     order?: InputMaybe<Array<MetaOrderInput>>;
 };
 
+export type QueryPopularAnimeListArgs = {
+    page?: InputMaybe<Scalars['Int']['input']>;
+    sourceId: Scalars['LongString']['input'];
+};
+
 export type QueryRestoreStatusArgs = {
     id: Scalars['String']['input'];
+};
+
+export type QuerySearchAnimeListArgs = {
+    page?: InputMaybe<Scalars['Int']['input']>;
+    query: Scalars['String']['input'];
+    sourceId: Scalars['LongString']['input'];
 };
 
 export type QuerySearchTrackerArgs = {
@@ -2623,8 +2829,9 @@ export type Settings = {
     excludeEntryWithUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
     excludeNotStarted?: Maybe<Scalars['Boolean']['output']>;
     excludeUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
-    /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations */
+    /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations, replace with extensionStores */
     extensionRepos?: Maybe<Array<Scalars['String']['output']>>;
+    ffmpegPath?: Maybe<Scalars['String']['output']>;
     flareSolverrAsResponseFallback?: Maybe<Scalars['Boolean']['output']>;
     flareSolverrEnabled?: Maybe<Scalars['Boolean']['output']>;
     flareSolverrSessionName?: Maybe<Scalars['String']['output']>;
@@ -2654,6 +2861,7 @@ export type Settings = {
     koreaderSyncUserkey?: Maybe<Scalars['String']['output']>;
     /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
     koreaderSyncUsername?: Maybe<Scalars['String']['output']>;
+    localAnimeSourcePath?: Maybe<Scalars['String']['output']>;
     localSourcePath?: Maybe<Scalars['String']['output']>;
     maxLogFileSize?: Maybe<Scalars['String']['output']>;
     maxLogFiles?: Maybe<Scalars['Int']['output']>;
@@ -2778,8 +2986,9 @@ export type SettingsType = Settings & {
     excludeEntryWithUnreadChapters: Scalars['Boolean']['output'];
     excludeNotStarted: Scalars['Boolean']['output'];
     excludeUnreadChapters: Scalars['Boolean']['output'];
-    /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations */
+    /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations, replace with extensionStores */
     extensionRepos: Array<Scalars['String']['output']>;
+    ffmpegPath: Scalars['String']['output'];
     flareSolverrAsResponseFallback: Scalars['Boolean']['output'];
     flareSolverrEnabled: Scalars['Boolean']['output'];
     flareSolverrSessionName: Scalars['String']['output'];
@@ -2809,6 +3018,7 @@ export type SettingsType = Settings & {
     koreaderSyncUserkey: Scalars['String']['output'];
     /** @deprecated Moved to preference store. User is supposed to use a login/logout mutation, replace with MOVE TO PREFERENCES */
     koreaderSyncUsername: Scalars['String']['output'];
+    localAnimeSourcePath: Scalars['String']['output'];
     localSourcePath: Scalars['String']['output'];
     maxLogFileSize: Scalars['String']['output'];
     maxLogFiles: Scalars['Int']['output'];
@@ -3343,6 +3553,40 @@ export type UnbindTrackPayload = {
     trackRecord?: Maybe<TrackRecordType>;
 };
 
+export type UpdateAnimeExtensionInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    id: Scalars['String']['input'];
+    patch: UpdateAnimeExtensionPatchInput;
+};
+
+export type UpdateAnimeExtensionPatchInput = {
+    install?: InputMaybe<Scalars['Boolean']['input']>;
+    uninstall?: InputMaybe<Scalars['Boolean']['input']>;
+    update?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UpdateAnimeExtensionPayload = {
+    __typename?: 'UpdateAnimeExtensionPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    extension?: Maybe<AnimeExtensionType>;
+};
+
+export type UpdateAnimeInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    id: Scalars['Int']['input'];
+    patch: UpdateAnimePatchInput;
+};
+
+export type UpdateAnimePatchInput = {
+    inLibrary?: InputMaybe<Scalars['Boolean']['input']>;
+};
+
+export type UpdateAnimePayload = {
+    __typename?: 'UpdateAnimePayload';
+    anime: AnimeType;
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
 export type UpdateCategoriesInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
     ids: Array<Scalars['Int']['input']>;
@@ -3425,6 +3669,25 @@ export type UpdateChaptersPayload = {
     __typename?: 'UpdateChaptersPayload';
     chapters: Array<ChapterType>;
     clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
+export type UpdateEpisodeInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    id: Scalars['Int']['input'];
+    patch: UpdateEpisodePatchInput;
+};
+
+export type UpdateEpisodePatchInput = {
+    bookmarked?: InputMaybe<Scalars['Boolean']['input']>;
+    lastSecondSeen?: InputMaybe<Scalars['LongString']['input']>;
+    seen?: InputMaybe<Scalars['Boolean']['input']>;
+    totalSeconds?: InputMaybe<Scalars['LongString']['input']>;
+};
+
+export type UpdateEpisodePayload = {
+    __typename?: 'UpdateEpisodePayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    episode: EpisodeType;
 };
 
 export type UpdateExtensionInput = {

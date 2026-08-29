@@ -26,6 +26,38 @@ import { BaseClient } from '@/lib/requests/client/BaseClient.ts';
 import type {
     AddExtensionStoreMutation,
     AddExtensionStoreMutationVariables,
+    FetchAnimeExtensionsMutation,
+    FetchAnimeExtensionsMutationVariables,
+    FetchAnimeMutation,
+    FetchAnimeMutationVariables,
+    GetAnimeEpisodesQuery,
+    GetAnimeEpisodesQueryVariables,
+    GetAnimeExtensionsQuery,
+    GetAnimeExtensionsQueryVariables,
+    GetAnimeLibraryQuery,
+    GetAnimeLibraryQueryVariables,
+    GetAnimeScreenQuery,
+    GetAnimeScreenQueryVariables,
+    GetAnimeSourceQuery,
+    GetAnimeSourceQueryVariables,
+    GetAnimeSourcesQuery,
+    GetAnimeSourcesQueryVariables,
+    GetEpisodeQuery,
+    GetEpisodeQueryVariables,
+    GetLatestAnimeListQuery,
+    GetLatestAnimeListQueryVariables,
+    GetPopularAnimeListQuery,
+    GetPopularAnimeListQueryVariables,
+    GetSearchAnimeListQuery,
+    GetSearchAnimeListQueryVariables,
+    InstallExternalAnimeExtensionMutation,
+    InstallExternalAnimeExtensionMutationVariables,
+    UpdateAnimeExtensionMutation,
+    UpdateAnimeExtensionMutationVariables,
+    UpdateAnimeMutation,
+    UpdateAnimeMutationVariables,
+    UpdateEpisodeMutation,
+    UpdateEpisodeMutationVariables,
     CheckForServerUpdatesQuery,
     CheckForServerUpdatesQueryVariables,
     CheckForWebuiUpdateQuery,
@@ -264,6 +296,26 @@ import {
     UPDATE_MANGAS_CATEGORIES,
 } from '@/lib/graphql/manga/MangaMutation.ts';
 import { GET_MANGA_TO_MIGRATE, GET_MANGA_TRACK_RECORDS, GET_MANGAS_LIBRARY } from '@/lib/graphql/manga/MangaQuery.ts';
+import {
+    GET_ANIME_EPISODES,
+    GET_ANIME_EXTENSIONS,
+    GET_ANIME_LIBRARY,
+    GET_ANIME_SCREEN,
+    GET_ANIME_SOURCE,
+    GET_ANIME_SOURCES,
+    GET_EPISODE,
+    GET_LATEST_ANIME_LIST,
+    GET_POPULAR_ANIME_LIST,
+    GET_SEARCH_ANIME_LIST,
+} from '@/lib/graphql/anime/AnimeQuery.ts';
+import {
+    FETCH_ANIME,
+    FETCH_ANIME_EXTENSIONS,
+    INSTALL_EXTERNAL_ANIME_EXTENSION,
+    UPDATE_ANIME,
+    UPDATE_ANIME_EXTENSION,
+    UPDATE_EPISODE,
+} from '@/lib/graphql/anime/AnimeMutation.ts';
 import {
     GET_CATEGORIES_BASE,
     GET_CATEGORIES_LIBRARY,
@@ -2072,9 +2124,8 @@ export class RequestManager {
 
         const cachedPages = this.cache.getResponseFor<Set<number>>(CACHE_PAGES_KEY, getVariablesFor(0)) ?? new Set();
         const cachedResults = [...cachedPages]
-            .map(
-                (cachedPage) =>
-                    this.cache.getResponseFor<MutationDataResult>(CACHE_RESULTS_KEY, getVariablesFor(cachedPage))!,
+            .map((cachedPage) =>
+                this.cache.getResponseFor<MutationDataResult>(CACHE_RESULTS_KEY, getVariablesFor(cachedPage))!,
             )
             .sort((a, b) => a.size - b.size);
         const areFetchingInitialPages = !!this.cache.getResponseFor<boolean>(
@@ -4024,6 +4075,198 @@ export class RequestManager {
         options?: MutationOptions<WebviewClearCacheCookiesMutation, WebviewClearCacheCookiesMutationVariables>,
     ): AbortableApolloUseMutationResponse<WebviewClearCacheCookiesMutation, WebuiUpdateSubscriptionVariables> {
         return this.doRequest(GQLMethod.USE_MUTATION, WEBVIEW_CLEAR_CACHE_COOKIES, {}, options);
+    }
+
+    // -------------------- Anime --------------------
+    // Mirrors the manga hooks above, kept as a self-contained section since the anime GraphQL
+    // surface (AnimeQuery.kt/AnimeMutation.kt) is intentionally simpler (plain lists, no
+    // cursor-based pagination) - see AnimeExtensionType's doc comment for why.
+
+    public useGetAnimeExtensions(
+        options?: QueryHookOptions<GetAnimeExtensionsQuery, GetAnimeExtensionsQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetAnimeExtensionsQuery, GetAnimeExtensionsQueryVariables> {
+        return this.doRequest(GQLMethod.USE_QUERY, GET_ANIME_EXTENSIONS, {}, options);
+    }
+
+    public fetchAnimeExtensions(
+        options?: MutationOptions<FetchAnimeExtensionsMutation, FetchAnimeExtensionsMutationVariables>,
+    ): AbortableApolloMutationResponse<FetchAnimeExtensionsMutation> {
+        return this.doRequest<FetchAnimeExtensionsMutation, FetchAnimeExtensionsMutationVariables>(
+            GQLMethod.MUTATION,
+            FETCH_ANIME_EXTENSIONS,
+            { input: {} },
+            options,
+        );
+    }
+
+    public updateAnimeExtension(
+        id: string,
+        patch: { install?: boolean; update?: boolean; uninstall?: boolean },
+        options?: MutationOptions<UpdateAnimeExtensionMutation, UpdateAnimeExtensionMutationVariables>,
+    ): AbortableApolloMutationResponse<UpdateAnimeExtensionMutation> {
+        return this.doRequest<UpdateAnimeExtensionMutation, UpdateAnimeExtensionMutationVariables>(
+            GQLMethod.MUTATION,
+            UPDATE_ANIME_EXTENSION,
+            { input: { id, patch } },
+            { refetchQueries: [GET_ANIME_EXTENSIONS], ...options },
+        );
+    }
+
+    public installExternalAnimeExtension(
+        extensionFile: File,
+        options?: MutationOptions<
+            InstallExternalAnimeExtensionMutation,
+            InstallExternalAnimeExtensionMutationVariables
+        >,
+    ): AbortableApolloMutationResponse<InstallExternalAnimeExtensionMutation> {
+        return this.doRequest<InstallExternalAnimeExtensionMutation, InstallExternalAnimeExtensionMutationVariables>(
+            GQLMethod.MUTATION,
+            INSTALL_EXTERNAL_ANIME_EXTENSION,
+            { input: { extensionFile } },
+            { refetchQueries: [GET_ANIME_EXTENSIONS], ...options },
+        );
+    }
+
+    public getEpisodeStreamUrl(episodeId: number | string): string {
+        return this.getValidUrlFor(`anime/episode/${episodeId}/stream`);
+    }
+
+    public useGetAnimeLibrary(
+        options?: QueryHookOptions<GetAnimeLibraryQuery, GetAnimeLibraryQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetAnimeLibraryQuery, GetAnimeLibraryQueryVariables> {
+        return this.doRequest(GQLMethod.USE_QUERY, GET_ANIME_LIBRARY, {}, options);
+    }
+
+    public useGetAnimeSources(
+        options?: QueryHookOptions<GetAnimeSourcesQuery, GetAnimeSourcesQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetAnimeSourcesQuery, GetAnimeSourcesQueryVariables> {
+        return this.doRequest(GQLMethod.USE_QUERY, GET_ANIME_SOURCES, {}, options);
+    }
+
+    public useGetAnimeSource(
+        sourceId: string,
+        options?: QueryHookOptions<GetAnimeSourceQuery, GetAnimeSourceQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetAnimeSourceQuery, GetAnimeSourceQueryVariables> {
+        return this.doRequest(
+            GQLMethod.USE_QUERY,
+            GET_ANIME_SOURCE,
+            { id: sourceId } as GetAnimeSourceQueryVariables,
+            options,
+        );
+    }
+
+    public useGetPopularAnimeList(
+        sourceId: string,
+        page: number,
+        options?: QueryHookOptions<GetPopularAnimeListQuery, GetPopularAnimeListQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetPopularAnimeListQuery, GetPopularAnimeListQueryVariables> {
+        return this.doRequest(
+            GQLMethod.USE_QUERY,
+            GET_POPULAR_ANIME_LIST,
+            { sourceId, page } as GetPopularAnimeListQueryVariables,
+            options,
+        );
+    }
+
+    public useGetLatestAnimeList(
+        sourceId: string,
+        page: number,
+        options?: QueryHookOptions<GetLatestAnimeListQuery, GetLatestAnimeListQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetLatestAnimeListQuery, GetLatestAnimeListQueryVariables> {
+        return this.doRequest(
+            GQLMethod.USE_QUERY,
+            GET_LATEST_ANIME_LIST,
+            { sourceId, page } as GetLatestAnimeListQueryVariables,
+            options,
+        );
+    }
+
+    public useGetSearchAnimeList(
+        sourceId: string,
+        page: number,
+        query: string,
+        options?: QueryHookOptions<GetSearchAnimeListQuery, GetSearchAnimeListQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetSearchAnimeListQuery, GetSearchAnimeListQueryVariables> {
+        return this.doRequest(
+            GQLMethod.USE_QUERY,
+            GET_SEARCH_ANIME_LIST,
+            { sourceId, page, query } as GetSearchAnimeListQueryVariables,
+            options,
+        );
+    }
+
+    public useGetAnime(
+        animeId: number | string,
+        options?: QueryHookOptions<GetAnimeScreenQuery, GetAnimeScreenQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetAnimeScreenQuery, GetAnimeScreenQueryVariables> {
+        return this.doRequest(
+            GQLMethod.USE_QUERY,
+            GET_ANIME_SCREEN,
+            { id: Number(animeId) } as GetAnimeScreenQueryVariables,
+            options,
+        );
+    }
+
+    public updateAnime(
+        animeId: number | string,
+        patch: { inLibrary?: boolean },
+        options?: MutationOptions<UpdateAnimeMutation, UpdateAnimeMutationVariables>,
+    ): AbortableApolloMutationResponse<UpdateAnimeMutation> {
+        return this.doRequest<UpdateAnimeMutation, UpdateAnimeMutationVariables>(
+            GQLMethod.MUTATION,
+            UPDATE_ANIME,
+            { input: { id: Number(animeId), patch } },
+            options,
+        );
+    }
+
+    public fetchAnime(
+        animeId: number | string,
+        options?: MutationOptions<FetchAnimeMutation, FetchAnimeMutationVariables>,
+    ): AbortableApolloMutationResponse<FetchAnimeMutation> {
+        return this.doRequest<FetchAnimeMutation, FetchAnimeMutationVariables>(
+            GQLMethod.MUTATION,
+            FETCH_ANIME,
+            { input: { id: Number(animeId) } },
+            { refetchQueries: [GET_ANIME_EPISODES], ...options },
+        );
+    }
+
+    public useGetAnimeEpisodes(
+        animeId: number | string,
+        options?: QueryHookOptions<GetAnimeEpisodesQuery, GetAnimeEpisodesQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetAnimeEpisodesQuery, GetAnimeEpisodesQueryVariables> {
+        return this.doRequest(
+            GQLMethod.USE_QUERY,
+            GET_ANIME_EPISODES,
+            { animeId: Number(animeId) } as GetAnimeEpisodesQueryVariables,
+            options,
+        );
+    }
+
+    public useGetEpisode(
+        episodeId: number | string,
+        options?: QueryHookOptions<GetEpisodeQuery, GetEpisodeQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetEpisodeQuery, GetEpisodeQueryVariables> {
+        return this.doRequest(
+            GQLMethod.USE_QUERY,
+            GET_EPISODE,
+            { id: Number(episodeId) } as GetEpisodeQueryVariables,
+            options,
+        );
+    }
+
+    public updateEpisode(
+        episodeId: number | string,
+        patch: { seen?: boolean; bookmarked?: boolean; lastSecondSeen?: string; totalSeconds?: string },
+        options?: MutationOptions<UpdateEpisodeMutation, UpdateEpisodeMutationVariables>,
+    ): AbortableApolloMutationResponse<UpdateEpisodeMutation> {
+        return this.doRequest<UpdateEpisodeMutation, UpdateEpisodeMutationVariables>(
+            GQLMethod.MUTATION,
+            UPDATE_EPISODE,
+            { input: { id: Number(episodeId), patch } },
+            options,
+        );
     }
 }
 
