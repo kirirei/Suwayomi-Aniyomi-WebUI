@@ -1,8 +1,13 @@
 name: CI build
 
-# Self-contained build for the Suwayomi-Aniyomi-WebUI fork: publishes a prerelease
+# Self-contained build for the Suwayomi-Aniyomi-WebUI fork: publishes a release
 # IN THIS REPO via the default GITHUB_TOKEN. No external preview/GH-Pages repos and
 # no BUILD_PREVIEW_TOKEN/DEPLOY_PREVIEW_TOKEN secrets required.
+#
+# Not marked prerelease/draft: this is the fork's equivalent of upstream's
+# "Suwayomi-WebUI-preview" repo releases, and the server's WebUIFlavor.WEBUI self-update
+# check queries GET /releases/latest, which GitHub only ever returns a non-prerelease,
+# non-draft release for.
 
 on:
   push:
@@ -61,11 +66,10 @@ jobs:
           echo "$genTag"
           echo "value=$genTag" >> "$GITHUB_OUTPUT"
 
-      - name: Publish prerelease
+      - name: Publish release
         uses: softprops/action-gh-release@v3
         with:
           tag_name: ${{ steps.GenTagName.outputs.value }}
           name: ${{ steps.GenTagName.outputs.value }}
-          prerelease: true
           generate_release_notes: true
           files: buildZip/*
