@@ -155,8 +155,11 @@ export function About() {
                 <ListItemLink to={aboutServer.github} target="_blank" rel="noreferrer">
                     <ListItemText primary={t`GitHub Server`} secondary={aboutServer.github} />
                 </ListItemLink>
-                <ListItemLink to="https://github.com/Suwayomi/Suwayomi-WebUI" target="_blank" rel="noreferrer">
-                    <ListItemText primary={t`GitHub WebUI`} secondary="https://github.com/Suwayomi/Suwayomi-WebUI" />
+                <ListItemLink to="https://github.com/kirirei/Suwayomi-Aniyomi-WebUI" target="_blank" rel="noreferrer">
+                    <ListItemText
+                        primary={t`GitHub WebUI`}
+                        secondary="https://github.com/kirirei/Suwayomi-Aniyomi-WebUI"
+                    />
                 </ListItemLink>
                 <ListItemLink to={aboutServer.discord} target="_blank" rel="noreferrer">
                     <ListItemText primary={t`Discord`} secondary={aboutServer.discord} />

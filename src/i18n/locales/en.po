@@ -478,6 +478,20 @@ msgstr "Alpha"
 msgid "Also remove from {0}"
 msgstr "Also remove from {0}"
 
+#: src/features/anime/screens/AnimeScreen.tsx
+#: src/features/navigation-bar/NavigationBar.constants.ts
+msgid "Anime"
+msgstr "Anime"
+
+#: src/features/anime/screens/AnimeLibrary.tsx
+msgid "Anime Library"
+msgstr "Anime Library"
+
+#: src/features/anime/screens/AnimeSources.tsx
+#: src/features/navigation-bar/NavigationBar.constants.ts
+msgid "Anime Sources"
+msgstr "Anime Sources"
+
 #: src/features/settings/screens/Appearance.tsx
 #: src/features/settings/screens/Settings.tsx
 msgid "Appearance"
@@ -699,6 +713,7 @@ msgstr "Briefly show tap zone layout preview when reader is opened or layout got
 msgid "Bright Pink"
 msgstr "Bright Pink"
 
+#: src/features/anime/screens/AnimeSourceBrowse.tsx
 #: src/features/browse/screens/Browse.tsx
 #: src/features/browse/screens/BrowseSettings.tsx
 #: src/features/navigation-bar/NavigationBar.constants.ts
@@ -1119,6 +1134,10 @@ msgstr "Could not find source. Check your installed extensions."
 msgid "Could not install the extension"
 msgstr "Could not install the extension"
 
+#: src/features/anime/screens/AnimeScreen.tsx
+msgid "Could not load anime"
+msgstr "Could not load anime"
+
 #: src/features/category/screens/CategorySettings.tsx
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx
 msgid "Could not load categories"
@@ -1127,6 +1146,10 @@ msgstr "Could not load categories"
 #: src/features/settings/components/DebugInformation.tsx
 msgid "Could not load data"
 msgstr "Could not load data"
+
+#: src/features/player/screens/Player.tsx
+msgid "Could not load episode"
+msgstr "Could not load episode"
 
 #: src/features/settings/screens/Appearance.tsx
 msgid "Could not load language"
@@ -1578,6 +1601,7 @@ msgstr "Download queue"
 msgid "Download selected"
 msgstr "Download selected"
 
+#: src/features/anime/screens/AnimeScreen.tsx
 #: src/features/chapter/components/cards/ChapterCard.tsx
 #: src/features/chapter/components/ChapterOptions.tsx
 #: src/features/library/components/LibraryOptionsPanel.tsx
@@ -2704,6 +2728,14 @@ msgstr "Next page"
 msgid "Next:"
 msgstr "Next:"
 
+#: src/features/anime/screens/AnimeSourceBrowse.tsx
+msgid "No anime found"
+msgstr "No anime found"
+
+#: src/features/anime/screens/AnimeSources.tsx
+msgid "No anime sources found. Install some anime extensions first."
+msgstr "No anime sources found. Install some anime extensions first."
+
 #: src/features/chapter/components/ChapterList.tsx
 msgid "No chapters found"
 msgstr "No chapters found"
@@ -2957,6 +2989,10 @@ msgstr "Pin source"
 #: src/features/global-search/screens/SearchAll.tsx
 msgid "Pinned"
 msgstr "Pinned"
+
+#: src/features/player/screens/Player.tsx
+msgid "Player"
+msgstr "Player"
 
 #: src/features/source/browse/screens/SourceMangas.tsx
 msgid "Popular"
@@ -4005,6 +4041,9 @@ msgstr "Type"
 msgid "UI Login"
 msgstr "UI Login"
 
+#: src/features/anime/screens/AnimeLibrary.tsx
+#: src/features/anime/screens/AnimeSourceBrowse.tsx
+#: src/features/anime/screens/AnimeSources.tsx
 #: src/features/backup/screens/Backup.tsx
 #: src/features/browse/extensions/Extensions.tsx
 #: src/features/browse/screens/BrowseSettings.tsx
@@ -4346,6 +4385,10 @@ msgstr "You have not read any series yet."
 #: src/features/browse/extensions/Extensions.tsx
 msgid "You have to add a extension store to be able to install extensions"
 msgstr "You have to add a extension store to be able to install extensions"
+
+#: src/features/anime/screens/AnimeLibrary.tsx
+msgid "Your anime library is empty"
+msgstr "Your anime library is empty"
 
 #: src/features/settings/Settings.constants.ts
 msgid "Your browser will prompt you to enter credentials with a dialog."
