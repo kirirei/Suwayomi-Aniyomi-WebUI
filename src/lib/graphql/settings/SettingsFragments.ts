@@ -106,6 +106,9 @@ export const SERVER_SETTINGS = gql`
         localAnimeSourcePath
         ffmpegPath
         episodeMarkSeenThreshold
+        externalPlayerEngine
+        mpvPath
+        vlcPath
 
         # Cloudflare bypass
         flareSolverrEnabled

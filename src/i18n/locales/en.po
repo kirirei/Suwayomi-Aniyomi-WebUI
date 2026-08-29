@@ -544,6 +544,10 @@ msgstr "Author"
 msgid "Auto"
 msgstr "Auto"
 
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "Auto (try mpv, then VLC)"
+msgstr "Auto (try mpv, then VLC)"
+
 #: src/features/downloads/components/DownloadAheadSetting.tsx
 msgid "Auto download while reading"
 msgstr "Auto download while reading"
@@ -1140,8 +1144,8 @@ msgid "Could not install the extension"
 msgstr "Could not install the extension"
 
 #: src/features/anime/screens/AnimeScreen.tsx
-msgid "Could not launch mpv - is it installed on the server machine?"
-msgstr "Could not launch mpv - is it installed on the server machine?"
+msgid "Could not launch external player - is mpv or VLC installed on the server machine?"
+msgstr "Could not launch external player - is mpv or VLC installed on the server machine?"
 
 #: src/features/anime/screens/AnimeScreen.tsx
 msgid "Could not load anime"
@@ -1720,6 +1724,10 @@ msgstr "Enable page read progress"
 msgid "Enable the WebView via CEF (Chromium)"
 msgstr "Enable the WebView via CEF (Chromium)"
 
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "Engine"
+msgstr "Engine"
+
 #: src/features/downloads/screens/DownloadSettings.tsx
 msgid "Entries in excluded categories will not be downloaded even if they are also in included categories"
 msgstr "Entries in excluded categories will not be downloaded even if they are also in included categories"
@@ -1826,6 +1834,10 @@ msgstr "Extension installed"
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Extension stores"
 msgstr "Extension stores"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "External player"
+msgstr "External player"
 
 #: src/features/settings/components/koreaderSync/KoreaderSyncSettings.tsx
 msgid "Failed to connect to KOReader Sync server."
@@ -2735,6 +2747,14 @@ msgstr "Move to bottom"
 msgid "Move to top"
 msgstr "Move to top"
 
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "mpv"
+msgstr "mpv"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "mpv path"
+msgstr "mpv path"
+
 #: src/base/utils/Languages.ts
 #: src/features/extension/Extensions.constants.ts
 msgid "Multi"
@@ -2956,8 +2976,8 @@ msgid "Open in browser"
 msgstr "Open in browser"
 
 #: src/features/anime/screens/AnimeScreen.tsx
-msgid "Open in mpv (server-local)"
-msgstr "Open in mpv (server-local)"
+msgid "Open in external player (server-local)"
+msgstr "Open in external player (server-local)"
 
 #: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
 #: src/features/manga/components/details/MangaDetails.tsx
@@ -3030,6 +3050,14 @@ msgstr "Password"
 #: src/features/anime/screens/AnimeSettings.tsx
 msgid "Path to the ffmpeg executable, used to remux or transcode video containers/codecs the browser can't play directly"
 msgstr "Path to the ffmpeg executable, used to remux or transcode video containers/codecs the browser can't play directly"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "Path to the mpv executable"
+msgstr "Path to the mpv executable"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "Path to the VLC executable"
+msgstr "Path to the VLC executable"
 
 #: src/features/navigation-bar/NavigationBar.constants.ts
 msgid "Paused — {count} remaining"
@@ -4359,6 +4387,14 @@ msgstr "Version"
 #: src/features/reader/settings/layout/components/ReaderSettingTapZoneInvertMode.tsx
 msgid "Vertical"
 msgstr "Vertical"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "VLC"
+msgstr "VLC"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "VLC path"
+msgstr "VLC path"
 
 #: src/features/settings/Settings.constants.ts
 msgid "VUI"

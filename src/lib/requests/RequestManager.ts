@@ -58,8 +58,8 @@ import type {
     GetSearchAnimeListQueryVariables,
     InstallExternalAnimeExtensionMutation,
     InstallExternalAnimeExtensionMutationVariables,
-    OpenEpisodeInMpvMutation,
-    OpenEpisodeInMpvMutationVariables,
+    OpenEpisodeInExternalPlayerMutation,
+    OpenEpisodeInExternalPlayerMutationVariables,
     SearchAnimeTrackQuery,
     SearchAnimeTrackQueryVariables,
     UnbindAnimeTrackMutation,
@@ -326,7 +326,7 @@ import {
     FETCH_ANIME,
     FETCH_ANIME_EXTENSIONS,
     INSTALL_EXTERNAL_ANIME_EXTENSION,
-    OPEN_EPISODE_IN_MPV,
+    OPEN_EPISODE_IN_EXTERNAL_PLAYER,
     UPDATE_ANIME,
     UPDATE_ANIME_EXTENSION,
     UPDATE_EPISODE,
@@ -4291,13 +4291,13 @@ export class RequestManager {
         );
     }
 
-    public openEpisodeInMpv(
+    public openEpisodeInExternalPlayer(
         episodeId: number | string,
-        options?: MutationOptions<OpenEpisodeInMpvMutation, OpenEpisodeInMpvMutationVariables>,
-    ): AbortableApolloMutationResponse<OpenEpisodeInMpvMutation> {
-        return this.doRequest<OpenEpisodeInMpvMutation, OpenEpisodeInMpvMutationVariables>(
+        options?: MutationOptions<OpenEpisodeInExternalPlayerMutation, OpenEpisodeInExternalPlayerMutationVariables>,
+    ): AbortableApolloMutationResponse<OpenEpisodeInExternalPlayerMutation> {
+        return this.doRequest<OpenEpisodeInExternalPlayerMutation, OpenEpisodeInExternalPlayerMutationVariables>(
             GQLMethod.MUTATION,
-            OPEN_EPISODE_IN_MPV,
+            OPEN_EPISODE_IN_EXTERNAL_PLAYER,
             { input: { id: Number(episodeId) } },
             options,
         );

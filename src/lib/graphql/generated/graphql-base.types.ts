@@ -1053,6 +1053,12 @@ export type ExtensionType = {
     versionName: Scalars['String']['output'];
 };
 
+export enum ExternalPlayerEngine {
+    Auto = 'AUTO',
+    Mpv = 'MPV',
+    Vlc = 'VLC',
+}
+
 export type FetchAnimeExtensionsInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
 };
@@ -1693,7 +1699,7 @@ export type Mutation = {
     loginTrackerOAuth: LoginTrackerOAuthPayload;
     logoutKoSyncAccount: LogoutKoSyncAccountPayload;
     logoutTracker: LogoutTrackerPayload;
-    openEpisodeInMpv: OpenEpisodeInMpvPayload;
+    openEpisodeInExternalPlayer: OpenEpisodeInExternalPlayerPayload;
     pullKoSyncProgress?: Maybe<PullKoSyncProgressPayload>;
     pushKoSyncProgress?: Maybe<PushKoSyncProgressPayload>;
     refreshToken: RefreshTokenPayload;
@@ -1920,8 +1926,8 @@ export type MutationLogoutTrackerArgs = {
     input: LogoutTrackerInput;
 };
 
-export type MutationOpenEpisodeInMpvArgs = {
-    input: OpenEpisodeInMpvInput;
+export type MutationOpenEpisodeInExternalPlayerArgs = {
+    input: OpenEpisodeInExternalPlayerInput;
 };
 
 export type MutationPullKoSyncProgressArgs = {
@@ -2149,15 +2155,15 @@ export type OsInfo = {
     version: Scalars['String']['output'];
 };
 
-export type OpenEpisodeInMpvInput = {
+export type OpenEpisodeInExternalPlayerInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
     id: Scalars['Int']['input'];
 };
 
-export type OpenEpisodeInMpvPayload = {
-    __typename?: 'OpenEpisodeInMpvPayload';
+export type OpenEpisodeInExternalPlayerPayload = {
+    __typename?: 'OpenEpisodeInExternalPlayerPayload';
     clientMutationId?: Maybe<Scalars['String']['output']>;
-    /** Whether mpv was launched successfully. False usually means mpv isn't installed on the server machine. */
+    /** Whether the external player was launched successfully. False usually means neither mpv nor VLC (per the externalPlayerEngine setting) is installed on the server machine. */
     success: Scalars['Boolean']['output'];
 };
 
@@ -2232,6 +2238,7 @@ export type PartialSettingsType = Settings & {
     excludeUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
     /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations, replace with extensionStores */
     extensionRepos?: Maybe<Array<Scalars['String']['output']>>;
+    externalPlayerEngine?: Maybe<ExternalPlayerEngine>;
     ffmpegPath?: Maybe<Scalars['String']['output']>;
     flareSolverrAsResponseFallback?: Maybe<Scalars['Boolean']['output']>;
     flareSolverrEnabled?: Maybe<Scalars['Boolean']['output']>;
@@ -2268,6 +2275,7 @@ export type PartialSettingsType = Settings & {
     maxLogFiles?: Maybe<Scalars['Int']['output']>;
     maxLogFolderSize?: Maybe<Scalars['String']['output']>;
     maxSourcesInParallel?: Maybe<Scalars['Int']['output']>;
+    mpvPath?: Maybe<Scalars['String']['output']>;
     opdsCbzMimetype?: Maybe<CbzMediaType>;
     opdsChapterSortOrder?: Maybe<SortOrder>;
     opdsEnablePageReadProgress?: Maybe<Scalars['Boolean']['output']>;
@@ -2297,6 +2305,7 @@ export type PartialSettingsType = Settings & {
     systemTrayEnabled?: Maybe<Scalars['Boolean']['output']>;
     updateMangas?: Maybe<Scalars['Boolean']['output']>;
     useHikariConnectionPool?: Maybe<Scalars['Boolean']['output']>;
+    vlcPath?: Maybe<Scalars['String']['output']>;
     webUIChannel?: Maybe<WebUiChannel>;
     webUIFlavor?: Maybe<WebUiFlavor>;
     webUIInterface?: Maybe<WebUiInterface>;
@@ -2335,6 +2344,7 @@ export type PartialSettingsTypeInput = {
     excludeEntryWithUnreadChapters?: InputMaybe<Scalars['Boolean']['input']>;
     excludeNotStarted?: InputMaybe<Scalars['Boolean']['input']>;
     excludeUnreadChapters?: InputMaybe<Scalars['Boolean']['input']>;
+    externalPlayerEngine?: InputMaybe<ExternalPlayerEngine>;
     ffmpegPath?: InputMaybe<Scalars['String']['input']>;
     flareSolverrAsResponseFallback?: InputMaybe<Scalars['Boolean']['input']>;
     flareSolverrEnabled?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2359,6 +2369,7 @@ export type PartialSettingsTypeInput = {
     maxLogFiles?: InputMaybe<Scalars['Int']['input']>;
     maxLogFolderSize?: InputMaybe<Scalars['String']['input']>;
     maxSourcesInParallel?: InputMaybe<Scalars['Int']['input']>;
+    mpvPath?: InputMaybe<Scalars['String']['input']>;
     opdsCbzMimetype?: InputMaybe<CbzMediaType>;
     opdsChapterSortOrder?: InputMaybe<SortOrder>;
     opdsEnablePageReadProgress?: InputMaybe<Scalars['Boolean']['input']>;
@@ -2388,6 +2399,7 @@ export type PartialSettingsTypeInput = {
     systemTrayEnabled?: InputMaybe<Scalars['Boolean']['input']>;
     updateMangas?: InputMaybe<Scalars['Boolean']['input']>;
     useHikariConnectionPool?: InputMaybe<Scalars['Boolean']['input']>;
+    vlcPath?: InputMaybe<Scalars['String']['input']>;
     webUIChannel?: InputMaybe<WebUiChannel>;
     webUIFlavor?: InputMaybe<WebUiFlavor>;
     webUIInterface?: InputMaybe<WebUiInterface>;
@@ -2947,6 +2959,7 @@ export type Settings = {
     excludeUnreadChapters?: Maybe<Scalars['Boolean']['output']>;
     /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations, replace with extensionStores */
     extensionRepos?: Maybe<Array<Scalars['String']['output']>>;
+    externalPlayerEngine?: Maybe<ExternalPlayerEngine>;
     ffmpegPath?: Maybe<Scalars['String']['output']>;
     flareSolverrAsResponseFallback?: Maybe<Scalars['Boolean']['output']>;
     flareSolverrEnabled?: Maybe<Scalars['Boolean']['output']>;
@@ -2983,6 +2996,7 @@ export type Settings = {
     maxLogFiles?: Maybe<Scalars['Int']['output']>;
     maxLogFolderSize?: Maybe<Scalars['String']['output']>;
     maxSourcesInParallel?: Maybe<Scalars['Int']['output']>;
+    mpvPath?: Maybe<Scalars['String']['output']>;
     opdsCbzMimetype?: Maybe<CbzMediaType>;
     opdsChapterSortOrder?: Maybe<SortOrder>;
     opdsEnablePageReadProgress?: Maybe<Scalars['Boolean']['output']>;
@@ -3012,6 +3026,7 @@ export type Settings = {
     systemTrayEnabled?: Maybe<Scalars['Boolean']['output']>;
     updateMangas?: Maybe<Scalars['Boolean']['output']>;
     useHikariConnectionPool?: Maybe<Scalars['Boolean']['output']>;
+    vlcPath?: Maybe<Scalars['String']['output']>;
     webUIChannel?: Maybe<WebUiChannel>;
     webUIFlavor?: Maybe<WebUiFlavor>;
     webUIInterface?: Maybe<WebUiInterface>;
@@ -3105,6 +3120,7 @@ export type SettingsType = Settings & {
     excludeUnreadChapters: Scalars['Boolean']['output'];
     /** @deprecated Replaced with addExtensionStore and removeExtensionStore mutations, replace with extensionStores */
     extensionRepos: Array<Scalars['String']['output']>;
+    externalPlayerEngine: ExternalPlayerEngine;
     ffmpegPath: Scalars['String']['output'];
     flareSolverrAsResponseFallback: Scalars['Boolean']['output'];
     flareSolverrEnabled: Scalars['Boolean']['output'];
@@ -3141,6 +3157,7 @@ export type SettingsType = Settings & {
     maxLogFiles: Scalars['Int']['output'];
     maxLogFolderSize: Scalars['String']['output'];
     maxSourcesInParallel: Scalars['Int']['output'];
+    mpvPath: Scalars['String']['output'];
     opdsCbzMimetype: CbzMediaType;
     opdsChapterSortOrder: SortOrder;
     opdsEnablePageReadProgress: Scalars['Boolean']['output'];
@@ -3170,6 +3187,7 @@ export type SettingsType = Settings & {
     systemTrayEnabled: Scalars['Boolean']['output'];
     updateMangas: Scalars['Boolean']['output'];
     useHikariConnectionPool: Scalars['Boolean']['output'];
+    vlcPath: Scalars['String']['output'];
     webUIChannel: WebUiChannel;
     webUIFlavor: WebUiFlavor;
     webUIInterface: WebUiInterface;

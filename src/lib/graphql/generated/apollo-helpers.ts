@@ -1270,7 +1270,7 @@ export type MutationKeySpecifier = (
     | 'loginTrackerOAuth'
     | 'logoutKoSyncAccount'
     | 'logoutTracker'
-    | 'openEpisodeInMpv'
+    | 'openEpisodeInExternalPlayer'
     | 'pullKoSyncProgress'
     | 'pushKoSyncProgress'
     | 'refreshToken'
@@ -1366,7 +1366,7 @@ export type MutationFieldPolicy = {
     loginTrackerOAuth?: FieldPolicy<any> | FieldReadFunction<any>;
     logoutKoSyncAccount?: FieldPolicy<any> | FieldReadFunction<any>;
     logoutTracker?: FieldPolicy<any> | FieldReadFunction<any>;
-    openEpisodeInMpv?: FieldPolicy<any> | FieldReadFunction<any>;
+    openEpisodeInExternalPlayer?: FieldPolicy<any> | FieldReadFunction<any>;
     pullKoSyncProgress?: FieldPolicy<any> | FieldReadFunction<any>;
     pushKoSyncProgress?: FieldPolicy<any> | FieldReadFunction<any>;
     refreshToken?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1429,12 +1429,12 @@ export type OSInfoFieldPolicy = {
     name?: FieldPolicy<any> | FieldReadFunction<any>;
     version?: FieldPolicy<any> | FieldReadFunction<any>;
 };
-export type OpenEpisodeInMpvPayloadKeySpecifier = (
+export type OpenEpisodeInExternalPlayerPayloadKeySpecifier = (
     | 'clientMutationId'
     | 'success'
-    | OpenEpisodeInMpvPayloadKeySpecifier
+    | OpenEpisodeInExternalPlayerPayloadKeySpecifier
 )[];
-export type OpenEpisodeInMpvPayloadFieldPolicy = {
+export type OpenEpisodeInExternalPlayerPayloadFieldPolicy = {
     clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
     success?: FieldPolicy<any> | FieldReadFunction<any>;
 };
@@ -1493,6 +1493,7 @@ export type PartialSettingsTypeKeySpecifier = (
     | 'excludeNotStarted'
     | 'excludeUnreadChapters'
     | 'extensionRepos'
+    | 'externalPlayerEngine'
     | 'ffmpegPath'
     | 'flareSolverrAsResponseFallback'
     | 'flareSolverrEnabled'
@@ -1523,6 +1524,7 @@ export type PartialSettingsTypeKeySpecifier = (
     | 'maxLogFiles'
     | 'maxLogFolderSize'
     | 'maxSourcesInParallel'
+    | 'mpvPath'
     | 'opdsCbzMimetype'
     | 'opdsChapterSortOrder'
     | 'opdsEnablePageReadProgress'
@@ -1552,6 +1554,7 @@ export type PartialSettingsTypeKeySpecifier = (
     | 'systemTrayEnabled'
     | 'updateMangas'
     | 'useHikariConnectionPool'
+    | 'vlcPath'
     | 'webUIChannel'
     | 'webUIFlavor'
     | 'webUIInterface'
@@ -1595,6 +1598,7 @@ export type PartialSettingsTypeFieldPolicy = {
     excludeNotStarted?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
     extensionRepos?: FieldPolicy<any> | FieldReadFunction<any>;
+    externalPlayerEngine?: FieldPolicy<any> | FieldReadFunction<any>;
     ffmpegPath?: FieldPolicy<any> | FieldReadFunction<any>;
     flareSolverrAsResponseFallback?: FieldPolicy<any> | FieldReadFunction<any>;
     flareSolverrEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1625,6 +1629,7 @@ export type PartialSettingsTypeFieldPolicy = {
     maxLogFiles?: FieldPolicy<any> | FieldReadFunction<any>;
     maxLogFolderSize?: FieldPolicy<any> | FieldReadFunction<any>;
     maxSourcesInParallel?: FieldPolicy<any> | FieldReadFunction<any>;
+    mpvPath?: FieldPolicy<any> | FieldReadFunction<any>;
     opdsCbzMimetype?: FieldPolicy<any> | FieldReadFunction<any>;
     opdsChapterSortOrder?: FieldPolicy<any> | FieldReadFunction<any>;
     opdsEnablePageReadProgress?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1654,6 +1659,7 @@ export type PartialSettingsTypeFieldPolicy = {
     systemTrayEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
     updateMangas?: FieldPolicy<any> | FieldReadFunction<any>;
     useHikariConnectionPool?: FieldPolicy<any> | FieldReadFunction<any>;
+    vlcPath?: FieldPolicy<any> | FieldReadFunction<any>;
     webUIChannel?: FieldPolicy<any> | FieldReadFunction<any>;
     webUIFlavor?: FieldPolicy<any> | FieldReadFunction<any>;
     webUIInterface?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1954,6 +1960,7 @@ export type SettingsKeySpecifier = (
     | 'excludeNotStarted'
     | 'excludeUnreadChapters'
     | 'extensionRepos'
+    | 'externalPlayerEngine'
     | 'ffmpegPath'
     | 'flareSolverrAsResponseFallback'
     | 'flareSolverrEnabled'
@@ -1984,6 +1991,7 @@ export type SettingsKeySpecifier = (
     | 'maxLogFiles'
     | 'maxLogFolderSize'
     | 'maxSourcesInParallel'
+    | 'mpvPath'
     | 'opdsCbzMimetype'
     | 'opdsChapterSortOrder'
     | 'opdsEnablePageReadProgress'
@@ -2013,6 +2021,7 @@ export type SettingsKeySpecifier = (
     | 'systemTrayEnabled'
     | 'updateMangas'
     | 'useHikariConnectionPool'
+    | 'vlcPath'
     | 'webUIChannel'
     | 'webUIFlavor'
     | 'webUIInterface'
@@ -2056,6 +2065,7 @@ export type SettingsFieldPolicy = {
     excludeNotStarted?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
     extensionRepos?: FieldPolicy<any> | FieldReadFunction<any>;
+    externalPlayerEngine?: FieldPolicy<any> | FieldReadFunction<any>;
     ffmpegPath?: FieldPolicy<any> | FieldReadFunction<any>;
     flareSolverrAsResponseFallback?: FieldPolicy<any> | FieldReadFunction<any>;
     flareSolverrEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2086,6 +2096,7 @@ export type SettingsFieldPolicy = {
     maxLogFiles?: FieldPolicy<any> | FieldReadFunction<any>;
     maxLogFolderSize?: FieldPolicy<any> | FieldReadFunction<any>;
     maxSourcesInParallel?: FieldPolicy<any> | FieldReadFunction<any>;
+    mpvPath?: FieldPolicy<any> | FieldReadFunction<any>;
     opdsCbzMimetype?: FieldPolicy<any> | FieldReadFunction<any>;
     opdsChapterSortOrder?: FieldPolicy<any> | FieldReadFunction<any>;
     opdsEnablePageReadProgress?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2115,6 +2126,7 @@ export type SettingsFieldPolicy = {
     systemTrayEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
     updateMangas?: FieldPolicy<any> | FieldReadFunction<any>;
     useHikariConnectionPool?: FieldPolicy<any> | FieldReadFunction<any>;
+    vlcPath?: FieldPolicy<any> | FieldReadFunction<any>;
     webUIChannel?: FieldPolicy<any> | FieldReadFunction<any>;
     webUIFlavor?: FieldPolicy<any> | FieldReadFunction<any>;
     webUIInterface?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2209,6 +2221,7 @@ export type SettingsTypeKeySpecifier = (
     | 'excludeNotStarted'
     | 'excludeUnreadChapters'
     | 'extensionRepos'
+    | 'externalPlayerEngine'
     | 'ffmpegPath'
     | 'flareSolverrAsResponseFallback'
     | 'flareSolverrEnabled'
@@ -2239,6 +2252,7 @@ export type SettingsTypeKeySpecifier = (
     | 'maxLogFiles'
     | 'maxLogFolderSize'
     | 'maxSourcesInParallel'
+    | 'mpvPath'
     | 'opdsCbzMimetype'
     | 'opdsChapterSortOrder'
     | 'opdsEnablePageReadProgress'
@@ -2268,6 +2282,7 @@ export type SettingsTypeKeySpecifier = (
     | 'systemTrayEnabled'
     | 'updateMangas'
     | 'useHikariConnectionPool'
+    | 'vlcPath'
     | 'webUIChannel'
     | 'webUIFlavor'
     | 'webUIInterface'
@@ -2311,6 +2326,7 @@ export type SettingsTypeFieldPolicy = {
     excludeNotStarted?: FieldPolicy<any> | FieldReadFunction<any>;
     excludeUnreadChapters?: FieldPolicy<any> | FieldReadFunction<any>;
     extensionRepos?: FieldPolicy<any> | FieldReadFunction<any>;
+    externalPlayerEngine?: FieldPolicy<any> | FieldReadFunction<any>;
     ffmpegPath?: FieldPolicy<any> | FieldReadFunction<any>;
     flareSolverrAsResponseFallback?: FieldPolicy<any> | FieldReadFunction<any>;
     flareSolverrEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2341,6 +2357,7 @@ export type SettingsTypeFieldPolicy = {
     maxLogFiles?: FieldPolicy<any> | FieldReadFunction<any>;
     maxLogFolderSize?: FieldPolicy<any> | FieldReadFunction<any>;
     maxSourcesInParallel?: FieldPolicy<any> | FieldReadFunction<any>;
+    mpvPath?: FieldPolicy<any> | FieldReadFunction<any>;
     opdsCbzMimetype?: FieldPolicy<any> | FieldReadFunction<any>;
     opdsChapterSortOrder?: FieldPolicy<any> | FieldReadFunction<any>;
     opdsEnablePageReadProgress?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -2370,6 +2387,7 @@ export type SettingsTypeFieldPolicy = {
     systemTrayEnabled?: FieldPolicy<any> | FieldReadFunction<any>;
     updateMangas?: FieldPolicy<any> | FieldReadFunction<any>;
     useHikariConnectionPool?: FieldPolicy<any> | FieldReadFunction<any>;
+    vlcPath?: FieldPolicy<any> | FieldReadFunction<any>;
     webUIChannel?: FieldPolicy<any> | FieldReadFunction<any>;
     webUIFlavor?: FieldPolicy<any> | FieldReadFunction<any>;
     webUIInterface?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -3448,12 +3466,12 @@ export type StrictTypedTypePolicies = {
         keyFields?: false | OSInfoKeySpecifier | (() => undefined | OSInfoKeySpecifier);
         fields?: OSInfoFieldPolicy;
     };
-    OpenEpisodeInMpvPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+    OpenEpisodeInExternalPlayerPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?:
             | false
-            | OpenEpisodeInMpvPayloadKeySpecifier
-            | (() => undefined | OpenEpisodeInMpvPayloadKeySpecifier);
-        fields?: OpenEpisodeInMpvPayloadFieldPolicy;
+            | OpenEpisodeInExternalPlayerPayloadKeySpecifier
+            | (() => undefined | OpenEpisodeInExternalPlayerPayloadKeySpecifier);
+        fields?: OpenEpisodeInExternalPlayerPayloadFieldPolicy;
     };
     PageInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier);

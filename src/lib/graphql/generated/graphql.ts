@@ -233,13 +233,13 @@ export type UpdateEpisodeMutation = {
     } | null;
 };
 
-export type OpenEpisodeInMpvMutationVariables = Exact<{
-    input: Types.OpenEpisodeInMpvInput;
+export type OpenEpisodeInExternalPlayerMutationVariables = Exact<{
+    input: Types.OpenEpisodeInExternalPlayerInput;
 }>;
 
-export type OpenEpisodeInMpvMutation = {
+export type OpenEpisodeInExternalPlayerMutation = {
     __typename: 'Mutation';
-    openEpisodeInMpv: { __typename: 'OpenEpisodeInMpvPayload'; success: boolean };
+    openEpisodeInExternalPlayer: { __typename: 'OpenEpisodeInExternalPlayerPayload'; success: boolean };
 };
 
 export type GetAnimeExtensionsQueryVariables = Exact<{ [key: string]: never }>;
@@ -3859,6 +3859,9 @@ export type ServerSettingsFragment = {
     localAnimeSourcePath: string;
     ffmpegPath: string;
     episodeMarkSeenThreshold: number;
+    externalPlayerEngine: Types.ExternalPlayerEngine;
+    mpvPath: string;
+    vlcPath: string;
     flareSolverrEnabled: boolean;
     flareSolverrUrl: string;
     flareSolverrTimeout: number;
@@ -3975,6 +3978,9 @@ export type ResetServerSettingsMutation = {
             localAnimeSourcePath: string;
             ffmpegPath: string;
             episodeMarkSeenThreshold: number;
+            externalPlayerEngine: Types.ExternalPlayerEngine;
+            mpvPath: string;
+            vlcPath: string;
             flareSolverrEnabled: boolean;
             flareSolverrUrl: string;
             flareSolverrTimeout: number;
@@ -4101,6 +4107,9 @@ export type UpdateServerSettingsMutation = {
             localAnimeSourcePath: string;
             ffmpegPath: string;
             episodeMarkSeenThreshold: number;
+            externalPlayerEngine: Types.ExternalPlayerEngine;
+            mpvPath: string;
+            vlcPath: string;
             flareSolverrEnabled: boolean;
             flareSolverrUrl: string;
             flareSolverrTimeout: number;
@@ -4223,6 +4232,9 @@ export type GetServerSettingsQuery = {
         localAnimeSourcePath: string;
         ffmpegPath: string;
         episodeMarkSeenThreshold: number;
+        externalPlayerEngine: Types.ExternalPlayerEngine;
+        mpvPath: string;
+        vlcPath: string;
         flareSolverrEnabled: boolean;
         flareSolverrUrl: string;
         flareSolverrTimeout: number;

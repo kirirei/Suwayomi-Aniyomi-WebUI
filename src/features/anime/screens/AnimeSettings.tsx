@@ -7,9 +7,12 @@
  */
 
 import List from '@mui/material/List';
+import ListSubheader from '@mui/material/ListSubheader';
 import { useLingui } from '@lingui/react/macro';
 import { TextSetting } from '@/base/components/settings/text/TextSetting.tsx';
 import { NumberSetting } from '@/base/components/settings/NumberSetting.tsx';
+import type { SelectSettingValue } from '@/base/components/settings/SelectSetting.tsx';
+import { SelectSetting } from '@/base/components/settings/SelectSetting.tsx';
 import { requestManager } from '@/lib/requests/RequestManager.ts';
 import { makeToast } from '@/base/utils/Toast.ts';
 import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
@@ -18,8 +21,12 @@ import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts'
 import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 import type { ServerSettings } from '@/features/settings/Settings.types.ts';
+import { ExternalPlayerEngine } from '@/lib/graphql/generated/graphql-base.types.ts';
 
-type AnimeSettingsType = Pick<ServerSettings, 'localAnimeSourcePath' | 'ffmpegPath' | 'episodeMarkSeenThreshold'>;
+type AnimeSettingsType = Pick<
+    ServerSettings,
+    'localAnimeSourcePath' | 'ffmpegPath' | 'episodeMarkSeenThreshold' | 'externalPlayerEngine' | 'mpvPath' | 'vlcPath'
+>;
 
 /** The only settings exposed for now are ones that already affect real behavior - see ServerConfig.kt's ANIME group. */
 export const AnimeSettings = () => {
@@ -89,6 +96,40 @@ export const AnimeSettings = () => {
                 valueUnit=""
                 handleUpdate={(value) => updateSetting('episodeMarkSeenThreshold', value)}
             />
+            <List
+                subheader={
+                    <ListSubheader component="div" id="anime-settings-external-player">
+                        {t`External player`}
+                    </ListSubheader>
+                }
+            >
+                <SelectSetting<ExternalPlayerEngine>
+                    settingName={t`Engine`}
+                    value={animeSettings?.externalPlayerEngine ?? ExternalPlayerEngine.Auto}
+                    values={
+                        [
+                            [ExternalPlayerEngine.Auto, { text: t`Auto (try mpv, then VLC)` }],
+                            [ExternalPlayerEngine.Mpv, { text: t`mpv` }],
+                            [ExternalPlayerEngine.Vlc, { text: t`VLC` }],
+                        ] satisfies SelectSettingValue<ExternalPlayerEngine>[]
+                    }
+                    handleChange={(value) => updateSetting('externalPlayerEngine', value)}
+                />
+                <TextSetting
+                    settingName={t`mpv path`}
+                    dialogDescription={t`Path to the mpv executable`}
+                    value={animeSettings?.mpvPath}
+                    settingDescription={animeSettings?.mpvPath ?? 'mpv'}
+                    handleChange={(path) => updateSetting('mpvPath', path)}
+                />
+                <TextSetting
+                    settingName={t`VLC path`}
+                    dialogDescription={t`Path to the VLC executable`}
+                    value={animeSettings?.vlcPath}
+                    settingDescription={animeSettings?.vlcPath ?? 'vlc'}
+                    handleChange={(path) => updateSetting('vlcPath', path)}
+                />
+            </List>
         </List>
     );
 };

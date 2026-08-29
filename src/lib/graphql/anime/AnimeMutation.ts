@@ -82,9 +82,9 @@ export const UPDATE_EPISODE = gql`
     }
 `;
 
-export const OPEN_EPISODE_IN_MPV = gql`
-    mutation OPEN_EPISODE_IN_MPV($input: OpenEpisodeInMpvInput!) {
-        openEpisodeInMpv(input: $input) {
+export const OPEN_EPISODE_IN_EXTERNAL_PLAYER = gql`
+    mutation OPEN_EPISODE_IN_EXTERNAL_PLAYER($input: OpenEpisodeInExternalPlayerInput!) {
+        openEpisodeInExternalPlayer(input: $input) {
             success
         }
     }

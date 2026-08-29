@@ -157,22 +157,22 @@ export const AnimeScreen = () => {
                             secondary={episode.downloaded ? t`Downloaded` : undefined}
                             slotProps={{ primary: { sx: { fontWeight: episode.seen ? 400 : 700 } } }}
                         />
-                        <CustomTooltip title={t`Open in mpv (server-local)`}>
+                        <CustomTooltip title={t`Open in external player (server-local)`}>
                             <IconButton
                                 edge="end"
                                 onClick={(e) => {
                                     e.stopPropagation();
                                     requestManager
-                                        .openEpisodeInMpv(episode.id)
-                                        .response.then(({ data: mpvResult }) => {
-                                            if (!mpvResult?.openEpisodeInMpv.success) {
+                                        .openEpisodeInExternalPlayer(episode.id)
+                                        .response.then(({ data: externalPlayerResult }) => {
+                                            if (!externalPlayerResult?.openEpisodeInExternalPlayer.success) {
                                                 makeToast(
-                                                    t`Could not launch mpv - is it installed on the server machine?`,
+                                                    t`Could not launch external player - is mpv or VLC installed on the server machine?`,
                                                     'error',
                                                 );
                                             }
                                         })
-                                        .catch(defaultPromiseErrorHandler('AnimeScreen::openEpisodeInMpv'));
+                                        .catch(defaultPromiseErrorHandler('AnimeScreen::openEpisodeInExternalPlayer'));
                                 }}
                             >
                                 <ComputerIcon />
