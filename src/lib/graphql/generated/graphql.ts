@@ -233,6 +233,15 @@ export type UpdateEpisodeMutation = {
     } | null;
 };
 
+export type OpenEpisodeInMpvMutationVariables = Exact<{
+    input: Types.OpenEpisodeInMpvInput;
+}>;
+
+export type OpenEpisodeInMpvMutation = {
+    __typename: 'Mutation';
+    openEpisodeInMpv: { __typename: 'OpenEpisodeInMpvPayload'; success: boolean };
+};
+
 export type GetAnimeExtensionsQueryVariables = Exact<{ [key: string]: never }>;
 
 export type GetAnimeExtensionsQuery = {

@@ -1270,6 +1270,7 @@ export type MutationKeySpecifier = (
     | 'loginTrackerOAuth'
     | 'logoutKoSyncAccount'
     | 'logoutTracker'
+    | 'openEpisodeInMpv'
     | 'pullKoSyncProgress'
     | 'pushKoSyncProgress'
     | 'refreshToken'
@@ -1365,6 +1366,7 @@ export type MutationFieldPolicy = {
     loginTrackerOAuth?: FieldPolicy<any> | FieldReadFunction<any>;
     logoutKoSyncAccount?: FieldPolicy<any> | FieldReadFunction<any>;
     logoutTracker?: FieldPolicy<any> | FieldReadFunction<any>;
+    openEpisodeInMpv?: FieldPolicy<any> | FieldReadFunction<any>;
     pullKoSyncProgress?: FieldPolicy<any> | FieldReadFunction<any>;
     pushKoSyncProgress?: FieldPolicy<any> | FieldReadFunction<any>;
     refreshToken?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1426,6 +1428,15 @@ export type OSInfoFieldPolicy = {
     build?: FieldPolicy<any> | FieldReadFunction<any>;
     name?: FieldPolicy<any> | FieldReadFunction<any>;
     version?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type OpenEpisodeInMpvPayloadKeySpecifier = (
+    | 'clientMutationId'
+    | 'success'
+    | OpenEpisodeInMpvPayloadKeySpecifier
+)[];
+export type OpenEpisodeInMpvPayloadFieldPolicy = {
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+    success?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type PageInfoKeySpecifier = (
     | 'endCursor'
@@ -3436,6 +3447,13 @@ export type StrictTypedTypePolicies = {
     OSInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | OSInfoKeySpecifier | (() => undefined | OSInfoKeySpecifier);
         fields?: OSInfoFieldPolicy;
+    };
+    OpenEpisodeInMpvPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?:
+            | false
+            | OpenEpisodeInMpvPayloadKeySpecifier
+            | (() => undefined | OpenEpisodeInMpvPayloadKeySpecifier);
+        fields?: OpenEpisodeInMpvPayloadFieldPolicy;
     };
     PageInfo?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | PageInfoKeySpecifier | (() => undefined | PageInfoKeySpecifier);

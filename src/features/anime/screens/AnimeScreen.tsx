@@ -18,6 +18,7 @@ import Checkbox from '@mui/material/Checkbox';
 import BookmarkIcon from '@mui/icons-material/Bookmark';
 import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import ComputerIcon from '@mui/icons-material/Computer';
 import { useEffect, useRef } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useLingui } from '@lingui/react/macro';
@@ -29,6 +30,8 @@ import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts'
 import { AppRoutes } from '@/base/AppRoute.constants.ts';
 import { useAppTitleAndAction } from '@/features/navigation-bar/hooks/useAppTitleAndAction.ts';
 import { TrackAnimeButton } from '@/features/anime/components/TrackAnimeButton.tsx';
+import { makeToast } from '@/base/utils/Toast.ts';
+import { CustomTooltip } from '@/base/components/CustomTooltip.tsx';
 
 export const AnimeScreen = () => {
     const { t } = useLingui();
@@ -154,6 +157,27 @@ export const AnimeScreen = () => {
                             secondary={episode.downloaded ? t`Downloaded` : undefined}
                             slotProps={{ primary: { sx: { fontWeight: episode.seen ? 400 : 700 } } }}
                         />
+                        <CustomTooltip title={t`Open in mpv (server-local)`}>
+                            <IconButton
+                                edge="end"
+                                onClick={(e) => {
+                                    e.stopPropagation();
+                                    requestManager
+                                        .openEpisodeInMpv(episode.id)
+                                        .response.then(({ data: mpvResult }) => {
+                                            if (!mpvResult?.openEpisodeInMpv.success) {
+                                                makeToast(
+                                                    t`Could not launch mpv - is it installed on the server machine?`,
+                                                    'error',
+                                                );
+                                            }
+                                        })
+                                        .catch(defaultPromiseErrorHandler('AnimeScreen::openEpisodeInMpv'));
+                                }}
+                            >
+                                <ComputerIcon />
+                            </IconButton>
+                        </CustomTooltip>
                     </ListItemButton>
                 ))}
             </List>

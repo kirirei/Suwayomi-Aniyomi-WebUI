@@ -1140,6 +1140,10 @@ msgid "Could not install the extension"
 msgstr "Could not install the extension"
 
 #: src/features/anime/screens/AnimeScreen.tsx
+msgid "Could not launch mpv - is it installed on the server machine?"
+msgstr "Could not launch mpv - is it installed on the server machine?"
+
+#: src/features/anime/screens/AnimeScreen.tsx
 msgid "Could not load anime"
 msgstr "Could not load anime"
 
@@ -2950,6 +2954,10 @@ msgstr "Open discord"
 #: src/features/tracker/components/cards/TrackerActiveCard.tsx
 msgid "Open in browser"
 msgstr "Open in browser"
+
+#: src/features/anime/screens/AnimeScreen.tsx
+msgid "Open in mpv (server-local)"
+msgstr "Open in mpv (server-local)"
 
 #: src/features/chapter/components/actions/ChapterActionMenuItems.tsx
 #: src/features/manga/components/details/MangaDetails.tsx

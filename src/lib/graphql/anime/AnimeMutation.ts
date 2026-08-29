@@ -81,3 +81,11 @@ export const UPDATE_EPISODE = gql`
         }
     }
 `;
+
+export const OPEN_EPISODE_IN_MPV = gql`
+    mutation OPEN_EPISODE_IN_MPV($input: OpenEpisodeInMpvInput!) {
+        openEpisodeInMpv(input: $input) {
+            success
+        }
+    }
+`;

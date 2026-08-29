@@ -1693,6 +1693,7 @@ export type Mutation = {
     loginTrackerOAuth: LoginTrackerOAuthPayload;
     logoutKoSyncAccount: LogoutKoSyncAccountPayload;
     logoutTracker: LogoutTrackerPayload;
+    openEpisodeInMpv: OpenEpisodeInMpvPayload;
     pullKoSyncProgress?: Maybe<PullKoSyncProgressPayload>;
     pushKoSyncProgress?: Maybe<PushKoSyncProgressPayload>;
     refreshToken: RefreshTokenPayload;
@@ -1919,6 +1920,10 @@ export type MutationLogoutTrackerArgs = {
     input: LogoutTrackerInput;
 };
 
+export type MutationOpenEpisodeInMpvArgs = {
+    input: OpenEpisodeInMpvInput;
+};
+
 export type MutationPullKoSyncProgressArgs = {
     input: PullKoSyncProgressInput;
 };
@@ -2142,6 +2147,18 @@ export type OsInfo = {
     build?: Maybe<Scalars['String']['output']>;
     name: Scalars['String']['output'];
     version: Scalars['String']['output'];
+};
+
+export type OpenEpisodeInMpvInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    id: Scalars['Int']['input'];
+};
+
+export type OpenEpisodeInMpvPayload = {
+    __typename?: 'OpenEpisodeInMpvPayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    /** Whether mpv was launched successfully. False usually means mpv isn't installed on the server machine. */
+    success: Scalars['Boolean']['output'];
 };
 
 export type PageInfo = {

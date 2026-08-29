@@ -58,6 +58,8 @@ import type {
     GetSearchAnimeListQueryVariables,
     InstallExternalAnimeExtensionMutation,
     InstallExternalAnimeExtensionMutationVariables,
+    OpenEpisodeInMpvMutation,
+    OpenEpisodeInMpvMutationVariables,
     SearchAnimeTrackQuery,
     SearchAnimeTrackQueryVariables,
     UnbindAnimeTrackMutation,
@@ -324,6 +326,7 @@ import {
     FETCH_ANIME,
     FETCH_ANIME_EXTENSIONS,
     INSTALL_EXTERNAL_ANIME_EXTENSION,
+    OPEN_EPISODE_IN_MPV,
     UPDATE_ANIME,
     UPDATE_ANIME_EXTENSION,
     UPDATE_EPISODE,
@@ -4284,6 +4287,18 @@ export class RequestManager {
             GQLMethod.MUTATION,
             UPDATE_EPISODE,
             { input: { id: Number(episodeId), patch } },
+            options,
+        );
+    }
+
+    public openEpisodeInMpv(
+        episodeId: number | string,
+        options?: MutationOptions<OpenEpisodeInMpvMutation, OpenEpisodeInMpvMutationVariables>,
+    ): AbortableApolloMutationResponse<OpenEpisodeInMpvMutation> {
+        return this.doRequest<OpenEpisodeInMpvMutation, OpenEpisodeInMpvMutationVariables>(
+            GQLMethod.MUTATION,
+            OPEN_EPISODE_IN_MPV,
+            { input: { id: Number(episodeId) } },
             options,
         );
     }
