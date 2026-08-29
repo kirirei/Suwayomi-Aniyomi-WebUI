@@ -33,6 +33,17 @@ export type AboutWebUi = {
     updateTimestamp: Scalars['LongString']['output'];
 };
 
+export type AddAnimeExtensionStoreInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    indexUrl: Scalars['String']['input'];
+};
+
+export type AddAnimeExtensionStorePayload = {
+    __typename?: 'AddAnimeExtensionStorePayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    extensionStore: AnimeExtensionStoreType;
+};
+
 export type AddExtensionStoreInput = {
     clientMutationId?: InputMaybe<Scalars['String']['input']>;
     indexUrl: Scalars['String']['input'];
@@ -42,6 +53,18 @@ export type AddExtensionStorePayload = {
     __typename?: 'AddExtensionStorePayload';
     clientMutationId?: Maybe<Scalars['String']['output']>;
     extensionStore: ExtensionStoreType;
+};
+
+export type AnimeExtensionStoreType = {
+    __typename?: 'AnimeExtensionStoreType';
+    badgeLabel: Scalars['String']['output'];
+    contactDiscord?: Maybe<Scalars['String']['output']>;
+    contactWebsite: Scalars['String']['output'];
+    extensionListUrl?: Maybe<Scalars['String']['output']>;
+    indexUrl: Scalars['String']['output'];
+    isLegacy: Scalars['Boolean']['output'];
+    name: Scalars['String']['output'];
+    signingKey: Scalars['String']['output'];
 };
 
 export type AnimeExtensionType = {
@@ -1653,6 +1676,7 @@ export type MultiSelectListPreference = {
 
 export type Mutation = {
     __typename?: 'Mutation';
+    addAnimeExtensionStore?: Maybe<AddAnimeExtensionStorePayload>;
     addExtensionStore?: Maybe<AddExtensionStorePayload>;
     bindAnimeTrack: BindAnimeTrackPayload;
     bindTrack: BindTrackPayload;
@@ -1703,6 +1727,7 @@ export type Mutation = {
     pullKoSyncProgress?: Maybe<PullKoSyncProgressPayload>;
     pushKoSyncProgress?: Maybe<PushKoSyncProgressPayload>;
     refreshToken: RefreshTokenPayload;
+    removeAnimeExtensionStore?: Maybe<RemoveAnimeExtensionStorePayload>;
     removeExtensionStore?: Maybe<RemoveExtensionStorePayload>;
     reorderChapterDownload?: Maybe<ReorderChapterDownloadPayload>;
     reorderChapterDownloads?: Maybe<ReorderChapterDownloadPayload>;
@@ -1748,6 +1773,10 @@ export type Mutation = {
     updateStop: UpdateStopPayload;
     updateTrack: UpdateTrackPayload;
     updateWebUI?: Maybe<WebUiUpdatePayload>;
+};
+
+export type MutationAddAnimeExtensionStoreArgs = {
+    input: AddAnimeExtensionStoreInput;
 };
 
 export type MutationAddExtensionStoreArgs = {
@@ -1940,6 +1969,10 @@ export type MutationPushKoSyncProgressArgs = {
 
 export type MutationRefreshTokenArgs = {
     input: RefreshTokenInput;
+};
+
+export type MutationRemoveAnimeExtensionStoreArgs = {
+    input: RemoveAnimeExtensionStoreInput;
 };
 
 export type MutationRemoveExtensionStoreArgs = {
@@ -2451,6 +2484,7 @@ export type Query = {
     aboutWebUI: AboutWebUi;
     anime: AnimeType;
     animeExtension?: Maybe<AnimeExtensionType>;
+    animeExtensionStores: Array<AnimeExtensionStoreType>;
     animeExtensions: Array<AnimeExtensionType>;
     animeLibrary: Array<AnimeType>;
     animeSource?: Maybe<AnimeSourceType>;
@@ -2697,6 +2731,17 @@ export type RefreshTokenPayload = {
     __typename?: 'RefreshTokenPayload';
     accessToken: Scalars['String']['output'];
     clientMutationId?: Maybe<Scalars['String']['output']>;
+};
+
+export type RemoveAnimeExtensionStoreInput = {
+    clientMutationId?: InputMaybe<Scalars['String']['input']>;
+    indexUrl: Scalars['String']['input'];
+};
+
+export type RemoveAnimeExtensionStorePayload = {
+    __typename?: 'RemoveAnimeExtensionStorePayload';
+    clientMutationId?: Maybe<Scalars['String']['output']>;
+    extensionStore?: Maybe<AnimeExtensionStoreType>;
 };
 
 export type RemoveExtensionStoreInput = {

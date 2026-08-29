@@ -4,6 +4,69 @@ type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type Incremental<T> = T | { [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never };
 import type * as Types from './graphql-base.types';
 
+export type AnimeExtensionStoreFieldsFragment = {
+    __typename: 'AnimeExtensionStoreType';
+    indexUrl: string;
+    name: string;
+    badgeLabel: string;
+    signingKey: string;
+    contactWebsite: string;
+    contactDiscord: string | null;
+    isLegacy: boolean;
+    extensionListUrl: string | null;
+};
+
+export type AddAnimeExtensionStoreMutationVariables = Exact<{
+    input: Types.AddAnimeExtensionStoreInput;
+}>;
+
+export type AddAnimeExtensionStoreMutation = {
+    __typename: 'Mutation';
+    addAnimeExtensionStore: {
+        __typename: 'AddAnimeExtensionStorePayload';
+        extensionStore: {
+            __typename: 'AnimeExtensionStoreType';
+            indexUrl: string;
+            name: string;
+            badgeLabel: string;
+            signingKey: string;
+            contactWebsite: string;
+            contactDiscord: string | null;
+            isLegacy: boolean;
+            extensionListUrl: string | null;
+        };
+    } | null;
+};
+
+export type RemoveAnimeExtensionStoreMutationVariables = Exact<{
+    input: Types.RemoveAnimeExtensionStoreInput;
+}>;
+
+export type RemoveAnimeExtensionStoreMutation = {
+    __typename: 'Mutation';
+    removeAnimeExtensionStore: {
+        __typename: 'RemoveAnimeExtensionStorePayload';
+        extensionStore: { __typename: 'AnimeExtensionStoreType'; indexUrl: string } | null;
+    } | null;
+};
+
+export type GetAnimeExtensionStoresQueryVariables = Exact<{ [key: string]: never }>;
+
+export type GetAnimeExtensionStoresQuery = {
+    __typename: 'Query';
+    animeExtensionStores: Array<{
+        __typename: 'AnimeExtensionStoreType';
+        indexUrl: string;
+        name: string;
+        badgeLabel: string;
+        signingKey: string;
+        contactWebsite: string;
+        contactDiscord: string | null;
+        isLegacy: boolean;
+        extensionListUrl: string | null;
+    }>;
+};
+
 export type AnimeExtensionFieldsFragment = {
     __typename: 'AnimeExtensionType';
     pkgName: string;

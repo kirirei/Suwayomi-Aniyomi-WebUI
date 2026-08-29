@@ -397,6 +397,7 @@ msgid "Active setting ({title})"
 msgstr "Active setting ({title})"
 
 #: src/base/components/settings/MutableListSetting.tsx
+#: src/features/anime/screens/AnimeExtensionStores.tsx
 #: src/features/extension/store/screens/ExtensionStores.tsx
 #: src/features/manga/components/details/MangaNotes.tsx
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx
@@ -410,9 +411,17 @@ msgstr "Add"
 msgid "Add a private note about this manga"
 msgstr "Add a private note about this manga"
 
+#: src/features/anime/screens/AnimeExtensionStores.tsx
+msgid "Add anime extension store"
+msgstr "Add anime extension store"
+
 #: src/features/chapter/Chapter.constants.ts
 msgid "Add bookmark"
 msgstr "Add bookmark"
+
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "Add extension repo URLs to browse and install anime extensions"
+msgstr "Add extension repo URLs to browse and install anime extensions"
 
 #: src/features/browse/extensions/Extensions.tsx
 #: src/features/extension/store/screens/ExtensionStores.tsx
@@ -486,6 +495,14 @@ msgstr "Also remove from {0}"
 msgid "Anime"
 msgstr "Anime"
 
+#: src/features/anime/screens/AnimeSettings.tsx
+msgid "Anime extension repos"
+msgstr "Anime extension repos"
+
+#: src/features/anime/screens/AnimeExtensionStores.tsx
+msgid "Anime extension stores"
+msgstr "Anime extension stores"
+
 #: src/features/anime/screens/AnimeLibrary.tsx
 msgid "Anime Library"
 msgstr "Anime Library"
@@ -508,6 +525,7 @@ msgstr "Apply safe area padding"
 msgid "Are you sure you want to abort the migration?"
 msgstr "Are you sure you want to abort the migration?"
 
+#: src/features/anime/screens/AnimeExtensionStores.tsx
 #: src/features/category/components/CategorySettingsCard.tsx
 #: src/features/chapter/services/Chapters.ts
 #: src/features/extension/store/screens/ExtensionStores.tsx
@@ -1074,9 +1092,14 @@ msgstr "Copied to clipboard"
 msgid "Copy"
 msgstr "Copy"
 
+#: src/features/anime/screens/AnimeExtensionStores.tsx
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Copy index url"
 msgstr "Copy index url"
+
+#: src/features/anime/screens/AnimeExtensionStores.tsx
+msgid "Could not add anime extension store"
+msgstr "Could not add anime extension store"
 
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Could not add extension store"
@@ -1220,6 +1243,10 @@ msgstr "Could not open random entry"
 #: src/features/downloads/screens/DownloadQueue.tsx
 msgid "Could not remove all downloads from the queue"
 msgstr "Could not remove all downloads from the queue"
+
+#: src/features/anime/screens/AnimeExtensionStores.tsx
+msgid "Could not remove anime extension store \"{name}\""
+msgstr "Could not remove anime extension store \"{name}\""
 
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Could not remove extension store \"{name}\""
@@ -1450,6 +1477,7 @@ msgid "Default category when adding new manga to the library"
 msgstr "Default category when adding new manga to the library"
 
 #: src/base/components/settings/MutableListSetting.tsx
+#: src/features/anime/screens/AnimeExtensionStores.tsx
 #: src/features/category/components/CategorySettingsCard.tsx
 #: src/features/chapter/Chapter.constants.ts
 #: src/features/downloads/components/DownloadQueueChapterCard.tsx
@@ -2962,6 +2990,7 @@ msgstr "OPDS"
 msgid "Open"
 msgstr "Open"
 
+#: src/features/anime/screens/AnimeExtensionStores.tsx
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Open discord"
 msgstr "Open discord"
@@ -2999,6 +3028,7 @@ msgstr "Open random entry"
 msgid "Open the WebUI when starting the server"
 msgstr "Open the WebUI when starting the server"
 
+#: src/features/anime/screens/AnimeExtensionStores.tsx
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "Open website"
 msgstr "Open website"
@@ -4170,6 +4200,10 @@ msgstr "Type"
 msgid "UI Login"
 msgstr "UI Login"
 
+#: src/features/anime/screens/AnimeExtensionStores.tsx
+msgid "Unable to load anime extension stores"
+msgstr "Unable to load anime extension stores"
+
 #: src/features/anime/screens/AnimeLibrary.tsx
 #: src/features/anime/screens/AnimeSettings.tsx
 #: src/features/anime/screens/AnimeSourceBrowse.tsx
@@ -4505,6 +4539,10 @@ msgstr "You are about to delete category \"{0}\""
 #: src/features/manga/hooks/useManageMangaLibraryState.tsx
 msgid "You are about to remove \"{0}\" from your library"
 msgstr "You are about to remove \"{0}\" from your library"
+
+#: src/features/anime/screens/AnimeExtensionStores.tsx
+msgid "You are about to remove \"{name}\" from the anime extension stores"
+msgstr "You are about to remove \"{name}\" from the anime extension stores"
 
 #: src/features/extension/store/screens/ExtensionStores.tsx
 msgid "You are about to remove \"{name}\" from the extension stores"

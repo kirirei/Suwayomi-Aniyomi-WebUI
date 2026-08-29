@@ -114,6 +114,10 @@ const { ExtensionStores } = loadable(
     () => import('@/features/extension/store/screens/ExtensionStores.tsx'),
     lazyLoadFallback,
 );
+const { AnimeExtensionStores } = loadable(
+    () => import('@/features/anime/screens/AnimeExtensionStores.tsx'),
+    lazyLoadFallback,
+);
 
 if (import.meta.env.DEV) {
     // Adds messages only in a dev environment
@@ -348,7 +352,13 @@ const MainApp = () => {
                             <Route path={AppRoutes.settings.children.history.match} element={<HistorySettings />} />
                             <Route path={AppRoutes.settings.children.device.match} element={<DeviceSetting />} />
                             <Route path={AppRoutes.settings.children.tracking.match} element={<TrackingSettings />} />
-                            <Route path={AppRoutes.settings.children.anime.match} element={<AnimeSettings />} />
+                            <Route path={AppRoutes.settings.children.anime.match}>
+                                <Route index element={<AnimeSettings />} />
+                                <Route
+                                    path={AppRoutes.settings.children.anime.children.extensionStores.match}
+                                    element={<AnimeExtensionStores />}
+                                />
+                            </Route>
                             <Route path={AppRoutes.settings.children.appearance.match} element={<Appearance />} />
                         </Route>
 

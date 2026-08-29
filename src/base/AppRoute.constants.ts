@@ -127,6 +127,12 @@ export const AppRoutes = {
             anime: {
                 match: 'anime',
                 path: '/settings/anime',
+                children: {
+                    extensionStores: {
+                        match: 'extension-stores',
+                        path: '/settings/anime/extension-stores',
+                    },
+                },
             },
             appearance: {
                 match: 'appearance',

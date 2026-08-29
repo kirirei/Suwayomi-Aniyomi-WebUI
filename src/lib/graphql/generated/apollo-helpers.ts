@@ -26,6 +26,15 @@ export type AboutWebUIFieldPolicy = {
     tag?: FieldPolicy<any> | FieldReadFunction<any>;
     updateTimestamp?: FieldPolicy<any> | FieldReadFunction<any>;
 };
+export type AddAnimeExtensionStorePayloadKeySpecifier = (
+    | 'clientMutationId'
+    | 'extensionStore'
+    | AddAnimeExtensionStorePayloadKeySpecifier
+)[];
+export type AddAnimeExtensionStorePayloadFieldPolicy = {
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+    extensionStore?: FieldPolicy<any> | FieldReadFunction<any>;
+};
 export type AddExtensionStorePayloadKeySpecifier = (
     | 'clientMutationId'
     | 'extensionStore'
@@ -34,6 +43,27 @@ export type AddExtensionStorePayloadKeySpecifier = (
 export type AddExtensionStorePayloadFieldPolicy = {
     clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
     extensionStore?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type AnimeExtensionStoreTypeKeySpecifier = (
+    | 'badgeLabel'
+    | 'contactDiscord'
+    | 'contactWebsite'
+    | 'extensionListUrl'
+    | 'indexUrl'
+    | 'isLegacy'
+    | 'name'
+    | 'signingKey'
+    | AnimeExtensionStoreTypeKeySpecifier
+)[];
+export type AnimeExtensionStoreTypeFieldPolicy = {
+    badgeLabel?: FieldPolicy<any> | FieldReadFunction<any>;
+    contactDiscord?: FieldPolicy<any> | FieldReadFunction<any>;
+    contactWebsite?: FieldPolicy<any> | FieldReadFunction<any>;
+    extensionListUrl?: FieldPolicy<any> | FieldReadFunction<any>;
+    indexUrl?: FieldPolicy<any> | FieldReadFunction<any>;
+    isLegacy?: FieldPolicy<any> | FieldReadFunction<any>;
+    name?: FieldPolicy<any> | FieldReadFunction<any>;
+    signingKey?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type AnimeExtensionTypeKeySpecifier = (
     | 'apkName'
@@ -1226,6 +1256,7 @@ export type MultiSelectListPreferenceFieldPolicy = {
     visible?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type MutationKeySpecifier = (
+    | 'addAnimeExtensionStore'
     | 'addExtensionStore'
     | 'bindAnimeTrack'
     | 'bindTrack'
@@ -1274,6 +1305,7 @@ export type MutationKeySpecifier = (
     | 'pullKoSyncProgress'
     | 'pushKoSyncProgress'
     | 'refreshToken'
+    | 'removeAnimeExtensionStore'
     | 'removeExtensionStore'
     | 'reorderChapterDownload'
     | 'reorderChapterDownloads'
@@ -1322,6 +1354,7 @@ export type MutationKeySpecifier = (
     | MutationKeySpecifier
 )[];
 export type MutationFieldPolicy = {
+    addAnimeExtensionStore?: FieldPolicy<any> | FieldReadFunction<any>;
     addExtensionStore?: FieldPolicy<any> | FieldReadFunction<any>;
     bindAnimeTrack?: FieldPolicy<any> | FieldReadFunction<any>;
     bindTrack?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1370,6 +1403,7 @@ export type MutationFieldPolicy = {
     pullKoSyncProgress?: FieldPolicy<any> | FieldReadFunction<any>;
     pushKoSyncProgress?: FieldPolicy<any> | FieldReadFunction<any>;
     refreshToken?: FieldPolicy<any> | FieldReadFunction<any>;
+    removeAnimeExtensionStore?: FieldPolicy<any> | FieldReadFunction<any>;
     removeExtensionStore?: FieldPolicy<any> | FieldReadFunction<any>;
     reorderChapterDownload?: FieldPolicy<any> | FieldReadFunction<any>;
     reorderChapterDownloads?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1699,6 +1733,7 @@ export type QueryKeySpecifier = (
     | 'aboutWebUI'
     | 'anime'
     | 'animeExtension'
+    | 'animeExtensionStores'
     | 'animeExtensions'
     | 'animeLibrary'
     | 'animeSource'
@@ -1748,6 +1783,7 @@ export type QueryFieldPolicy = {
     aboutWebUI?: FieldPolicy<any> | FieldReadFunction<any>;
     anime?: FieldPolicy<any> | FieldReadFunction<any>;
     animeExtension?: FieldPolicy<any> | FieldReadFunction<any>;
+    animeExtensionStores?: FieldPolicy<any> | FieldReadFunction<any>;
     animeExtensions?: FieldPolicy<any> | FieldReadFunction<any>;
     animeLibrary?: FieldPolicy<any> | FieldReadFunction<any>;
     animeSource?: FieldPolicy<any> | FieldReadFunction<any>;
@@ -1795,6 +1831,15 @@ export type RefreshTokenPayloadKeySpecifier = ('accessToken' | 'clientMutationId
 export type RefreshTokenPayloadFieldPolicy = {
     accessToken?: FieldPolicy<any> | FieldReadFunction<any>;
     clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+};
+export type RemoveAnimeExtensionStorePayloadKeySpecifier = (
+    | 'clientMutationId'
+    | 'extensionStore'
+    | RemoveAnimeExtensionStorePayloadKeySpecifier
+)[];
+export type RemoveAnimeExtensionStorePayloadFieldPolicy = {
+    clientMutationId?: FieldPolicy<any> | FieldReadFunction<any>;
+    extensionStore?: FieldPolicy<any> | FieldReadFunction<any>;
 };
 export type RemoveExtensionStorePayloadKeySpecifier = (
     | 'clientMutationId'
@@ -2988,12 +3033,26 @@ export type StrictTypedTypePolicies = {
         keyFields?: false | AboutWebUIKeySpecifier | (() => undefined | AboutWebUIKeySpecifier);
         fields?: AboutWebUIFieldPolicy;
     };
+    AddAnimeExtensionStorePayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?:
+            | false
+            | AddAnimeExtensionStorePayloadKeySpecifier
+            | (() => undefined | AddAnimeExtensionStorePayloadKeySpecifier);
+        fields?: AddAnimeExtensionStorePayloadFieldPolicy;
+    };
     AddExtensionStorePayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?:
             | false
             | AddExtensionStorePayloadKeySpecifier
             | (() => undefined | AddExtensionStorePayloadKeySpecifier);
         fields?: AddExtensionStorePayloadFieldPolicy;
+    };
+    AnimeExtensionStoreType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?:
+            | false
+            | AnimeExtensionStoreTypeKeySpecifier
+            | (() => undefined | AnimeExtensionStoreTypeKeySpecifier);
+        fields?: AnimeExtensionStoreTypeFieldPolicy;
     };
     AnimeExtensionType?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | AnimeExtensionTypeKeySpecifier | (() => undefined | AnimeExtensionTypeKeySpecifier);
@@ -3510,6 +3569,13 @@ export type StrictTypedTypePolicies = {
     RefreshTokenPayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?: false | RefreshTokenPayloadKeySpecifier | (() => undefined | RefreshTokenPayloadKeySpecifier);
         fields?: RefreshTokenPayloadFieldPolicy;
+    };
+    RemoveAnimeExtensionStorePayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
+        keyFields?:
+            | false
+            | RemoveAnimeExtensionStorePayloadKeySpecifier
+            | (() => undefined | RemoveAnimeExtensionStorePayloadKeySpecifier);
+        fields?: RemoveAnimeExtensionStorePayloadFieldPolicy;
     };
     RemoveExtensionStorePayload?: Omit<TypePolicy, 'fields' | 'keyFields'> & {
         keyFields?:

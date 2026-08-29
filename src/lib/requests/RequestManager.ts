@@ -24,6 +24,8 @@ import { RestClient } from '@/lib/requests/client/RestClient.ts';
 import { GraphQLClient } from '@/lib/requests/client/GraphQLClient.ts';
 import { BaseClient } from '@/lib/requests/client/BaseClient.ts';
 import type {
+    AddAnimeExtensionStoreMutation,
+    AddAnimeExtensionStoreMutationVariables,
     AddExtensionStoreMutation,
     AddExtensionStoreMutationVariables,
     BindAnimeTrackMutation,
@@ -38,6 +40,8 @@ import type {
     GetAnimeEpisodesQueryVariables,
     GetAnimeExtensionsQuery,
     GetAnimeExtensionsQueryVariables,
+    GetAnimeExtensionStoresQuery,
+    GetAnimeExtensionStoresQueryVariables,
     GetAnimeLibraryQuery,
     GetAnimeLibraryQueryVariables,
     GetAnimeScreenQuery,
@@ -60,6 +64,8 @@ import type {
     InstallExternalAnimeExtensionMutationVariables,
     OpenEpisodeInExternalPlayerMutation,
     OpenEpisodeInExternalPlayerMutationVariables,
+    RemoveAnimeExtensionStoreMutation,
+    RemoveAnimeExtensionStoreMutationVariables,
     SearchAnimeTrackQuery,
     SearchAnimeTrackQueryVariables,
     UnbindAnimeTrackMutation,
@@ -431,6 +437,11 @@ import { EXTENSION_STORE_FIELDS } from '@/lib/graphql/extension/store/ExtensionS
 import { ADD_EXTENSION_STORE, REMOVE_EXTENSION_STORE } from '@/lib/graphql/extension/store/ExtensionStoreMutation.ts';
 import { assertIsDefined } from '@/base/Asserts.ts';
 import { GET_EXTENSION_STORE, GET_EXTENSION_STORES } from '@/lib/graphql/extension/store/ExtensionStoreQuery.ts';
+import { GET_ANIME_EXTENSION_STORES } from '@/lib/graphql/anime/AnimeExtensionStoreQuery.ts';
+import {
+    ADD_ANIME_EXTENSION_STORE,
+    REMOVE_ANIME_EXTENSION_STORE,
+} from '@/lib/graphql/anime/AnimeExtensionStoreMutation.ts';
 import { SYNC_SUBSCRIPTION } from '@/lib/graphql/sync/SyncSubscription.ts';
 import { START_SYNC } from '@/lib/graphql/sync/SyncMutation.ts';
 import { GET_SYNC_STATUS } from '@/lib/graphql/sync/SyncQuery.ts';
@@ -4119,6 +4130,33 @@ export class RequestManager {
             { input: {} },
             options,
         );
+    }
+
+    public useGetAnimeExtensionStores(
+        options?: QueryHookOptions<GetAnimeExtensionStoresQuery, GetAnimeExtensionStoresQueryVariables>,
+    ): AbortableApolloUseQueryResponse<GetAnimeExtensionStoresQuery, GetAnimeExtensionStoresQueryVariables> {
+        return this.doRequest(GQLMethod.USE_QUERY, GET_ANIME_EXTENSION_STORES, undefined, options);
+    }
+
+    public useAddAnimeExtensionStore(
+        options?: MutationHookOptions<AddAnimeExtensionStoreMutation, AddAnimeExtensionStoreMutationVariables>,
+    ): AbortableApolloUseMutationResponse<AddAnimeExtensionStoreMutation, AddAnimeExtensionStoreMutationVariables> {
+        return this.doRequest(GQLMethod.USE_MUTATION, ADD_ANIME_EXTENSION_STORE, undefined, {
+            refetchQueries: [GET_ANIME_EXTENSION_STORES],
+            ...options,
+        });
+    }
+
+    public useRemoveAnimeExtensionStore(
+        options?: MutationHookOptions<RemoveAnimeExtensionStoreMutation, RemoveAnimeExtensionStoreMutationVariables>,
+    ): AbortableApolloUseMutationResponse<
+        RemoveAnimeExtensionStoreMutation,
+        RemoveAnimeExtensionStoreMutationVariables
+    > {
+        return this.doRequest(GQLMethod.USE_MUTATION, REMOVE_ANIME_EXTENSION_STORE, undefined, {
+            refetchQueries: [GET_ANIME_EXTENSION_STORES],
+            ...options,
+        });
     }
 
     public updateAnimeExtension(

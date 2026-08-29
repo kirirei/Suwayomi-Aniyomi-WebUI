@@ -8,6 +8,7 @@
 
 import List from '@mui/material/List';
 import ListSubheader from '@mui/material/ListSubheader';
+import ListItemText from '@mui/material/ListItemText';
 import { useLingui } from '@lingui/react/macro';
 import { TextSetting } from '@/base/components/settings/text/TextSetting.tsx';
 import { NumberSetting } from '@/base/components/settings/NumberSetting.tsx';
@@ -22,6 +23,8 @@ import { getErrorMessage } from '@/lib/HelperFunctions.ts';
 import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
 import type { ServerSettings } from '@/features/settings/Settings.types.ts';
 import { ExternalPlayerEngine } from '@/lib/graphql/generated/graphql-base.types.ts';
+import { ListItemLink } from '@/base/components/lists/ListItemLink.tsx';
+import { AppRoutes } from '@/base/AppRoute.constants.ts';
 
 type AnimeSettingsType = Pick<
     ServerSettings,
@@ -67,6 +70,12 @@ export const AnimeSettings = () => {
 
     return (
         <List sx={{ pt: 0 }}>
+            <ListItemLink to={AppRoutes.settings.children.anime.children.extensionStores.path}>
+                <ListItemText
+                    primary={t`Anime extension repos`}
+                    secondary={t`Add extension repo URLs to browse and install anime extensions`}
+                />
+            </ListItemLink>
             <TextSetting
                 settingName={t`Local anime location`}
                 dialogDescription={t`The path to the directory on the server where local anime folders are read from, mirroring Aniyomi's "localanime" folder`}

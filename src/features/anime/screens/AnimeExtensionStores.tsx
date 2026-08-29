@@ -1,0 +1,250 @@
+/*
+ * Copyright (C) Contributors to the Suwayomi project
+ *
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ */
+
+import { requestManager } from '@/lib/requests/RequestManager.ts';
+import { EmptyViewAbsoluteCentered } from '@/base/components/feedback/EmptyViewAbsoluteCentered.tsx';
+import { copyToClipboard, getErrorMessage, noOp } from '@/lib/HelperFunctions.ts';
+import { defaultPromiseErrorHandler } from '@/lib/DefaultPromiseErrorHandler.ts';
+import { useLingui } from '@lingui/react/macro';
+import { LoadingPlaceholder } from '@/base/components/feedback/LoadingPlaceholder.tsx';
+import { STABLE_EMPTY_ARRAY } from '@/base/Base.constants.ts';
+import type { AnimeExtensionStoreFieldsFragment } from '@/lib/graphql/generated/graphql.ts';
+import List from '@mui/material/List';
+import Card from '@mui/material/Card';
+import { ListCardContent } from '@/base/components/lists/cards/ListCardContent.tsx';
+import { TypographyMaxLines } from '@/base/components/texts/TypographyMaxLines.tsx';
+import Stack from '@mui/material/Stack';
+import { CustomTooltip } from '@/base/components/CustomTooltip.tsx';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+import ContentCopyIcon from '@mui/icons-material/ContentCopy';
+import { IconBrowser } from '@/assets/icons/IconBrowser.tsx';
+import { makeToast } from '@/base/utils/Toast.ts';
+import { DiscordIcon } from '@/assets/icons/svg/DiscordIcon.tsx';
+import { Confirmation } from '@/base/AppAwaitableComponent.ts';
+import Box from '@mui/material/Box';
+import { DEFAULT_FULL_FAB_HEIGHT, StyledFab } from '@/base/components/buttons/StyledFab.tsx';
+import AddIcon from '@mui/icons-material/Add';
+import { AwaitableComponent, type AwaitableComponentProps } from 'awaitable-component';
+import { TextSettingDialog } from '@/base/components/settings/text/TextSettingDialog.tsx';
+import { useMemo } from 'react';
+import { useAppTitle } from '@/features/navigation-bar/hooks/useAppTitle.ts';
+import { ClipBoardGuard } from '@/base/components/guard/ClipBoardGuard.tsx';
+
+/**
+ * Mirrors ExtensionStores.tsx, without the per-store extension-count/NSFW badge (no anime-side
+ * dataloader for it yet) and using a plain List instead of VirtuosoPersisted - anime extension
+ * repo lists are expected to stay small, unlike the manga extension list this virtualizes.
+ */
+const AnimeExtensionStoreCard = ({
+    indexUrl,
+    name,
+    contactDiscord,
+    contactWebsite,
+}: AnimeExtensionStoreFieldsFragment) => {
+    const { t } = useLingui();
+
+    const [removeExtensionStore, { loading }] = requestManager.useRemoveAnimeExtensionStore();
+
+    return (
+        <Box sx={{ p: 1, pb: 0 }}>
+            <Card>
+                <ListCardContent sx={{ flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                    <Stack>
+                        <TypographyMaxLines variant="h6" component="h3">
+                            {name}
+                        </TypographyMaxLines>
+                        <TypographyMaxLines variant="caption" color="textSecondary">
+                            {indexUrl}
+                        </TypographyMaxLines>
+                    </Stack>
+                    <Stack
+                        sx={{
+                            flexDirection: 'row',
+                            justifyContent: 'end',
+                            flexGrow: 1,
+                        }}
+                    >
+                        {contactWebsite && (
+                            <CustomTooltip title={t`Open website`} disabled={!contactWebsite}>
+                                <IconButton
+                                    disabled={!contactWebsite}
+                                    href={contactWebsite ?? undefined}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    color="inherit"
+                                >
+                                    <IconBrowser />
+                                </IconButton>
+                            </CustomTooltip>
+                        )}
+                        {contactDiscord && (
+                            <CustomTooltip title={t`Open discord`} disabled={!contactDiscord}>
+                                <IconButton
+                                    href={contactDiscord ?? undefined}
+                                    target="_blank"
+                                    rel="noreferrer"
+                                    color="inherit"
+                                >
+                                    <DiscordIcon />
+                                </IconButton>
+                            </CustomTooltip>
+                        )}
+                        <ClipBoardGuard>
+                            <CustomTooltip title={t`Copy index url`}>
+                                <IconButton onClick={() => copyToClipboard(indexUrl)} color="inherit">
+                                    <ContentCopyIcon />
+                                </IconButton>
+                            </CustomTooltip>
+                        </ClipBoardGuard>
+                        <CustomTooltip disabled={loading} title={t`Delete`}>
+                            <IconButton
+                                disabled={loading}
+                                onClick={async () => {
+                                    try {
+                                        await Confirmation.show({
+                                            title: t`Are you sure?`,
+                                            message: t`You are about to remove "${name}" from the anime extension stores`,
+                                        });
+
+                                        try {
+                                            await removeExtensionStore({ variables: { input: { indexUrl } } });
+
+                                            requestManager
+                                                .fetchAnimeExtensions()
+                                                .response.catch(
+                                                    defaultPromiseErrorHandler(
+                                                        'AnimeExtensionStoreCard::remove::fetchExtensions',
+                                                    ),
+                                                );
+                                        } catch (e) {
+                                            makeToast(
+                                                t`Could not remove anime extension store "${name}"`,
+                                                'error',
+                                                getErrorMessage(e),
+                                            );
+                                        }
+                                    } catch (e) {
+                                        // ignore - user cancelled the confirmation
+                                    }
+                                }}
+                                color="inherit"
+                            >
+                                <DeleteIcon />
+                            </IconButton>
+                        </CustomTooltip>
+                    </Stack>
+                </ListCardContent>
+            </Card>
+        </Box>
+    );
+};
+
+const AddAnimeExtensionStoreDialog = ({
+    onExitComplete,
+    onDismiss,
+    isVisible,
+    indexUrl,
+    processing = false,
+    startCreation,
+}: AwaitableComponentProps<void> & {
+    indexUrl?: string;
+    processing?: boolean;
+    startCreation: (indexUrl: string) => void;
+}) => {
+    const { t } = useLingui();
+
+    return (
+        <TextSettingDialog
+            settingName={t`Add anime extension store`}
+            handleChange={startCreation}
+            isDialogOpen={isVisible}
+            setIsDialogOpen={noOp}
+            onDismiss={onDismiss}
+            onExitComplete={onExitComplete}
+            value={indexUrl}
+            disabled={processing}
+        />
+    );
+};
+
+export const AnimeExtensionStores = () => {
+    const { t } = useLingui();
+
+    useAppTitle(t`Anime extension stores`);
+
+    const [addExtensionStore] = requestManager.useAddAnimeExtensionStore();
+    const { data, loading, error, refetch } = requestManager.useGetAnimeExtensionStores();
+
+    const extensionStores = useMemo(() => {
+        if (!data?.animeExtensionStores) {
+            return STABLE_EMPTY_ARRAY;
+        }
+
+        return data.animeExtensionStores.toSorted((a, b) => a.name.localeCompare(b.name));
+    }, [data?.animeExtensionStores]);
+
+    if (loading) {
+        return <LoadingPlaceholder />;
+    }
+
+    if (error) {
+        return (
+            <EmptyViewAbsoluteCentered
+                message={t`Unable to load anime extension stores`}
+                messageExtra={getErrorMessage(error)}
+                retry={() => {
+                    refetch().catch(defaultPromiseErrorHandler('AnimeExtensionStores::refetch'));
+                }}
+            />
+        );
+    }
+
+    return (
+        <Box sx={{ pb: DEFAULT_FULL_FAB_HEIGHT }}>
+            <List sx={{ padding: 0 }}>
+                {extensionStores.map((store) => (
+                    <AnimeExtensionStoreCard key={store.indexUrl} {...store} />
+                ))}
+            </List>
+            <StyledFab
+                variant="extended"
+                color="primary"
+                sx={{ gap: 1 }}
+                onClick={() => {
+                    const addStoreDialog = AwaitableComponent.showControlled(AddAnimeExtensionStoreDialog, {
+                        startCreation: async (indexUrl) => {
+                            const request = addExtensionStore({ variables: { input: { indexUrl } } });
+
+                            addStoreDialog.update({ indexUrl, processing: true });
+
+                            try {
+                                await request;
+
+                                requestManager
+                                    .fetchAnimeExtensions()
+                                    .response.catch(
+                                        defaultPromiseErrorHandler('AnimeExtensionStores::add:fetchExtensions'),
+                                    );
+
+                                addStoreDialog.submit();
+                            } catch (e) {
+                                makeToast(t`Could not add anime extension store`, 'error', getErrorMessage(e));
+
+                                addStoreDialog.update({ processing: false });
+                            }
+                        },
+                    });
+                }}
+            >
+                <AddIcon />
+                {t`Add`}
+            </StyledFab>
+        </Box>
+    );
+};
