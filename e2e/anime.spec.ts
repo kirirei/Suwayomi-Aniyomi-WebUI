@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import { test, expect, consoleErrorsOf } from 'e2e/fixtures.ts';
+import { test, expect, consoleErrorsOf } from './fixtures.ts';
 
 /**
  * These exercise the two concrete gaps the user hit in the real app: an anime in the library

@@ -414,6 +414,20 @@
                 "no-relative-import-paths/no-relative-import-paths": "off",
             },
         },
+        {
+            // Playwright e2e specs: standalone Node-context scripts outside src/, so the "@/*"
+            // alias (which no-relative-import-paths otherwise pushes every import towards) doesn't
+            // apply - forcing it here produces bare specifiers like "e2e/fixtures.ts" that
+            // Playwright's own module loader can't resolve.
+            "files": ["e2e/**/*"],
+            "env": {
+                "node": true,
+            },
+            "rules": {
+                "no-console": "off",
+                "no-relative-import-paths/no-relative-import-paths": "off",
+            },
+        },
     ],
     "ignorePatterns": ["src/lib/graphql/generated/**", "tools/eslint-plugin-header.cjs"],
 }

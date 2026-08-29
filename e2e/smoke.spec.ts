@@ -6,7 +6,7 @@
  * file, You can obtain one at https://mozilla.org/MPL/2.0/.
  */
 
-import { test, expect, consoleErrorsOf } from 'e2e/fixtures.ts';
+import { test, expect, consoleErrorsOf } from './fixtures.ts';
 
 /**
  * The exact bug class this suite exists to catch: a stale or incomplete WebUI build that renders
